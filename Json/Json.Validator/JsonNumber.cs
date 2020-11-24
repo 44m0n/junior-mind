@@ -21,9 +21,9 @@ namespace Json
                 return false;
             }
 
-            for (int i = 0; i < input.Length; i++)
+            for (int i = 1; i < input.Length; i++)
             {
-                if (char.IsLetter(input[i]))
+                if (!char.IsDigit(input[i]) && !IsValidFractional(input))
                 {
                     return false;
                 }
@@ -41,6 +41,11 @@ namespace Json
                 {
                     count++;
                 }
+            }
+
+            if (!char.IsDigit(input[^1]))
+            {
+                return false;
             }
 
             return count == 1;
