@@ -6,7 +6,7 @@ namespace Json
     {
         public static bool IsJsonString(string input)
         {
-            return !string.IsNullOrEmpty(input) && input[0] == '\"' && input[^1] == '\"';
+            return (!string.IsNullOrEmpty(input) && input.Length != 1) && input[0] == '\"' && input[^1] == '\"';
         }
 
         private static string Quoted(string input)
