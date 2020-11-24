@@ -6,7 +6,13 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            throw new NotImplementedException();
+            return IsStringADigit(input);
+        }
+
+        private static bool IsStringADigit(string input)
+        {
+            const int ZeroAscii = 48;
+            return input[0] == ZeroAscii;
         }
     }
 }
