@@ -6,7 +6,12 @@ namespace Json
     {
         public static bool IsJsonString(string input)
         {
-            throw new NotImplementedException();
+            return input[0] == '\"' || input[^1] == '\"';
+        }
+
+        private static string Quoted(string input)
+        {
+            return "\"" + input + "\"";
         }
     }
 }
