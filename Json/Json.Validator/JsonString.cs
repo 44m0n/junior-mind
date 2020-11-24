@@ -6,8 +6,13 @@ namespace Json
     {
         public static bool IsJsonString(string input)
         {
-            Console.WriteLine(input);
-            return CheckForLength(input) && CheckForControlCharacters(input) && CheckForEscapeorUnicodeCharacters(input);
+            return CheckForLength(input) && CheckForControlCharacters(input) && CheckForEscapeorUnicodeCharacters(input) && CheckLastCharacter(input);
+        }
+
+        private static bool CheckLastCharacter(string input)
+        {
+            const int LastChar = 2;
+            return input[^LastChar] != '\\';
         }
 
         private static bool CheckForLength(string input)
@@ -56,7 +61,7 @@ namespace Json
 
         private static bool CheckIfEscapeCharactersAreValid(string character)
         {
-            string[] escapeCharacters = { "n", "\"", @"\", "/", "b", "f", "n", "r", "t" };
+            string[] escapeCharacters = { "n", "\"", @"\", "/", "b", "f", "n", "r", "t", " " };
             for (int j = 0; j < escapeCharacters.Length; j++)
             {
                 if (character == escapeCharacters[j])
