@@ -6,12 +6,17 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return ContainLetters(input);
+            return IsValidInteger(input);
         }
 
-        private static bool ContainLetters(string input)
+        private static bool IsValidInteger(string input)
         {
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input) || input.Length > 1 && (input[0] == '0' && !IsValidFractional(input)))
+            {
+                return false;
+            }
+
+            if (!char.IsDigit(input[0]) && input[0] != '-')
             {
                 return false;
             }
@@ -25,6 +30,20 @@ namespace Json
             }
 
             return true;
+        }
+
+        private static bool IsValidFractional(string input)
+        {
+            int count = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == '.')
+                {
+                    count++;
+                }
+            }
+
+            return count == 1;
         }
     }
 }
