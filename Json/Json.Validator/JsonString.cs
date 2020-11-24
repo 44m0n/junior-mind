@@ -21,12 +21,15 @@ namespace Json
             {
                 if (text[i - 1] == '\\')
                 {
-                    if (text[i] != 'u')
+                    if (text[i] != 'u' && !CheckIfEscapeCharactersAreValid(text[i].ToString()))
                     {
-                        return CheckIfEscapeCharactersAreValid(text[i].ToString());
+                        return false;
                     }
 
-                    return CheckIfUnicodeCharactersAreValid(text, i);
+                    if (text[i] == 'u' && !CheckIfUnicodeCharactersAreValid(text, i))
+                    {
+                        return false;
+                    }
                 }
             }
 
