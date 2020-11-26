@@ -6,26 +6,99 @@ namespace Json
     {
         public static bool IsJsonNumber(string input)
         {
-            return CheckForForbiddenCharacters(input) && IsValidInteger(input) && IsValidExponential(input) && IsValidFractional(input);
+            return CheckIfNumberIsACorrectFormat(input) && IsValidExponent(input) && IsValidFraction(input);
         }
 
-        private static bool IsValidInteger(string input)
+        private static bool CheckIfNumberIsACorrectFormat(string input)
         {
-            return char.IsDigit(input[0]) || input[0] == '-';
+            return !string.IsNullOrEmpty(input) && (char.IsDigit(input[0]) || input[0] == '-') && char.IsDigit(input[^1]);
         }
 
-        private static bool CheckForForbiddenCharacters(string input)
+        private static bool IsValidFraction(string input)
         {
-            if (string.IsNullOrEmpty(input))
+            int count = 0;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (!char.IsLetterOrDigit(input[i]) && !IsValidExponentSign(input[i]))
+                {
+                    count++;
+                }
+            }
+
+            if (input[0] == '0' && input.Length > 1 && count == 0)
+            {
+                count++;
+            }
+
+            if (count == 1)
+            {
+                var (position, digits) = SplitFraction(input);
+                return IsCorrectPosition(position, input)
+                    && IsFractionalPartValid(digits);
+            }
+
+            return count == 0;
+        }
+
+        private static bool IsFractionalPartValid(string digits)
+        {
+            return AreDigits(digits) || IsValidExponent(digits);
+        }
+
+        private static bool IsCorrectPosition(int position, string input)
+        {
+            if (input.Length > 1 && input[0] == '0' && position != 1)
             {
                 return false;
             }
 
-            input = input.ToLower();
+            return position > 0;
+        }
 
+        private static Tuple<int, string> SplitFraction(string input)
+        {
             for (int i = 1; i < input.Length; i++)
             {
-                if (char.IsLetter(input[i]) && input[i] != 'e')
+                if (input[i - 1] == '.')
+                {
+                    int position = i - 1;
+                    string digits = input.Remove(0, i);
+                    return new Tuple<int, string>(position, digits);
+                }
+            }
+
+            return new Tuple<int, string>(-1, " ");
+        }
+
+        private static bool IsValidExponent(string input)
+        {
+            int count = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (char.IsLetter(input[i]))
+                {
+                    count++;
+                }
+            }
+
+            if (count == 1)
+            {
+                var (e, sign, digits) = SplitExponent(input);
+
+                return IsE(e)
+                     && IsValidExponentSign(sign)
+                     && AreDigits(digits);
+            }
+
+            return count == 0;
+        }
+
+        private static bool AreDigits(string digits)
+        {
+            for (int i = 1; i < digits.Length; i++)
+            {
+                if (!char.IsDigit(digits[i]))
                 {
                     return false;
                 }
@@ -34,58 +107,31 @@ namespace Json
             return true;
         }
 
-        private static bool IsValidFractional(string input)
+        private static bool IsValidExponentSign(char sign)
         {
-            int count = 0;
-
-            if (!char.IsDigit(input[^1]))
-            {
-                return false;
-            }
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (input[i] == '.')
-                {
-                    count++;
-                }
-            }
-
-            if (input.Length > 1 && input[0] == '0' && count != 1)
-            {
-                return false;
-            }
-
-            return count <= 1;
+            return sign == '-' || sign == '+' || char.IsDigit(sign);
         }
 
-        private static bool IsValidExponential(string input)
+        private static bool IsE(char e)
         {
-            int count = 0;
-            for (int i = 0; i < input.Length; i++)
+            return e == 'e' || e == 'E';
+        }
+
+        private static Tuple<char, char, string> SplitExponent(string number)
+        {
+            for (int i = 1; i < number.Length; i++)
             {
-                if (input[i] == 'e')
+                if (char.IsLetter(number[i - 1]))
                 {
-                    count++;
-                }
+                    char e = number[i - 1];
+                    char sign = number[i];
+                    string digits = number.Remove(0, i);
 
-                if (input[i] == '.' && count > 0)
-                {
-                    return false;
-                }
-
-                if (i == 0)
-                {
-                    continue;
-                }
-
-                if (!char.IsDigit(input[i]) && input[i] != '-' && input[i] != '+' && input[i - 1] == 'e')
-                {
-                    return false;
+                    return new Tuple<char, char, string>(e, sign, digits);
                 }
             }
 
-            return count <= 1;
+            return new Tuple<char, char, string>(' ', ' ', " ");
         }
     }
 }
