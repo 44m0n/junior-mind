@@ -25,11 +25,11 @@ namespace Json
             return quote == '\"';
         }
 
-        private static Tuple<char, string, char> SplitString(string input)
+        private static (char start, string content, char end) SplitString(string input)
         {
             if (string.IsNullOrEmpty(input) || input.Length <= 1)
             {
-                return new Tuple<char, string, char>(' ', null, ' ');
+                return (' ', null, ' ');
             }
 
             char start = input[0];
@@ -39,7 +39,7 @@ namespace Json
             content = content.Remove(0, 1);
             content = content.Remove(content.Length - 1, 1);
 
-            return new Tuple<char, string, char>(start, content, end);
+            return (start, content, end);
         }
 
         private static bool CheckLastCharacter(string input)
