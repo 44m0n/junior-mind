@@ -6,21 +6,48 @@ namespace Json
     {
         public static bool IsJsonString(string input)
         {
-            return CheckForLength(input) && CheckForControlCharacters(input) && CheckForEscapeorUnicodeCharacters(input) && CheckLastCharacter(input);
+            var (start, content, end) = SplitString(input);
+
+            return IsQuote(start)
+                && IsQuote(end)
+                && ContainsOnlyValidCharacters(content);
+        }
+
+        private static bool ContainsOnlyValidCharacters(string content)
+        {
+            return string.IsNullOrEmpty(content) ||
+                CheckLastCharacter(content)
+                && CheckForControlCharacters(content) && CheckForEscapeOrUnicodeCharacters(content);
+        }
+
+        private static bool IsQuote(char quote)
+        {
+            return quote == '\"';
+        }
+
+        private static Tuple<char, string, char> SplitString(string input)
+        {
+            if (string.IsNullOrEmpty(input) || input.Length <= 1)
+            {
+                return new Tuple<char, string, char>(' ', null, ' ');
+            }
+
+            char start = input[0];
+            char end = input[^1];
+            string content = input;
+
+            content = content.Remove(0, 1);
+            content = content.Remove(content.Length - 1, 1);
+
+            return new Tuple<char, string, char>(start, content, end);
         }
 
         private static bool CheckLastCharacter(string input)
         {
-            const int LastChar = 2;
-            return input[^LastChar] != '\\';
+            return input[^1] != '\\';
         }
 
-        private static bool CheckForLength(string input)
-        {
-            return (!string.IsNullOrEmpty(input) && input.Length != 1) && input[0] == '\"' && input[^1] == '\"';
-        }
-
-        private static bool CheckForEscapeorUnicodeCharacters(string text)
+        private static bool CheckForEscapeOrUnicodeCharacters(string text)
         {
             for (int i = 1; i < text.Length; i++)
             {
@@ -86,11 +113,6 @@ namespace Json
             }
 
             return true;
-        }
-
-        private static string Quoted(string input)
-        {
-            return "\"" + input + "\"";
         }
     }
 }
