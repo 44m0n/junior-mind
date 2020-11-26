@@ -56,19 +56,12 @@ namespace Json
             return position > 0;
         }
 
-        private static Tuple<int, string> SplitFraction(string input)
+        private static (int position, string digits) SplitFraction(string input)
         {
-            for (int i = 1; i < input.Length; i++)
-            {
-                if (input[i - 1] == '.')
-                {
-                    int position = i - 1;
-                    string digits = input.Remove(0, i);
-                    return new Tuple<int, string>(position, digits);
-                }
-            }
+            int position = input.IndexOf('.');
+            string digits = input.Remove(0, position + 1);
 
-            return new Tuple<int, string>(-1, " ");
+            return (position, digits);
         }
 
         private static bool IsValidExponent(string input)
@@ -117,7 +110,7 @@ namespace Json
             return e == 'e' || e == 'E';
         }
 
-        private static Tuple<char, char, string> SplitExponent(string number)
+        private static (char e, char sign, string digits) SplitExponent(string number)
         {
             for (int i = 1; i < number.Length; i++)
             {
@@ -127,11 +120,11 @@ namespace Json
                     char sign = number[i];
                     string digits = number.Remove(0, i);
 
-                    return new Tuple<char, char, string>(e, sign, digits);
+                    return (e, sign, digits);
                 }
             }
 
-            return new Tuple<char, char, string>(' ', ' ', " ");
+            return (' ', ' ', " ");
         }
     }
 }
