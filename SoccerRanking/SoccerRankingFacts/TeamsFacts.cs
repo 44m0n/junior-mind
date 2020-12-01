@@ -8,7 +8,7 @@ namespace SoccerRankingFacts
     {
 
         [Fact]
-        public void TestAddTeamToList()
+        public void TestAddTeamToListReturnTrue()
         {
             Team team = new Team("cluj", 20);
             Teams teams = new Teams("cluj", 20);
