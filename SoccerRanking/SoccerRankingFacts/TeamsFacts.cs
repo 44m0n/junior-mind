@@ -2,10 +2,11 @@ using System;
 using Xunit;
 using TeamsConstructor;
 
-namespace TeamsFacts
+namespace SoccerRankingFacts
 {
     public class TeamsFacts
     {
+
         [Fact]
         public void TestAddTeamToList()
         {
