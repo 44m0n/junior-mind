@@ -8,12 +8,21 @@ namespace SoccerRankingFacts
     {
 
         [Fact]
-        public void TestAddTeamToListReturnTrue()
+        public void CompareToReturnTrue()
         {
-            Team team = new Team("cluj", 20);
-            Teams teams = new Teams("cluj", 20);
-            Team resultedTeams = teams.AddTeamToList();
-            Assert.True(resultedTeams.Equals(team));
+            Team team = new Team("Cluj", 20);
+            Team secondTeam = new Team("botosani", 30);
+            Assert.True(team.CompareTo(secondTeam));
         }
+
+
+        [Fact]
+        public void CompareToReturnFalse()
+        {
+            Team team = new Team("Cluj", 20);
+            Team secondTeam = new Team("botosani", 10);
+            Assert.False(team.CompareTo(secondTeam));
+        }
+
     }
 }
