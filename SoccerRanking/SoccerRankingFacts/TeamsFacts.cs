@@ -15,7 +15,6 @@ namespace SoccerRankingFacts
             Assert.True(team.CompareTo(secondTeam));
         }
 
-
         [Fact]
         public void CompareToReturnFalse()
         {
