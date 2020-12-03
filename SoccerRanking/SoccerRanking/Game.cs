@@ -5,35 +5,37 @@ namespace GameConstructor
 {
     public class Game
     {
-        readonly string firstName;
-        readonly int firstScore;
-        readonly string secondName;
-        readonly int secondScore;
+        readonly Team team;
+        readonly int score;
 
         readonly int points = 3;
 
-        public Game(string firstName, string secondName, int firstScore, int secondScore)
+        public Game(Team team, int score)
         {
-            this.firstName = firstName;
-            this.firstScore = firstScore;
-            this.secondName = secondName;
-            this.secondScore = secondScore;
+            this.team = team;
+            this.score = score;
         }
 
-        public Team[] CalculatePoints()
+        public void Update(Game secondTeam)
         {
             // Three points for a win, one point for a draw, zero points for a lose
-            if (firstScore > secondScore)
+            if (secondTeam != null && score > secondTeam.score)
             {
-                return new[] { new Team(firstName, points), new Team(secondName, 0) };
+                team.UpdatePoints(points);
             }
 
-            if (firstScore < secondScore)
+            if (secondTeam != null && score < secondTeam.score)
             {
-                return new[] { new Team(firstName, 0), new Team(secondName, points) };
+                secondTeam.team.UpdatePoints(points);
             }
 
-            return new[] { new Team(firstName, 1), new Team(secondName, 1) };
+            if (secondTeam == null || score != secondTeam.score)
+            {
+                return;
+            }
+
+            team.UpdatePoints(1);
+            secondTeam.team.UpdatePoints(1);
         }
     }
 }

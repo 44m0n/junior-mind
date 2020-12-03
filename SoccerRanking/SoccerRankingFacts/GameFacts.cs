@@ -10,19 +10,10 @@ namespace SoccerRankingFacts
         [Fact]
         public void CalculatePointsWithOneWinner()
         {
-            Game game = new Game("Cluj", "Alba", 2, 0);
-            Team[] newPoints = game.CalculatePoints();
-            Team[] desiredResult = new[] { new Team("Cluj", 3), new Team("Alba", 0) };
-            Assert.Equal(newPoints.ToString(), desiredResult.ToString());
-        }
-
-        [Fact]
-        public void CalculatePointsWithADraw()
-        {
-            Game game = new Game("Cluj", "Alba", 2, 2);
-            Team[] newPoints = game.CalculatePoints();
-            Team[] desiredResult = new[] { new Team("Cluj", 1), new Team("Alba", 1) };
-            Assert.Equal(newPoints.ToString(), desiredResult.ToString());
+            Team firstTeam = new Team("Cluj", 10);
+            Game firstTeamData = new Game(firstTeam, 3);
+            firstTeamData.Update(new Game(new Team("Alba", 10), 0));
+            Assert.True(firstTeam.CompareTo(new Team("Cluj", 13)));
         }
     }
 }

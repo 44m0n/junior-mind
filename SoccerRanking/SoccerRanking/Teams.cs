@@ -5,7 +5,7 @@ namespace TeamsConstructor
     public class Team
     {
         readonly string team;
-        readonly int points;
+        private int points;
 
         public Team(string team, int points)
         {
@@ -15,12 +15,17 @@ namespace TeamsConstructor
 
         public bool CompareTo(Team anotherTeam)
         {
-            return anotherTeam != null && anotherTeam.points > points;
+            return anotherTeam != null && anotherTeam.points >= points;
         }
 
         public bool SearchTeamName(string name)
         {
             return team == name;
+        }
+
+        public void UpdatePoints(int n)
+        {
+            points += n;
         }
     }
 }
