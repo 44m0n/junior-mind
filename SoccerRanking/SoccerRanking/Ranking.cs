@@ -12,32 +12,23 @@ namespace RankingConstructor
             this.teams = teams;
         }
 
-        public Team[] GetRanking()
+        public void AddTeamToRanking(Team team)
         {
-            Team tempTeam;
-            for (int j = 0; j < teams.Length - 1; j++)
+            Team[] newTeams = new Team[teams.Length + 1];
+            newTeams[0] = team;
+            for (int i = 1; i < newTeams.Length; i++)
             {
-                for (int i = 0; i < teams.Length - 1; i++)
-                {
-                    if (teams[i].CompareTo(teams[i + 1]))
-                    {
-                        tempTeam = teams[i + 1];
-                        teams[i + 1] = teams[i];
-                        teams[i] = tempTeam;
-                    }
-                }
+                newTeams[i] = teams[i - 1];
             }
-
-            return teams;
         }
 
         public Team GetPosition(int position) => teams[position - 1];
 
-        public int GetPositionUsingName(string name)
+        public int GetPosition(Team team)
         {
             for (int i = 0; i < teams.Length; i++)
             {
-                if (teams[i].SearchTeamName(name))
+                if (teams[i].CompareTo(team))
                 {
                     return i + 1;
                 }
