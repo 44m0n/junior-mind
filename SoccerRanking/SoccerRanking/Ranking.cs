@@ -1,11 +1,12 @@
 ﻿using System;
+using GameConstructor;
 using TeamsConstructor;
 
 namespace RankingConstructor
 {
     public class Ranking
     {
-        readonly Team[] teams;
+        private Team[] teams;
 
         public Ranking(Team[] teams)
         {
@@ -20,6 +21,8 @@ namespace RankingConstructor
             {
                 newTeams[i] = teams[i - 1];
             }
+
+            teams = newTeams;
         }
 
         public int GetPosition(Team team)
@@ -33,6 +36,17 @@ namespace RankingConstructor
             }
 
             return -1;
+        }
+
+        public void Update(Team teamData)
+        {
+            for (int i = 0; i < teams.Length; i++)
+            {
+                if (teams[i].CompareTo(teamData))
+                {
+                    teams[i] = teamData;
+                }
+            }
         }
     }
 }

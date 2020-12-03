@@ -15,7 +15,7 @@ namespace TeamsConstructor
 
         public bool CompareTo(Team anotherTeam)
         {
-            return anotherTeam != null && anotherTeam.points == points && anotherTeam.team == team;
+            return anotherTeam != null && anotherTeam.team == team;
         }
 
         public void UpdatePoints(int n)
