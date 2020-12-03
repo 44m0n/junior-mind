@@ -22,8 +22,6 @@ namespace RankingConstructor
             }
         }
 
-        public Team GetPosition(int position) => teams[position - 1];
-
         public int GetPosition(Team team)
         {
             for (int i = 0; i < teams.Length; i++)
