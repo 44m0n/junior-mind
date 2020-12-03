@@ -10,11 +10,13 @@ namespace SoccerRankingFacts
         [Fact]
         public void GetPositionTeamExists()
         {
-            Team[] teams = new Team[] { new Team("Alba", 20), new Team("Cluj", 20), new Team("Bucuresti", 5) };
+            var first = new Team("Alba", 20);
+            var second = new Team("Cluj", 20);
+            var third = new Team("Bucuresti", 5);
+            Team[] teams = new Team[] {first, second, third };
             Ranking rank = new Ranking(teams);
-            Team teamToFind = new Team("Cluj", 20);
             int desiredPosition = 2;
-            Assert.Equal(rank.GetPosition(teamToFind), desiredPosition);
+            Assert.Equal(rank.GetPosition(second), desiredPosition);
         }
 
         [Fact]

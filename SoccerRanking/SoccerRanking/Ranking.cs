@@ -28,7 +28,7 @@ namespace RankingConstructor
         {
             for (int i = 0; i < teams.Length; i++)
             {
-                if (teams[i].CompareTo(team))
+                if (teams[i] == team)
                 {
                     return i + 1;
                 }
