@@ -14,14 +14,25 @@ namespace RankingConstructor
 
         public void AddTeam(Team team)
         {
-            Team[] newTeams = new Team[teams.Length + 1];
-            newTeams[0] = team;
-            for (int i = 1; i < newTeams.Length; i++)
+            Array.Resize(ref teams, teams.Length + 1);
+            teams[^1] = team;
+            for (int i = 0; i < teams.Length; i++)
             {
-                newTeams[i] = teams[i - 1];
-            }
+                if (teams[i].CompareTo(team, true))
+                {
+                    Team temp = teams[i];
+                    teams[i] = team;
 
-            teams = newTeams;
+                    for (int j = i + 1; j < teams.Length; j++)
+                    {
+                        Team temp2 = teams[j];
+                        teams[j] = temp;
+                        temp = temp2;
+                    }
+
+                    break;
+                }
+            }
         }
 
         public int GetPosition(Team team)
