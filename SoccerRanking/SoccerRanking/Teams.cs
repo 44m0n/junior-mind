@@ -13,8 +13,13 @@ namespace TeamsConstructor
             this.points = points;
         }
 
-        public bool CompareTo(Team anotherTeam)
+        public bool CompareTo(Team anotherTeam, bool entireTeam = false)
         {
+            if (entireTeam)
+            {
+                return anotherTeam != null && anotherTeam.team == team && anotherTeam.points == points;
+            }
+
             return anotherTeam != null && anotherTeam.team == team;
         }
 
