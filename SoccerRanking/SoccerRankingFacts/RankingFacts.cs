@@ -56,5 +56,14 @@ namespace SoccerRankingFacts
             int desiredPosition = 2;
             Assert.Equal(rank.GetPositionUsingName("Cluj"), desiredPosition);
         }
+
+        [Fact]
+        public void GetPositionUsingNameWhenTheTeamDosentExits()
+        {
+            Team[] teams = new Team[] { new Team("Alba", 20), new Team("Cluj", 10), new Team("Bucuresti", 5) };
+            Ranking rank = new Ranking(teams);
+            int desiredPosition = -1;
+            Assert.Equal(rank.GetPositionUsingName("Timisoara"), desiredPosition);
+        }
     }
 }
