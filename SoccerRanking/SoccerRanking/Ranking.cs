@@ -32,5 +32,18 @@ namespace RankingConstructor
         }
 
         public Team GetPosition(int position) => teams[position - 1];
+
+        public int GetPositionUsingName(string name)
+        {
+            for (int i = 0; i < teams.Length; i++)
+            {
+                if (teams[i].SearchTeamName(name))
+                {
+                    return i + 1;
+                }
+            }
+
+            return -1;
+        }
     }
 }
