@@ -1,5 +1,4 @@
 ﻿using System;
-using GameConstructor;
 using TeamsConstructor;
 
 namespace RankingConstructor
@@ -13,7 +12,7 @@ namespace RankingConstructor
             this.teams = teams;
         }
 
-        public void AddTeamToRanking(Team team)
+        public void AddTeam(Team team)
         {
             Team[] newTeams = new Team[teams.Length + 1];
             newTeams[0] = team;

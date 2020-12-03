@@ -33,7 +33,7 @@ namespace SoccerRankingFacts
             Team[] teams = new Team[] { new Team("Alba", 20), new Team("Cluj", 10), new Team("Bucuresti", 5) };
             Team teamToAdd = new Team("Timisoara", 30);
             Ranking rank = new Ranking(teams);
-            rank.AddTeamToRanking(teamToAdd);
+            rank.AddTeam(teamToAdd);
             Assert.Equal(1, rank.GetPosition(teamToAdd));
         }
 
