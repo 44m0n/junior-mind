@@ -37,5 +37,13 @@ namespace SoccerRankingFacts
             Assert.False(team.SearchTeamName("Bucuresti"));
         }
 
+        [Fact]
+        public void UpdatePointsFact()
+        {
+            Team team = new Team("Cluj", 20);
+            team.UpdatePoints(10);
+            Assert.True(team.CompareTo(new Team("Cluj", 30)));
+        }
+
     }
 }
