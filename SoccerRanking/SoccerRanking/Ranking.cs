@@ -30,5 +30,7 @@ namespace RankingConstructor
 
             return teams;
         }
+
+        public Team GetPosition(int position) => teams[position - 1];
     }
 }

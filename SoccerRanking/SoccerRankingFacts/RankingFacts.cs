@@ -37,5 +37,15 @@ namespace SoccerRankingFacts
             Team[] resultedRanking = rank.GetRanking();
             Assert.Equal(resultedRanking.ToString(), desiredRanking.ToString());
         }
+
+        [Fact]
+        public void GetPosition()
+        {
+            Team[] teams = new Team[] { new Team("Alba", 20), new Team("Cluj", 10), new Team("Bucuresti", 5) };
+            Team desiredTeam = new Team("Cluj", 10);
+            Ranking rank = new Ranking(teams);
+            Team resultedTeam = rank.GetPosition(2);
+            Assert.Equal(resultedTeam.ToString(), desiredTeam.ToString());
+        }
     }
 }
