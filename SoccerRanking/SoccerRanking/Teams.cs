@@ -17,5 +17,10 @@ namespace TeamsConstructor
         {
             return anotherTeam != null && anotherTeam.points > points;
         }
+
+        public bool SearchTeamName(string name)
+        {
+            return team == name;
+        }
     }
 }
