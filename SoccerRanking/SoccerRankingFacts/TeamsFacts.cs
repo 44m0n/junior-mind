@@ -23,5 +23,19 @@ namespace SoccerRankingFacts
             Assert.False(team.CompareTo(secondTeam));
         }
 
+        [Fact]
+        public void SearchTeamNameReturnTrue()
+        {
+            Team team = new Team("Cluj", 20);
+            Assert.True(team.SearchTeamName("Cluj"));
+        }
+
+        [Fact]
+        public void SearchTeamNameReturnFalse()
+        {
+            Team team = new Team("Cluj", 20);
+            Assert.False(team.SearchTeamName("Bucuresti"));
+        }
+
     }
 }
