@@ -12,8 +12,8 @@ namespace SoccerRankingFacts
         {
             Team firstTeam = new Team("Cluj", 10);
             Game firstTeamData = new Game(firstTeam, 3);
-            firstTeamData.Update(new Game(new Team("Alba", 10), 0));
-            Assert.True(firstTeam.CompareTo(new Team("Cluj", 13), true));
+            Team[] result = firstTeamData.Update(new Team("Alba", 10), 0);
+            Assert.True(result[0].CompareTo(new Team("Cluj", 13), true));
         }
 
         [Fact]
@@ -22,9 +22,9 @@ namespace SoccerRankingFacts
             Team firstTeam = new Team("Cluj", 10);
             Team secondTeam = new Team("Alba", 5);
             Game firstTeamData = new Game(firstTeam, 3);
-            firstTeamData.Update(new Game(secondTeam, 3));
-            Assert.True(firstTeam.CompareTo(new Team("Cluj", 11), true));
-            Assert.True(secondTeam.CompareTo(new Team("Alba", 6), true));
+            Team[] result = firstTeamData.Update(secondTeam, 3);
+            Assert.True(result[0].CompareTo(new Team("Cluj", 11), true));
+            Assert.True(result[1].CompareTo(new Team("Alba", 6), true));
         }
     }
 }
