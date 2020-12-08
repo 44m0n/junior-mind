@@ -28,7 +28,7 @@ namespace GameConstructor
                 return;
             }
 
-            if (Winner() != null || (team != firstTeam && team != secondTeam))
+            if (Winner() != null || !DidPlay(team))
             {
                 return;
             }
@@ -38,12 +38,17 @@ namespace GameConstructor
 
         private Team Winner()
         {
-            if (firstScore > secondScore)
+            if (firstScore == secondScore)
             {
-                return firstTeam;
+                return null;
             }
 
-            return secondScore > firstScore ? secondTeam : null;
+            return secondScore > firstScore ? secondTeam : firstTeam;
+        }
+
+        private bool DidPlay(Team team)
+        {
+            return team == firstTeam || team == secondTeam;
         }
     }
 }
