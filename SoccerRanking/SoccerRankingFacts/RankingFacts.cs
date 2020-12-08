@@ -54,5 +54,17 @@ namespace SoccerRankingFacts
             Assert.True(teams[0].CompareTo(second));
             Assert.True(teams[0].CompareTo(new Team("Cluj", 23), true));
         }
+
+        [Fact]
+        public void GetTeamByPosition()
+        {
+            var first = new Team("Alba", 20);
+            var second = new Team("Cluj", 20);
+            var third = new Team("Bucuresti", 5);
+            Team[] teams = new Team[] { first, second, third };
+            Ranking rank = new Ranking(teams);
+            int desiredPosition = 2;
+            Assert.Equal(second, rank.GetTeamByPosition(desiredPosition));
+        }
     }
 }

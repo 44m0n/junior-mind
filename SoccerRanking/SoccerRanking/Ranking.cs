@@ -49,6 +49,11 @@ namespace RankingConstructor
             return -1;
         }
 
+        public Team GetTeamByPosition(int position)
+        {
+            return teams[position - 1];
+        }
+
         public void Update(Game game)
         {
             for (int i = 0; i < teams.Length; i++)
