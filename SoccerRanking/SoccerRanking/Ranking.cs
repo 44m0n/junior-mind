@@ -1,4 +1,5 @@
 ﻿using System;
+using GameConstructor;
 using TeamsConstructor;
 
 namespace RankingConstructor
@@ -48,13 +49,32 @@ namespace RankingConstructor
             return -1;
         }
 
-        public void Update(Team teamData)
+        public void Update(Game game)
         {
             for (int i = 0; i < teams.Length; i++)
             {
-                if (teams[i].CompareTo(teamData))
+                if (teams[i].CompareTo(game?.SecondTeam))
                 {
-                    teams[i] = teamData;
+                    teams[i] = game?.SecondTeam;
+                }
+            }
+
+            SortTeamsAfterAGame();
+        }
+
+        private void SortTeamsAfterAGame()
+        {
+            Team temp;
+            for (int i = 0; i < teams.Length - 1; i++)
+            {
+                for (int j = 0; j < teams.Length - 1; j++)
+                {
+                    if (teams[i].CompareTo(teams[i + 1], true))
+                    {
+                        temp = teams[i + 1];
+                        teams[i + 1] = teams[i];
+                        teams[i] = temp;
+                    }
                 }
             }
         }

@@ -2,6 +2,7 @@
 using Xunit;
 using RankingConstructor;
 using TeamsConstructor;
+using GameConstructor;
 
 namespace SoccerRankingFacts
 {
@@ -42,11 +43,16 @@ namespace SoccerRankingFacts
         [Fact]
         public void UpdateFact()
         {
-            Team[] teams = new Team[] { new Team("Alba", 20), new Team("Cluj", 10), new Team("Bucuresti", 5) };
-            Team teamToUpdate = new Team("Cluj", 30);
+            var first = new Team("Alba", 15);
+            var second = new Team("Cluj", 20);
+            var third = new Team("Bucuresti", 5);
+            Team[] teams = new Team[] { first, second, third };
+            Game game = new Game(first, 1, 2);
+            game.Update(second);
             Ranking rank = new Ranking(teams);
-            rank.Update(teamToUpdate);
-            Assert.True(teams[1].CompareTo(teamToUpdate));
+            rank.Update(game);
+            Assert.True(teams[0].CompareTo(second));
+            Assert.True(teams[0].CompareTo(new Team("Cluj", 23), true));
         }
     }
 }
