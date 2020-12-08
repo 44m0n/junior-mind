@@ -50,7 +50,6 @@ namespace RankingConstructor
 
         private void SortTeams()
         {
-            Team temp;
             for (int i = 0; i < teams.Length - 1; i++)
             {
                 bool swapped = false;
@@ -58,7 +57,8 @@ namespace RankingConstructor
                 {
                     if (teams[j].CompareTo(teams[j + 1], true))
                     {
-                        Swap(out temp, out swapped, j);
+                        Swap(j, j + 1);
+                        swapped = true;
                     }
                 }
 
@@ -69,12 +69,11 @@ namespace RankingConstructor
             }
         }
 
-        private void Swap(out Team temp, out bool swapped, int j)
+        private void Swap(int i, int j)
         {
-            temp = teams[j + 1];
-            teams[j + 1] = teams[j];
-            teams[j] = temp;
-            swapped = true;
+            Team temp = teams[j];
+            teams[j] = teams[i];
+            teams[i] = temp;
         }
     }
 }
