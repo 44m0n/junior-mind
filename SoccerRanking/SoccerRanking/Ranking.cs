@@ -72,6 +72,7 @@ namespace RankingConstructor
             Team temp;
             for (int i = 0; i < teams.Length - 1; i++)
             {
+                bool swapped = false;
                 for (int j = 0; j < teams.Length - 1; j++)
                 {
                     if (teams[i].CompareTo(teams[i + 1], true))
@@ -79,7 +80,13 @@ namespace RankingConstructor
                         temp = teams[i + 1];
                         teams[i + 1] = teams[i];
                         teams[i] = temp;
+                        swapped = true;
                     }
+                }
+
+                if (swapped)
+                {
+                    break;
                 }
             }
         }
