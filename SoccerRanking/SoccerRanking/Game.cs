@@ -21,25 +21,29 @@ namespace GameConstructor
         }
 
         public void Update(Team team)
-        {
-            if (firstScore > secondScore && firstTeam == team)
+            {
+            if (Winner() == team)
             {
                 team?.UpdatePoints(points);
                 return;
             }
 
-            if (secondScore > firstScore && secondTeam == team)
-            {
-                team?.UpdatePoints(points);
-                return;
-            }
-
-            if (firstScore != secondScore || (team != firstTeam && team != secondTeam))
+            if (Winner() != null || (team != firstTeam && team != secondTeam))
             {
                 return;
             }
 
             team?.UpdatePoints(1);
+        }
+
+        private Team Winner()
+        {
+            if (firstScore > secondScore)
+            {
+                return firstTeam;
+            }
+
+            return secondScore > firstScore ? secondTeam : null;
         }
     }
 }

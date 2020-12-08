@@ -53,11 +53,11 @@ namespace RankingConstructor
             for (int i = 0; i < teams.Length - 1; i++)
             {
                 bool swapped = false;
-                for (int j = 0; j < teams.Length - 1; j++)
+                for (int j = teams.Length - 1; j > i; j--)
                 {
-                    if (teams[j].CompareTo(teams[j + 1], true))
+                    if (teams[j - 1].CompareTo(teams[j], true))
                     {
-                        Swap(j, j + 1);
+                        Swap(j - 1, j);
                         swapped = true;
                     }
                 }
