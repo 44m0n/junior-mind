@@ -5,36 +5,40 @@ namespace GameConstructor
 {
     public class Game
     {
-        public Team SecondTeam;
-        readonly Team team;
+        readonly Team firstTeam;
+        readonly Team secondTeam;
         readonly int firstScore;
         readonly int secondScore;
 
         readonly int points = 3;
 
-        public Game(Team team, int firstScore, int secondScore)
+        public Game(Team firstTeam, Team secondTeam, int firstScore, int secondScore)
         {
-            this.team = team;
+            this.firstTeam = firstTeam;
+            this.secondTeam = secondTeam;
             this.firstScore = firstScore;
             this.secondScore = secondScore;
         }
 
-        public void Update(Team secondteam)
+        public void Update(Team team)
             {
-            if (secondteam != null && secondScore > firstScore)
-            {
-                secondteam.UpdatePoints(points);
-                SecondTeam = secondteam;
-                return;
-            }
-
-            if (secondteam == null || secondScore != firstScore)
+            if (team != secondTeam)
             {
                 return;
             }
 
-            secondteam.UpdatePoints(1);
-            SecondTeam = secondteam;
+            if (secondScore > firstScore)
+            {
+                team?.UpdatePoints(points);
+                return;
+            }
+
+            if (secondScore != firstScore)
+            {
+                return;
+            }
+
+            team?.UpdatePoints(1);
         }
     }
 }

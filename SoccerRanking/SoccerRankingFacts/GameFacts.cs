@@ -11,20 +11,20 @@ namespace SoccerRankingFacts
         public void UpdatePointsWithOneWinner()
         {
             Team firstTeam = new Team("Cluj", 10);
-            Game game = new Game(firstTeam, 1, 2);
             Team secondTeam = new Team("Alba", 5);
+            Game game = new Game(firstTeam, secondTeam, 1, 2);
             game.Update(secondTeam);
-            Assert.True(game.SecondTeam.CompareTo(new Team("Alba", 8), true));
+            Assert.True(secondTeam.CompareTo(new Team("Alba", 8), true));
         }
 
         [Fact]
         public void UpdatePointsWithADraw()
         {
             Team firstTeam = new Team("Cluj", 10);
-            Game game = new Game(firstTeam, 1, 1);
             Team secondTeam = new Team("Alba", 5);
+            Game game = new Game(firstTeam, secondTeam, 1, 1);
             game.Update(secondTeam);
-            Assert.True(game.SecondTeam.CompareTo(new Team("Alba", 6), true));
+            Assert.True(secondTeam.CompareTo(new Team("Alba", 6), true));
         }
     }
 }

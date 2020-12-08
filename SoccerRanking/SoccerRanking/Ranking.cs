@@ -40,12 +40,9 @@ namespace RankingConstructor
 
         public void Update(Game game)
         {
-            for (int i = 0; i < teams.Length; i++)
+            foreach (var team in teams)
             {
-                if (teams[i].CompareTo(game?.SecondTeam))
-                {
-                    teams[i] = game?.SecondTeam;
-                }
+                game?.Update(team);
             }
 
             SortTeams();

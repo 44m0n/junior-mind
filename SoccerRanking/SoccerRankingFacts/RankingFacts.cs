@@ -47,8 +47,7 @@ namespace SoccerRankingFacts
             var second = new Team("Cluj", 20);
             var third = new Team("Bucuresti", 5);
             Team[] teams = new Team[] { first, second, third };
-            Game game = new Game(first, 1, 2);
-            game.Update(second);
+            Game game = new Game(first, second, 1, 2);
             Ranking rank = new Ranking(teams);
             rank.Update(game);
             Assert.True(teams[0].CompareTo(second));
