@@ -61,10 +61,7 @@ namespace RankingConstructor
                 {
                     if (teams[j].CompareTo(teams[j + 1], true))
                     {
-                        temp = teams[j + 1];
-                        teams[j + 1] = teams[j];
-                        teams[j] = temp;
-                        swapped = true;
+                        Swap(out temp, out swapped, j);
                     }
                 }
 
@@ -73,6 +70,14 @@ namespace RankingConstructor
                     break;
                 }
             }
+        }
+
+        private void Swap(out Team temp, out bool swapped, int j)
+        {
+            temp = teams[j + 1];
+            teams[j + 1] = teams[j];
+            teams[j] = temp;
+            swapped = true;
         }
     }
 }
