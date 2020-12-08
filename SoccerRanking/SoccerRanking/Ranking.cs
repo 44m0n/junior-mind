@@ -17,23 +17,7 @@ namespace RankingConstructor
         {
             Array.Resize(ref teams, teams.Length + 1);
             teams[^1] = team;
-            for (int i = 0; i < teams.Length; i++)
-            {
-                if (teams[i].CompareTo(team, true))
-                {
-                    Team temp = teams[i];
-                    teams[i] = team;
-
-                    for (int j = i + 1; j < teams.Length; j++)
-                    {
-                        Team temp2 = teams[j];
-                        teams[j] = temp;
-                        temp = temp2;
-                    }
-
-                    break;
-                }
-            }
+            SortTeams();
         }
 
         public int GetPosition(Team team)
@@ -64,10 +48,10 @@ namespace RankingConstructor
                 }
             }
 
-            SortTeamsAfterAGame();
+            SortTeams();
         }
 
-        private void SortTeamsAfterAGame()
+        private void SortTeams()
         {
             Team temp;
             for (int i = 0; i < teams.Length - 1; i++)
@@ -75,16 +59,16 @@ namespace RankingConstructor
                 bool swapped = false;
                 for (int j = 0; j < teams.Length - 1; j++)
                 {
-                    if (teams[i].CompareTo(teams[i + 1], true))
+                    if (teams[j].CompareTo(teams[j + 1], true))
                     {
-                        temp = teams[i + 1];
-                        teams[i + 1] = teams[i];
-                        teams[i] = temp;
+                        temp = teams[j + 1];
+                        teams[j + 1] = teams[j];
+                        teams[j] = temp;
                         swapped = true;
                     }
                 }
 
-                if (swapped)
+                if (!swapped)
                 {
                     break;
                 }
