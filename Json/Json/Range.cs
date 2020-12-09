@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using ChoiceConstructor;
 
 namespace RangeConstructor
 {
-    public class Range
+    public class Range : IPattern
     {
         readonly char start;
         readonly char end;
