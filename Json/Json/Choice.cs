@@ -15,7 +15,7 @@ namespace ChoiceConstructor
 
         public Choice(params IPattern[] patterns)
         {
-            this.patterns = patterns.Clone() as IPattern[];
+            this.patterns = patterns;
         }
 
         public bool Match(string text)
