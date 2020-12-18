@@ -1,14 +1,7 @@
-﻿using System;
-using CharacterConstructor;
-using RangeConstructor;
+﻿using IPatternConstructor;
 
 namespace ChoiceConstructor
 {
-    public interface IPattern
-    {
-        bool Match(string text);
-    }
-
     public class Choice : IPattern
     {
         private readonly IPattern[] patterns;
