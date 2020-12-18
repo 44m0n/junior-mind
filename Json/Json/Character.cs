@@ -3,7 +3,7 @@ using ChoiceConstructor;
 
 namespace CharacterConstructor
 {
-    class Character : IPattern
+    public class Character : IPattern
     {
         readonly char pattern;
 
