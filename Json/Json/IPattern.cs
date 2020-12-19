@@ -1,7 +1,9 @@
-﻿namespace IPatternConstructor
+﻿using IMatchConstructor;
+
+namespace IPatternConstructor
 {
     public interface IPattern
     {
-        bool Match(string text);
+        IMatch Match(string text);
     }
 }
