@@ -1,4 +1,6 @@
-﻿using IPatternConstructor;
+﻿using IMatchConstructor;
+using IPatternConstructor;
+using MatchConstructor;
 
 namespace ChoiceConstructor
 {
@@ -11,17 +13,17 @@ namespace ChoiceConstructor
             this.patterns = patterns;
         }
 
-        public bool Match(string text)
+        public IMatch Match(string text)
         {
             foreach (var pattern in patterns)
             {
-                if (pattern.Match(text))
+                if (pattern.Match(text).Success())
                 {
-                    return true;
+                    return new Match(true, pattern.Match(text).RemainingText());
                 }
             }
 
-            return false;
+            return new Match(false, null);
         }
     }
 }
