@@ -1,12 +1,29 @@
-﻿namespace IMatchConstructor
-{
-    class Match
-    {
-        private readonly IMatch[] matches;
+﻿using System;
+using IMatchConstructor;
 
-        public Match(IMatch[] matches)
+namespace MatchConstructor
+{
+    public class Match : IMatch
+    {
+        readonly bool response;
+        readonly string remainingText;
+
+        public Match(bool response, string remainingText)
         {
-            this.matches = matches;
+            this.response = response;
+            this.remainingText = remainingText;
+            Success();
+            RemainingText();
+        }
+
+        public bool Success()
+        {
+            return response;
+        }
+
+        public string RemainingText()
+        {
+            return remainingText;
         }
     }
 }
