@@ -12,8 +12,6 @@ namespace MatchConstructor
         {
             this.response = response;
             this.remainingText = remainingText;
-            Success();
-            RemainingText();
         }
 
         public bool Success()
