@@ -20,7 +20,7 @@ namespace CharacterConstructor
                 return new Match(false, text);
             }
 
-            return new Match(text[0] == pattern, text.Substring(1));
+            return text[0] == pattern ? new Match(true, text.Substring(1)) : new Match(false, text);
         }
     }
 }
