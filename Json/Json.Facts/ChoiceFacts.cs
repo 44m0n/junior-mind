@@ -7,7 +7,7 @@ namespace Json.Facts
 {
     public class ChoiceFacts
     {
-        /*
+
         [Fact]
         public void MatchFactsReturnTrue()
         {
@@ -16,12 +16,12 @@ namespace Json.Facts
                 new Range('1', '9')
                 );
 
-            Assert.True(digit.Match("012"));
-            Assert.True(digit.Match("12"));
-            Assert.True(digit.Match("92"));
-            Assert.False(digit.Match("a9"));
-            Assert.False(digit.Match(""));
-            Assert.False(digit.Match(null));
+            Assert.True(digit.Match("012").Success());
+            Assert.True(digit.Match("12").Success());
+            Assert.True(digit.Match("92").Success());
+            Assert.False(digit.Match("a9").Success());
+            Assert.False(digit.Match("").Success());
+            Assert.False(digit.Match(null).Success());
 
             var hex = new Choice(
                 digit,
@@ -30,19 +30,18 @@ namespace Json.Facts
                 new Range('A', 'F')
                 ));
 
-            Assert.True(hex.Match("012")); // true
-            Assert.True(hex.Match("12")); // true
-            Assert.True(hex.Match("92")); // true
-            Assert.True(hex.Match("a9")); // true
-            Assert.True(hex.Match("f8")); // true
-            Assert.True(hex.Match("A9")); // true
-            Assert.True(hex.Match("F8")); // true
-            Assert.False(hex.Match("g8")); // false
-            Assert.False(hex.Match("G8")); // false
-            Assert.False(hex.Match("")); // false
-            Assert.False(hex.Match(null)); // false
+            Assert.True(hex.Match("012").Success()); // true
+            Assert.True(hex.Match("12").Success()); // true
+            Assert.True(hex.Match("92").Success()); // true
+            Assert.True(hex.Match("a9").Success()); // true
+            Assert.True(hex.Match("f8").Success()); // true
+            Assert.True(hex.Match("A9").Success()); // true
+            Assert.True(hex.Match("F8").Success()); // true
+            Assert.False(hex.Match("g8").Success()); // false
+            Assert.False(hex.Match("G8").Success()); // false
+            Assert.False(hex.Match("").Success()); // false
+            Assert.False(hex.Match(null).Success()); // false
         
         }
-        */
     }
 }
