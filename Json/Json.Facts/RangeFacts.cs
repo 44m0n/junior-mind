@@ -21,13 +21,13 @@ namespace Json.Facts
             string text = "1abcd";
             Assert.True(range.Match(text).Success());
         }
-        /*
+        
         [Fact]
         public void MatchFactsReturnFalse()
         {
             var range = new Range('a', 'f');
             string text = "1abcd";
-            Assert.False(range.Match(text));
+            Assert.False(range.Match(text).Success());
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace Json.Facts
         {
             var range = new Range('a', 'f');
             string text = null;
-            Assert.False(range.Match(text));
+            Assert.False(range.Match(text).Success());
         }
 
         [Fact]
@@ -43,8 +43,7 @@ namespace Json.Facts
         {
             var range = new Range('a', 'f');
             string text = "";
-            Assert.False(range.Match(text));
+            Assert.False(range.Match(text).Success());
         }
-        */
     }
 }
