@@ -19,7 +19,7 @@ namespace RangeConstructor
         {
             if (string.IsNullOrEmpty(text))
             {
-                return new Match(false, null);
+                return new Match(false, text);
             }
 
             return text[0] >= start && text[0] <= end ? new Match(true, text.Substring(1)) : new Match(false, text);
