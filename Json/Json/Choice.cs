@@ -17,7 +17,8 @@ namespace ChoiceConstructor
         {
             foreach (var pattern in patterns)
             {
-                Match match = new Match(pattern.Match(text).Success(), pattern.Match(text).RemainingText());
+                var result = pattern.Match(text);
+                Match match = new Match(result.Success(), result.RemainingText());
 
                 if (match.Success())
                 {
