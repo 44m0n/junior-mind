@@ -17,7 +17,12 @@ namespace RangeConstructor
 
         public IMatch Match(string text)
         {
-            return new Match(!string.IsNullOrEmpty(text) && text[0] >= start && text[0] <= end, string.IsNullOrEmpty(text) ? null : text.Substring(1));
+            if (string.IsNullOrEmpty(text))
+            {
+                return new Match(false, null);
+            }
+
+            return text[0] >= start && text[0] <= end ? new Match(true, text.Substring(1)) : new Match(false, text);
         }
     }
 }

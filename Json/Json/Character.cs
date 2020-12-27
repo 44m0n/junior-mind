@@ -17,7 +17,7 @@ namespace CharacterConstructor
         {
             if (string.IsNullOrEmpty(text))
             {
-                return new Match(false, text);
+                return new Match(false, null);
             }
 
             return text[0] == pattern ? new Match(true, text.Substring(1)) : new Match(false, text);
