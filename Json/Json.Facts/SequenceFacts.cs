@@ -17,7 +17,7 @@ namespace Json.Facts
             );
 
             //Double-calling should be avoid. Every result should be saved without calling Match(string) twice. 
-            //I did this because of I write fewer lines of code and this class it's just for testing.
+            //I did this because I write fewer lines of code and this class it's just for testing.
 
             Assert.True(ab.Match("abcd").Success() == true && ab.Match("abcd").RemainingText() == "cd"); // true / "cd"
             Assert.True(ab.Match("ax").Success() == false && ab.Match("ax").RemainingText() == "ax"); // false / "ax"
