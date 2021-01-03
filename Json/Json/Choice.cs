@@ -18,11 +18,10 @@ namespace ChoiceConstructor
             foreach (var pattern in patterns)
             {
                 var result = pattern.Match(text);
-                Match match = new Match(result.Success(), result.RemainingText());
 
-                if (match.Success())
+                if (result.Success())
                 {
-                    return match;
+                    return result;
                 }
             }
 
