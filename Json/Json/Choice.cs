@@ -25,7 +25,7 @@ namespace ChoiceConstructor
                 }
             }
 
-            return new Match(false, null);
+            return new Match(false, text);
         }
     }
 }
