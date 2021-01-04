@@ -15,20 +15,7 @@ namespace AnyConstructor
 
         public IMatch Match(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return new Match(false, text);
-            }
-
-            foreach (char c in letters)
-            {
-                if (text[0] == c)
-                {
-                    return new Match(true, text.Substring(1));
-                }
-            }
-
-            return new Match(false, text);
+            return (!string.IsNullOrEmpty(text) && letters.Contains(text[0])) ? new Match(true, text.Substring(1)) : new Match(false, text);
         }
     }
 }
