@@ -18,11 +18,6 @@ namespace OptionalConstructor
 
         public IMatch Match(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return new Match(true, text);
-            }
-
             var result = pattern.Match(text);
 
             return new Match(true, result.RemainingText());
