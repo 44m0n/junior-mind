@@ -15,11 +15,6 @@ namespace ManyConstructor
 
         public IMatch Match(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return new Match(true, text);
-            }
-
             var match = pattern.Match(text);
 
             while (match.Success())
