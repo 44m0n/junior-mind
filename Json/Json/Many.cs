@@ -19,11 +19,10 @@ namespace ManyConstructor
 
             while (match.Success())
             {
-                text = match.RemainingText();
-                match = pattern.Match(text);
+                match = pattern.Match(match.RemainingText());
             }
 
-            return new Match(true, text);
+            return new Match(true, match.RemainingText());
         }
     }
 }
