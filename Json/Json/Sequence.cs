@@ -16,7 +16,6 @@ namespace SequenceConstructor
 
         public IMatch Match(string text)
         {
-            var remainingText = text;
             IMatch result = new Match(true, text);
 
             foreach (var pattern in patterns)
