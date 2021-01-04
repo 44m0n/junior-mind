@@ -22,14 +22,12 @@ namespace SequenceConstructor
             {
                 var result = pattern.Match(remainingText);
 
-                if (result.Success())
-                {
-                    remainingText = result.RemainingText();
-                }
-                else
+                if (!result.Success())
                 {
                     return new Match(false, text);
                 }
+
+                remainingText = result.RemainingText();
             }
 
             return new Match(true, remainingText);
