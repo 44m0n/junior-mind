@@ -16,19 +16,7 @@ namespace TextConstructor
 
         public IMatch Match(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                return new Match(false, text);
-            }
-
-            if (prefix == "")
-            {
-                return new Match(true, text);
-            }
-
-            bool prefixExists = text.StartsWith(prefix);
-
-            return new Match(prefixExists, prefixExists ? text.Substring(prefix.Length) : text);
+            return (!string.IsNullOrEmpty(text) && text.StartsWith(prefix)) ? new Match(true, text.TrimStart(prefix.ToCharArray())) : new Match(false, text);
         }
     }
 }
