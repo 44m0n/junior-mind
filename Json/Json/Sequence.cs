@@ -17,20 +17,19 @@ namespace SequenceConstructor
         public IMatch Match(string text)
         {
             var remainingText = text;
+            IMatch result = new Match(true, text);
 
             foreach (var pattern in patterns)
             {
-                var result = pattern.Match(remainingText);
+                result = pattern.Match(result.RemainingText());
 
                 if (!result.Success())
                 {
                     return new Match(false, text);
                 }
-
-                remainingText = result.RemainingText();
             }
 
-            return new Match(true, remainingText);
+            return result;
         }
     }
 }
