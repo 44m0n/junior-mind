@@ -33,10 +33,7 @@
             var sign = new Optional(new Any("-+"));
 
             // exponent: "" || 'e' sign digits
-            var expo = new Optional(
-                new Choice(
-                    new Sequence(new Character('e'), sign, digits),
-                    new Sequence(new Character('E'), sign, digits)));
+            var expo = new Optional(new Sequence(new Any("eE"), sign, digits));
 
             pattern = new Sequence(integer, fraction, expo);
         }
