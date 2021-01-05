@@ -1,6 +1,5 @@
 ﻿using Xunit;
-using RangeConstructor;
-using OneOrMoreConstructor;
+using Json;
 
 namespace Json.Facts
 {

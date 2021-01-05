@@ -1,8 +1,4 @@
-﻿using IMatchConstructor;
-using IPatternConstructor;
-using MatchConstructor;
-
-namespace TextConstructor
+﻿namespace Json
 {
     // Text (and txt) conflicts with System.Drawing.Text
     public class Ttext : IPattern

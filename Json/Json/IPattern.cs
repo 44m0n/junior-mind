@@ -1,6 +1,4 @@
-﻿using IMatchConstructor;
-
-namespace IPatternConstructor
+﻿namespace Json
 {
     public interface IPattern
     {

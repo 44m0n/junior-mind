@@ -1,7 +1,4 @@
-﻿using System;
-using IMatchConstructor;
-
-namespace MatchConstructor
+﻿namespace Json
 {
     public class Match : IMatch
     {

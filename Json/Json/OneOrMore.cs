@@ -1,9 +1,4 @@
-﻿using IMatchConstructor;
-using IPatternConstructor;
-using ManyConstructor;
-using SequenceConstructor;
-
-namespace OneOrMoreConstructor
+﻿namespace Json
 {
     public class OneOrMore : IPattern
     {

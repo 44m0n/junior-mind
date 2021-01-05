@@ -1,12 +1,5 @@
 ﻿using Xunit;
-using RangeConstructor;
-using CharacterConstructor;
-using ListConstructor;
-using OneOrMoreConstructor;
-using SequenceConstructor;
-using ManyConstructor;
-using AnyConstructor;
-using IPatternConstructor;
+
 namespace Json.Facts
 {
     public class ListFacts
@@ -14,7 +7,7 @@ namespace Json.Facts
         [Fact]
         public void ManyFacts()
         {
-            var a = new List(new RangeConstructor.Range('0', '9'), new Character(','));
+            var a = new List(new Range('0', '9'), new Character(','));
 
 
             Assert.True(a.Match("1,2,3").Success() && a.Match("1,2,3").RemainingText() == "");

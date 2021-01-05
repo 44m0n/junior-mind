@@ -1,9 +1,4 @@
-﻿using System;
-using IMatchConstructor;
-using IPatternConstructor;
-using MatchConstructor;
-
-namespace OptionalConstructor
+﻿namespace Json
 {
 #pragma warning disable CA1716 // Identifiers should not match keywords
     public class Optional : IPattern

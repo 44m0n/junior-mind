@@ -1,8 +1,4 @@
-﻿using IMatchConstructor;
-using IPatternConstructor;
-using MatchConstructor;
-
-namespace RangeConstructor
+﻿namespace Json
 {
     public class Range : IPattern
     {

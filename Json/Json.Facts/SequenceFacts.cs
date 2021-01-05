@@ -1,8 +1,4 @@
 ﻿using Xunit;
-using CharacterConstructor;
-using ChoiceConstructor;
-using RangeConstructor;
-using SequenceConstructor;
 
 namespace Json.Facts
 {

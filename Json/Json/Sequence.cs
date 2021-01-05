@@ -1,9 +1,4 @@
-﻿using System;
-using IMatchConstructor;
-using IPatternConstructor;
-using MatchConstructor;
-
-namespace SequenceConstructor
+﻿namespace Json
 {
     public class Sequence : IPattern
     {

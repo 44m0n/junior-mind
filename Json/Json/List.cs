@@ -1,10 +1,4 @@
-﻿using IMatchConstructor;
-using IPatternConstructor;
-using ManyConstructor;
-using OptionalConstructor;
-using SequenceConstructor;
-
-namespace ListConstructor
+﻿namespace Json
 {
     public class List : IPattern
     {

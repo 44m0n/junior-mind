@@ -1,5 +1,4 @@
 ﻿using Xunit;
-using TextConstructor;
 
 namespace Json.Facts
 {

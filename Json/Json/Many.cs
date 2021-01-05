@@ -1,8 +1,4 @@
-﻿using IMatchConstructor;
-using IPatternConstructor;
-using MatchConstructor;
-
-namespace ManyConstructor
+﻿namespace Json
 {
     public class Many : IPattern
     {

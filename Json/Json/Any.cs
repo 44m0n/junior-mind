@@ -1,8 +1,4 @@
-﻿using IMatchConstructor;
-using IPatternConstructor;
-using MatchConstructor;
-
-namespace AnyConstructor
+﻿namespace Json
 {
     public class Any : IPattern
     {

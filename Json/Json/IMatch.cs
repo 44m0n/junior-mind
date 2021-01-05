@@ -1,4 +1,4 @@
-﻿namespace IMatchConstructor
+﻿namespace Json
 {
     public interface IMatch
     {
