@@ -12,9 +12,8 @@
              *          1-9
              *      digit digits
              */
-            var digit = new Range('0', '9');
-            var digits = new OneOrMore(digit);
-            var oneNineDigit = new Range('1', '9');
+            var digit = new Range('1', '9');
+            var digits = new OneOrMore(new Choice(new Character('0'), digit));
 
             /* integer:
             *      digit
@@ -22,11 +21,10 @@
             *      '-' digit
             *      '-' onenine digits
             */
-            var integer = new Choice(
-                new Sequence(new Character('-'), oneNineDigit, digits),
-                new Sequence(new Character('-'), digit),
-                new Sequence(oneNineDigit, digits),
-                digit);
+
+            var integer = new Sequence(
+                new Optional(new Character('-')),
+                new Choice(new Character('0'), digits));
 
             // fraction: "" || '.' digits
             var fraction = new Optional(new Choice(new Sequence(new Character('.'), digits)));
