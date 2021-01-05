@@ -30,10 +30,7 @@
             var fraction = new Optional(new Choice(new Sequence(new Character('.'), digits)));
 
             // sign: "" || '+' || '-'
-            var sign = new Optional(
-                new Choice(
-                    new Character('+'),
-                    new Character('-')));
+            var sign = new Optional(new Any("-+"));
 
             // exponent: "" || 'e' sign digits
             var expo = new Optional(
