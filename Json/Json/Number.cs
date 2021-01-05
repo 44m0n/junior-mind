@@ -12,9 +12,9 @@
              *          1-9
              *      digit digits
              */
-            IPattern digit = new Range('0', '9');
-            IPattern digits = new OneOrMore(digit);
-            IPattern oneNineDigit = new Range('1', '9');
+            var digit = new Range('0', '9');
+            var digits = new OneOrMore(digit);
+            var oneNineDigit = new Range('1', '9');
 
             /* integer:
             *      digit
@@ -22,23 +22,23 @@
             *      '-' digit
             *      '-' onenine digits
             */
-            IPattern integer = new Choice(
+            var integer = new Choice(
                 new Sequence(new Character('-'), oneNineDigit, digits),
                 new Sequence(new Character('-'), digit),
                 new Sequence(oneNineDigit, digits),
                 digit);
 
             // fraction: "" || '.' digits
-            IPattern fraction = new Optional(new Choice(new Sequence(new Character('.'), digits)));
+            var fraction = new Optional(new Choice(new Sequence(new Character('.'), digits)));
 
             // sign: "" || '+' || '-'
-            IPattern sign = new Optional(
+            var sign = new Optional(
                 new Choice(
                     new Character('+'),
                     new Character('-')));
 
             // exponent: "" || 'e' sign digits
-            IPattern expo = new Optional(
+            var expo = new Optional(
                 new Choice(
                     new Sequence(new Character('e'), sign, digits),
                     new Sequence(new Character('E'), sign, digits)));
