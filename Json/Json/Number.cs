@@ -23,10 +23,10 @@
             *      '-' onenine digits
             */
             IPattern integer = new Choice(
-                digit,
-                new Sequence(oneNineDigit, digits),
+                new Sequence(new Character('-'), oneNineDigit, digits),
                 new Sequence(new Character('-'), digit),
-                new Sequence(new Character('-'), oneNineDigit, digits));
+                new Sequence(oneNineDigit, digits),
+                digit);
 
             // fraction: "" || '.' digits
             IPattern fraction = new Optional(new Choice(new Sequence(new Character('.'), digits)));
