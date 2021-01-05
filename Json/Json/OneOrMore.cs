@@ -5,7 +5,7 @@ using SequenceConstructor;
 
 namespace OneOrMoreConstructor
 {
-    public class OneOrMore
+    public class OneOrMore : IPattern
     {
         readonly IPattern pattern;
 
