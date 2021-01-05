@@ -6,7 +6,7 @@ using SequenceConstructor;
 
 namespace ListConstructor
 {
-    public class List
+    public class List : IPattern
     {
         private readonly IPattern pattern;
 
