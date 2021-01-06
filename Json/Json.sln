@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json", "Json\Json.csproj", "{3028DDD4-EFD9-411E-B689-E0EC5FE2D0C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json", "Json\Json.csproj", "{3028DDD4-EFD9-411E-B689-E0EC5FE2D0C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Json.Facts", "Json.Facts\Json.Facts.csproj", "{C9A08BA8-D876-4C06-8B4F-B93EF345F700}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json.Facts", "Json.Facts\Json.Facts.csproj", "{C9A08BA8-D876-4C06-8B4F-B93EF345F700}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
