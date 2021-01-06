@@ -6,7 +6,7 @@ namespace Json.Facts
     {
 
         [Fact]
-        public void MatchFactsReturnTrue()
+        public void MatchFacts()
         {
             var digit = new Choice(
                 new Character('0'),
@@ -39,6 +39,23 @@ namespace Json.Facts
             Assert.False(hex.Match("").Success()); // false
             Assert.False(hex.Match(null).Success()); // false
         
+        }
+
+        [Fact]
+        public void AddFacts()
+        {
+            var value = new Choice(
+                new Ttext("test1"),
+                new Ttext("test2"));
+
+            var obj = new Ttext("TEXT");
+
+            value.Add(obj);
+
+            var stringToMatch = "TEXTtest1test2";
+            var expectedResult = "test1test2";
+
+            Assert.Equal(expectedResult, value.Match(stringToMatch).RemainingText());
         }
     }
 }
