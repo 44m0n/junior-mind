@@ -12,8 +12,8 @@
              *          1-9
              *      digit digits
              */
-            var digit = new Range('1', '9');
-            var digits = new OneOrMore(new Choice(new Character('0'), digit));
+            var digit = new Range('0', '9');
+            var digits = new OneOrMore(digit);
 
             /* integer:
             *      digit
