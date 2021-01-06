@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Json
+﻿namespace Json
 {
-    class Value
+    public class Value : IPattern
     {
+        private readonly IPattern pattern;
+
+        public Value()
+        {
+
+        }
+
+        public IMatch Match(string text)
+        {
+            return pattern.Match(text);
+        }
     }
 }
