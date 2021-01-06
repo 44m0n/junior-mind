@@ -1,8 +1,10 @@
-﻿namespace Json
+﻿using System;
+
+namespace Json
 {
     public class Choice : IPattern
     {
-        private readonly IPattern[] patterns;
+        private IPattern[] patterns;
 
         public Choice(params IPattern[] patterns)
         {
@@ -22,6 +24,12 @@
             }
 
             return new Match(false, text);
+        }
+
+        public void Add(IPattern patternToAdd)
+        {
+            Array.Resize(ref patterns, patterns.Length + 1);
+            patterns[^1] = patternToAdd;
         }
     }
 }
