@@ -1,6 +1,10 @@
 ﻿namespace Json
 {
+#pragma warning disable CA1716 // Identifiers should not match keywords
+#pragma warning disable CA1720 // Identifier contains type name
     public class String
+#pragma warning restore CA1720 // Identifier contains type name
+#pragma warning restore CA1716 // Identifiers should not match keywords
     {
         private readonly IPattern pattern;
 
@@ -18,12 +22,8 @@
                 new Sequence(new Character('u'), hex, hex, hex, hex));
 
             var character = new Choice(
-                new Range('#', '/'),
-                new Range(':', ']'),
-                new Range('^', '~'),
-                new Any(" !"),
-                new Sequence(new Character('\\'), escape),
-                digit);
+                new Range(' ', '~', "\"\\"),
+                new Sequence(new Character('\\'), escape));
 
             pattern = new Sequence(new Character('\"'), new Many(character), new Character('\"'));
         }
