@@ -1,6 +1,10 @@
 ﻿namespace Json
 {
-    public class String
+#pragma warning disable CA1716 // Identifiers should not match keywords
+#pragma warning disable CA1720 // Identifier contains type name
+    public class String : IPattern
+#pragma warning restore CA1720 // Identifier contains type name
+#pragma warning restore CA1716 // Identifiers should not match keywords
     {
         private readonly IPattern pattern;
 
