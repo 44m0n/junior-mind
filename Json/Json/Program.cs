@@ -9,7 +9,7 @@ namespace MainProgram
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("No arguments were given. Please insert the json file adress!");
+                Console.WriteLine("No arguments were given. Please insert the json file path!");
                 return;
             }
 
