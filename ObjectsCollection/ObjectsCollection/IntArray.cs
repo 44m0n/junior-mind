@@ -62,10 +62,45 @@ namespace ObjectsCollection
         {
             Array.Resize(ref array, array.Length + 1);
 
+            int temp = 0;
             for (int i = index; i < array.Length; i++)
             {
-                int temp = array[inde;
+                if (i == index)
+                {
+                    temp = array[i];
+                    array[i] = element;
+                    continue;
+                }
+
+                int temp2 = array[i];
+                array[i] = temp;
+                temp = temp2;
             }
         }
+
+        public void Clear()
+        {
+            array = new int[0];
+        }
+
+        public void Remove(int element)
+        {
+            int index = -1;
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                if (array[i] == element)
+                {
+                    index = i;
+                }
+
+                if (i >= index)
+                {
+                    array[i] = array[i + 1];
+                }
+            }
+
+            Array.Resize(ref array, array.Length - 1);
+        }
+
     }
 }
