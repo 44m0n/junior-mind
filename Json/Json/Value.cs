@@ -19,12 +19,18 @@
                 new Sequence(whitespace, value, whitespace),
                 new Character(','));
 
-            var array = new Choice(
+            var array = new Sequence(
+                new Character('['),
+                whitespace,
+                new Optional(new Sequence(arrayElements, whitespace)),
+                new Character(']'));
+
+            var objElements = new List(
                 new Sequence(
-                    new Character('['),
                     whitespace,
-                    new Optional(new Sequence(arrayElements, whitespace)),
-                    new Character(']')));
+                    new String(),
+                    whitespace,
+                    new Cha))
         }
 
         public IMatch Match(string text)
