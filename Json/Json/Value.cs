@@ -15,8 +15,10 @@
                 new Number(),
                 new String());
 
+            var element = new Sequence(whitespace, value, whitespace);
+
             var arrayElements = new List(
-                new Sequence(whitespace, value, whitespace),
+                element,
                 new Character(','));
 
             var array = new Sequence(
@@ -25,12 +27,19 @@
                 new Optional(new Sequence(arrayElements, whitespace)),
                 new Character(']'));
 
-            var objElements = new List(
-                new Sequence(
-                    whitespace,
-                    new String(),
-                    whitespace,
-                    new Cha))
+            var objElement = new Sequence(
+                whitespace,
+                new String(),
+                whitespace,
+                new Character(':'),
+                element);
+
+            var objElements = new List(objElement, new Character(','));
+            var obj = new Sequence(
+                new Character('{'),
+                whitespace,
+                new Optional(new Sequence(objElements, whitespace)),
+                new Character('}'));
         }
 
         public IMatch Match(string text)
