@@ -57,5 +57,15 @@ namespace ObjectsCollection
 
             return -1;
         }
+
+        public void Insert(int index, int element)
+        {
+            Array.Resize(ref array, array.Length + 1);
+
+            for (int i = index; i < array.Length; i++)
+            {
+                int temp = array[inde;
+            }
+        }
     }
 }
