@@ -1,14 +1,15 @@
 using System;
 using Xunit;
+using ObjectsCollection;
 
 namespace ObjectCollection.Facts
 {
     public class IntArrayFacts
     {
         [Fact]
-        public void Test1()
+        public void AddFact()
         {
-
+            var array = new IntArray()
         }
     }
 }
