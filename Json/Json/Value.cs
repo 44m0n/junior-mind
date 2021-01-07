@@ -40,6 +40,11 @@
                 whitespace,
                 new Optional(new Sequence(objElements, whitespace)),
                 new Character('}'));
+
+            value.Add(array);
+            value.Add(obj);
+
+            pattern = value;
         }
 
         public IMatch Match(string text)
