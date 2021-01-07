@@ -7,6 +7,12 @@ namespace MainProgram
     {
         static void Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("No arguments were given. Please insert the json file adress!");
+                return;
+            }
+
             var value = new Value();
             string jsonData = System.IO.File.ReadAllText(args[0]);
 
