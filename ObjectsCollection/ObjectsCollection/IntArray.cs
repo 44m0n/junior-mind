@@ -86,11 +86,13 @@ namespace ObjectsCollection
         public void Remove(int element)
         {
             int index = -1;
+            bool firstElement = true;
             for (int i = 0; i < array.Length - 1; i++)
             {
-                if (array[i] == element)
+                if (firstElement && array[i] == element)
                 {
                     index = i;
+                    firstElement = false;
                 }
 
                 if (i >= index)
@@ -102,5 +104,14 @@ namespace ObjectsCollection
             Array.Resize(ref array, array.Length - 1);
         }
 
+        public void RemoveAt(int index)
+        {
+            for (int i = index; i < array.Length - 1; i++)
+            {
+                array[i] = array[i + 1];
+            }
+
+            Array.Resize(ref array, array.Length - 1);
+        }
     }
 }
