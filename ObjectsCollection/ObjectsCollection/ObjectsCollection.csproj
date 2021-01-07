@@ -27,9 +27,5 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-	
-	<ItemGroup>
-	  <ProjectReference Include="..\ObjectCollection.Facts\ObjectCollection.Facts.csproj" />
-	</ItemGroup>
 
 </Project>
