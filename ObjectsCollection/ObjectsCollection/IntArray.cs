@@ -45,6 +45,17 @@ namespace ObjectsCollection
             return false;
         }
 
+        public int IndexOf(int element)
+        {
+            foreach (var el in array)
+            {
+                if (array[el] == element)
+                {
+                    return el;
+                }
+            }
 
+            return -1;
+        }
     }
 }
