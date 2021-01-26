@@ -34,16 +34,20 @@ namespace ObjectsCollection
 
         public bool Contains(int element)
         {
-            var (exists, _) = CheckElement(element);
-
-            return exists;
+            return IndexOf(element) != -1;
         }
 
         public int IndexOf(int element)
         {
-            var (_, index) = CheckElement(element);
+            foreach (var el in array)
+            {
+                if (array[el] == element)
+                {
+                    return el;
+                }
+            }
 
-            return index;
+            return -1;
         }
 
         public void Insert(int index, int element)
@@ -65,25 +69,12 @@ namespace ObjectsCollection
                 return;
             }
 
-            ShiftLeft(index);
+            RemoveAt(index);
         }
 
         public void RemoveAt(int index)
         {
             ShiftLeft(index);
-        }
-
-        public (bool, int) CheckElement(int element)
-        {
-            foreach (var el in array)
-            {
-                if (array[el] == element)
-                {
-                    return (true, el);
-                }
-            }
-
-            return (false, -1);
         }
 
         public void ShiftRight(int index)
@@ -94,9 +85,7 @@ namespace ObjectsCollection
 
             for (int i = index; i < array.Length; i++)
             {
-                temp = temp * array[i];
-                array[i] = temp / array[i];
-                temp = temp / array[i];
+                temp = Swap(temp, i);
             }
         }
 
@@ -106,12 +95,18 @@ namespace ObjectsCollection
 
             for (int i = array.Length - 2; i >= index; i--)
             {
-                temp = temp * array[i];
-                array[i] = temp / array[i];
-                temp = temp / array[i];
+                temp = Swap(temp, i);
             }
 
             Array.Resize(ref array, array.Length - 1);
+        }
+
+        public int Swap(int temp, int index)
+        {
+            temp = temp * array[index];
+            array[index] = temp / array[index];
+
+            return temp / array[index];
         }
     }
 }
