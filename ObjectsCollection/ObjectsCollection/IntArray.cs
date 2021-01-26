@@ -34,48 +34,22 @@ namespace ObjectsCollection
 
         public bool Contains(int element)
         {
-            foreach (var el in array)
-            {
-                if (array[el] == element)
-                {
-                    return true;
-                }
-            }
+            var (exists, _) = CheckElement(element);
 
-            return false;
+            return exists;
         }
 
         public int IndexOf(int element)
         {
-            foreach (var el in array)
-            {
-                if (array[el] == element)
-                {
-                    return el;
-                }
-            }
+            var (_, index) = CheckElement(element);
 
-            return -1;
+            return index;
         }
 
         public void Insert(int index, int element)
         {
-            Array.Resize(ref array, array.Length + 1);
-
-            int temp = 0;
-            for (int i = index; i < array.Length; i++)
-            {
-                if (i == index)
-                {
-                    temp = array[i];
-                    array[i] = element;
-                    continue;
-                }
-
-                int temp2 = array[i];
-                array[i] = temp;
-                temp = temp2;
-            }
+            ShiftRight(index + 1);
+            SetElement(index, element);
         }
 
         public void Clear()
@@ -85,30 +59,56 @@ namespace ObjectsCollection
 
         public void Remove(int element)
         {
-            int index = -1;
-            bool firstElement = true;
-            for (int i = 0; i < array.Length - 1; i++)
+            var index = IndexOf(element);
+            if (index == -1)
             {
-                if (firstElement && array[i] == element)
-                {
-                    index = i;
-                    firstElement = false;
-                }
-
-                if (i >= index)
-                {
-                    array[i] = array[i + 1];
-                }
+                return;
             }
 
-            Array.Resize(ref array, array.Length - 1);
+            ShiftLeft(index);
         }
 
         public void RemoveAt(int index)
         {
-            for (int i = index; i < array.Length - 1; i++)
+            ShiftLeft(index);
+        }
+
+        public (bool, int) CheckElement(int element)
+        {
+            foreach (var el in array)
             {
-                array[i] = array[i + 1];
+                if (array[el] == element)
+                {
+                    return (true, el);
+                }
+            }
+
+            return (false, -1);
+        }
+
+        public void ShiftRight(int index)
+        {
+            Array.Resize(ref array, array.Length + 1);
+
+            int temp = array[index - 1];
+
+            for (int i = index; i < array.Length; i++)
+            {
+                temp = temp * array[i];
+                array[i] = temp / array[i];
+                temp = temp / array[i];
+            }
+        }
+
+        public void ShiftLeft(int index)
+        {
+            int temp = array[^1];
+
+            for (int i = array.Length - 2; i >= index; i--)
+            {
+                temp = temp * array[i];
+                array[i] = temp / array[i];
+                temp = temp / array[i];
             }
 
             Array.Resize(ref array, array.Length - 1);
