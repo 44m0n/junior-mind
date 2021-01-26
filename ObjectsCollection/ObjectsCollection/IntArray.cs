@@ -103,10 +103,10 @@ namespace ObjectsCollection
 
         public int Swap(int temp, int index)
         {
-            temp = temp * array[index];
-            array[index] = temp / array[index];
+            int temp2 = array[index];
+            array[index] = temp;
+            return temp2;
 
-            return temp / array[index];
         }
     }
 }
