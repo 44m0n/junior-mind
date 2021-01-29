@@ -26,6 +26,10 @@ namespace ObjectCollection.Facts
 
             obj.SetElement(0, 2);
             Assert.True(obj.IndexOf(2) == 0);
+
+            obj.Remove(2);
+            Assert.True(obj.Count() == 1);
+            Assert.True(obj.IndexOf(3) == 0);
         }
     }
 }
