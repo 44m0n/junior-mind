@@ -4,22 +4,25 @@ namespace ObjectsCollection
 {
     public class IntArray
     {
+        private const int ActualLength = 4;
         private int[] array;
+        private int expectedLength;
 
         public IntArray()
         {
-            array = new int[0];
+            array = new int[ActualLength];
         }
 
         public void Add(int element)
         {
-            Array.Resize(ref array, array.Length + 1);
-            array[^1] = element;
+            expectedLength++;
+            CheckActualLength();
+            array[expectedLength - 1] = element;
         }
 
         public int Count()
         {
-            return array.Length;
+            return expectedLength;
         }
 
         public int Element(int index)
@@ -39,11 +42,11 @@ namespace ObjectsCollection
 
         public int IndexOf(int element)
         {
-            foreach (var el in array)
+            for (int i = 0; i < expectedLength; i++)
             {
-                if (array[el] == element)
+                if (array[i] == element)
                 {
-                    return el;
+                    return i;
                 }
             }
 
@@ -52,13 +55,13 @@ namespace ObjectsCollection
 
         public void Insert(int index, int element)
         {
-            ShiftRight(index + 1);
+            ShiftRight(index);
             SetElement(index, element);
         }
 
         public void Clear()
         {
-            array = new int[0];
+            array = new int[ActualLength];
         }
 
         public void Remove(int element)
@@ -77,36 +80,46 @@ namespace ObjectsCollection
             ShiftLeft(index);
         }
 
-        public void ShiftRight(int index)
+        private void ShiftRight(int index)
         {
-            Array.Resize(ref array, array.Length + 1);
+            expectedLength++;
+            UpdateArrayLength();
 
-            int temp = array[index - 1];
-
-            for (int i = index; i < array.Length; i++)
+            for (int i = expectedLength - 1; i > index; i--)
             {
-                temp = Swap(temp, i);
+                Swap(i, i - 1);
             }
         }
 
-        public void ShiftLeft(int index)
+        private void ShiftLeft(int index)
         {
-            int temp = array[^1];
-
-            for (int i = array.Length - 2; i >= index; i--)
+            for (int i = index; i < expectedLength - 1; i++)
             {
-                temp = Swap(temp, i);
+                Swap(i, i + 1);
             }
 
-            Array.Resize(ref array, array.Length - 1);
+            expectedLength--;
         }
 
-        public int Swap(int temp, int index)
+        private void Swap(int i, int j)
         {
-            int temp2 = array[index];
-            array[index] = temp;
-            return temp2;
+            array[i] = array[j];
+        }
 
+        private void UpdateArrayLength()
+        {
+            const int doubleLength = 2;
+            Array.Resize(ref array, array.Length * doubleLength);
+        }
+
+        private void CheckActualLength()
+        {
+            if (expectedLength <= array.Length)
+            {
+                return;
+            }
+
+            UpdateArrayLength();
         }
     }
 }
