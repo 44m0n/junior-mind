@@ -6,23 +6,19 @@ namespace ObjectsCollection
     {
         private const int ActualLength = 4;
         private int[] array;
-        private int count;
 
         public IntArray()
         {
             array = new int[ActualLength];
         }
 
+        public int Count { get; private set; }
+
         public void Add(int element)
         {
-            count++;
+            Count++;
             CheckActualLength();
-            array[count - 1] = element;
-        }
-
-        public int Count()
-        {
-            return count;
+            array[Count - 1] = element;
         }
 
         public int Element(int index)
@@ -42,7 +38,7 @@ namespace ObjectsCollection
 
         public int IndexOf(int element)
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 if (array[i] == element)
                 {
@@ -82,10 +78,10 @@ namespace ObjectsCollection
 
         private void ShiftRight(int index)
         {
-            count++;
+            Count++;
             UpdateArrayLength();
 
-            for (int i = count - 1; i > index; i--)
+            for (int i = Count - 1; i > index; i--)
             {
                 Swap(i, i - 1);
             }
@@ -93,12 +89,12 @@ namespace ObjectsCollection
 
         private void ShiftLeft(int index)
         {
-            for (int i = index; i < count - 1; i++)
+            for (int i = index; i < Count - 1; i++)
             {
                 Swap(i, i + 1);
             }
 
-            count--;
+            Count--;
         }
 
         private void Swap(int i, int j)
@@ -114,7 +110,7 @@ namespace ObjectsCollection
 
         private void CheckActualLength()
         {
-            if (count <= array.Length)
+            if (Count <= array.Length)
             {
                 return;
             }
