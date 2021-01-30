@@ -14,21 +14,17 @@ namespace ObjectsCollection
 
         public int Count { get; private set; }
 
+        public int this[int index]
+        {
+            get => array[index];
+            set => array[index] = value;
+        }
+
         public void Add(int element)
         {
             Count++;
             CheckActualLength();
             array[Count - 1] = element;
-        }
-
-        public int Element(int index)
-        {
-            return array[index];
-        }
-
-        public void SetElement(int index, int element)
-        {
-            array[index] = element;
         }
 
         public bool Contains(int element)
@@ -52,7 +48,7 @@ namespace ObjectsCollection
         public void Insert(int index, int element)
         {
             ShiftRight(index);
-            SetElement(index, element);
+            array[index] = element;
         }
 
         public void Clear()
