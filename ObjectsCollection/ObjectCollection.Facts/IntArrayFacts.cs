@@ -30,6 +30,15 @@ namespace ObjectCollection.Facts
             obj.Remove(2);
             Assert.True(obj.Count() == 1);
             Assert.True(obj.IndexOf(3) == 0);
+            Assert.True(obj.Contains(3));
+
+            obj.Insert(0, 1);
+            Assert.True(obj.IndexOf(1) == 0);
+            Assert.True(obj.IndexOf(3) == 1);
+
+            obj.Remove(1);
+            Assert.True(obj.IndexOf(3) == 0);
+            Assert.True(obj.Count() == 1);
         }
     }
 }
