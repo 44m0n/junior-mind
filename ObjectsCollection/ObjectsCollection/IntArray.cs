@@ -12,15 +12,15 @@ namespace ObjectsCollection
             array = new int[ActualLength];
         }
 
-        public int Count { get; private set; }
+        public int Count { get; protected set; }
 
-        public int this[int index]
+        public virtual int this[int index]
         {
             get => array[index];
             set => array[index] = value;
         }
 
-        public void Add(int element)
+        public virtual void Add(int element)
         {
             Count++;
             CheckActualLength();
@@ -45,7 +45,7 @@ namespace ObjectsCollection
             return -1;
         }
 
-        public void Insert(int index, int element)
+        public virtual void Insert(int index, int element)
         {
             ShiftRight(index);
             array[index] = element;
@@ -54,6 +54,7 @@ namespace ObjectsCollection
         public void Clear()
         {
             array = new int[ActualLength];
+            Count = 0;
         }
 
         public void Remove(int element)
