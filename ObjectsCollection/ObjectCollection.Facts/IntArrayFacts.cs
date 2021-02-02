@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using ObjectsCollection;
 
-namespace ObjectCollection.Facts
+namespace ObjectsCollection.Facts
 {
     public class IntArrayFacts
     {
