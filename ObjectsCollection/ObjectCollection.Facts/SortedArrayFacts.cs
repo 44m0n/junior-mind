@@ -13,28 +13,43 @@ namespace ObjectsCollection.Facts
 
             Assert.True(obj.Count == 0);
 
-            obj[0] = 5;
+            obj.Add(5);
+            Assert.True(obj[0] == 5);
             obj[0] = 4;
             Assert.True(obj[0] == 4);
             Assert.True(obj.Count == 1);
 
+            
             obj.Add(3);
             Assert.True(obj.Count == 2);
             Assert.True(obj[0] == 3);
             Assert.True(obj[1] == 4);
 
+            
             obj.Insert(0, 5);
-            Assert.True(obj.Count == 3);
+            Assert.True(obj.Count == 2);
             Assert.True(obj[0] == 3);
             Assert.True(obj[1] == 4);
-            Assert.True(obj[2] == 5);
+            Assert.False(obj[0] == 5);
 
+            
             obj.Remove(4);
-            Assert.Equal(2, obj.Count);
-            Assert.Equal(5, obj[1]);
+            Assert.Equal(1, obj.Count);
+            Assert.Equal(3, obj[0]);
 
-            obj[1] = 1;
-            Assert.Equal(3, obj[1]);
+            obj[0] = 1;
+            Assert.Equal(1, obj[0]);
+
+            obj.Add(4);
+            Assert.True(obj.Count == 2);
+            obj.Insert(1, 2);
+            Assert.True(obj.Count == 3);
+            Assert.True(obj[1] == 2);
+            obj[2] = 3;
+            Assert.True(obj[2] == 3);
+            obj[2] = 1;
+            Assert.False(obj[2] == 1);
+
         }
     }
 }
