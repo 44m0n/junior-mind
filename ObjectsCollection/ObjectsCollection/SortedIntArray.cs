@@ -62,11 +62,6 @@
                 return element < this[0] || Count == 1;
             }
 
-            if (index == Count - 1)
-            {
-                return element > this[index];
-            }
-
             return element >= this[index - 1]
                 && (element <= this[index + 1] || element <= this[index]);
         }
