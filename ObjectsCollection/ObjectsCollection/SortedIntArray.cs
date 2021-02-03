@@ -11,9 +11,12 @@
             get => base[index];
             set
             {
-                var no = base[index];
-                Add(value);
-                Remove(no);
+                if (!CheckNeighbours(index, value))
+                {
+                    return;
+                }
+
+                base[index] = value;
             }
         }
 
@@ -24,7 +27,12 @@
 
         public override void Insert(int index, int element)
         {
-            Add(element);
+            if (!CheckNeighbours(index, element))
+            {
+                return;
+            }
+
+            base.Insert(index, element);
         }
 
         private void Sort(int element)
@@ -45,6 +53,22 @@
             }
 
             base.Add(element);
+        }
+
+        private bool CheckNeighbours(int index, int element)
+        {
+            if (index == 0)
+            {
+                return element < this[0];
+            }
+
+            if (index == Count - 1)
+            {
+                return element > this[index];
+            }
+
+            return element >= this[index - 1]
+                && (element <= this[index + 1] || element <= this[index]);
         }
     }
 }
