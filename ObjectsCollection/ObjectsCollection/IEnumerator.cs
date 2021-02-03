@@ -12,7 +12,7 @@
             this.count = count;
         }
 
-        object Current { get => array[position]; }
+        public object Current { get => array[position]; }
 
         public bool MoveNext()
         {
