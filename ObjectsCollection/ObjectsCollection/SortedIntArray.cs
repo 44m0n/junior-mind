@@ -11,7 +11,7 @@
             get => base[index];
             set
             {
-                if (!CheckNeighbours(index, value))
+                if (!(ElementAtOrDefault(index - 1, value) <= value && value <= ElementAtOrDefault(index + 1, value)))
                 {
                     return;
                 }
@@ -27,7 +27,7 @@
 
         public override void Insert(int index, int element)
         {
-            if (!CheckNeighbours(index, element))
+            if (!(ElementAtOrDefault(index - 1, element) <= element && element <= ElementAtOrDefault(index, element)))
             {
                 return;
             }
@@ -55,15 +55,9 @@
             base.Add(element);
         }
 
-        private bool CheckNeighbours(int index, int element)
+        private int ElementAtOrDefault(int index, int value)
         {
-            if (index == 0)
-            {
-                return element < this[0] || Count == 1;
-            }
-
-            return element >= this[index - 1]
-                && (element <= this[index + 1] || element <= this[index]);
+            return index < 0 || index >= Count ? value : this[index];
         }
     }
 }
