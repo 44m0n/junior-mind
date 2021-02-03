@@ -59,7 +59,7 @@
         {
             if (index == 0)
             {
-                return element < this[0];
+                return element < this[0] || Count == 1;
             }
 
             if (index == Count - 1)
