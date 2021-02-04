@@ -64,6 +64,11 @@ namespace ObjectsCollection.Facts
             obj1 = 3.1;
             obj.Add(obj1);
             Assert.True((double)obj[3] == 3.1);
+
+            obj1 = "string1";
+            obj2 = "string1";
+            obj.Add(obj1);
+            Assert.True(obj.IndexOf(obj2) == 4);
         }
     }
 }
