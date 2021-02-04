@@ -23,14 +23,9 @@ namespace ObjectsCollection
             set => array[index] = value;
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEnumerator GetEnumerator()
         {
-            return (IEnumerator)GetEnumerator();
-        }
-
-        public IEnumeratorObjects GetEnumerator()
-        {
-            return new IEnumeratorObjects(this);
+            return new ObjectsIEnumerator(this);
         }
 
         public void Add(object element)
