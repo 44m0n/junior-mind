@@ -15,7 +15,7 @@ namespace ObjectsCollection
         public object Current { get => array[position]; }
 
         public bool MoveNext()
-        {   
+        {
             position++;
             return position < array.Count;
         }
