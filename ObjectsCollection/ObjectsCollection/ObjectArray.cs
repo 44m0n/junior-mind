@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ObjectsCollection
 {
-    public class ObjectArray
+#pragma warning disable CA1710 // Identifiers should have correct suffix
+    public class ObjectArray : IEnumerable
+#pragma warning restore CA1710 // Identifiers should have correct suffix
     {
         private const int ActualLength = 4;
         private object[] array;
@@ -18,6 +22,16 @@ namespace ObjectsCollection
         {
             get => array[index];
             set => array[index] = value;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)GetEnumerator();
+        }
+
+        public IEnumeratorObjects GetEnumerator()
+        {
+            return new IEnumeratorObjects(this);
         }
 
         public void Add(object element)
