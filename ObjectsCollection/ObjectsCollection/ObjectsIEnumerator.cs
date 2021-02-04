@@ -2,12 +2,12 @@
 
 namespace ObjectsCollection
 {
-    public class IEnumeratorObjects : IEnumerator
+    public class ObjectsIEnumerator : IEnumerator
     {
         private readonly ObjectArray array;
         private int position = -1;
 
-        public IEnumeratorObjects(ObjectArray array)
+        public ObjectsIEnumerator(ObjectArray array)
         {
             this.array = array;
         }
