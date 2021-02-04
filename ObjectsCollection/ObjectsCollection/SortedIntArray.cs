@@ -11,7 +11,7 @@
             get => base[index];
             set
             {
-                if (!(ElementAtOrDefault(index - 1, value) <= value && value <= ElementAtOrDefault(index + 1, value)))
+                if (ElementAtOrDefault(index - 1, value) > value || value > ElementAtOrDefault(index + 1, value))
                 {
                     return;
                 }
@@ -27,7 +27,7 @@
 
         public override void Insert(int index, int element)
         {
-            if (!(ElementAtOrDefault(index - 1, element) <= element && element <= ElementAtOrDefault(index, element)))
+            if (ElementAtOrDefault(index - 1, element) > element || element > ElementAtOrDefault(index, element))
             {
                 return;
             }
