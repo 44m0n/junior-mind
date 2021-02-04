@@ -1,23 +1,23 @@
-﻿namespace ObjectsCollection
+﻿using System.Collections;
+
+namespace ObjectsCollection
 {
-    class IEnumerator
+    public class IEnumeratorObjects : IEnumerator
     {
         private readonly ObjectArray array;
-        private readonly int count;
         private int position = -1;
 
-        public IEnumerator(ObjectArray array, int count)
+        public IEnumeratorObjects(ObjectArray array)
         {
             this.array = array;
-            this.count = count;
         }
 
         public object Current { get => array[position]; }
 
         public bool MoveNext()
-        {
+        {   
             position++;
-            return position < count;
+            return position < array.Count;
         }
 
         public void Reset()
