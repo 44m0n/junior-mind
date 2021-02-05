@@ -16,6 +16,11 @@ namespace ObjectsCollection
 
         public bool MoveNext()
         {
+            if (position == array.Count)
+            {
+                return false;
+            }
+
             position++;
             return position < array.Count;
         }
