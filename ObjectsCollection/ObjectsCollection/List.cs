@@ -35,7 +35,7 @@ namespace ObjectsCollection
             throw new NotImplementedException();
         }
 
-        public void Add(T element)
+        public virtual void Add(T element)
         {
             Count++;
             CheckActualLength();
@@ -60,7 +60,7 @@ namespace ObjectsCollection
             return -1;
         }
 
-        public void Insert(int index, T element)
+        public virtual void Insert(int index, T element)
         {
             ShiftRight(index);
             array[index] = element;
