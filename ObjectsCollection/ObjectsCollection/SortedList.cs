@@ -23,19 +23,19 @@ namespace ObjectsCollection
             }
         }
 
-        public override void Add(T element)
+        public override void Add(T item)
         {
-            Sort(element);
+            Sort(item);
         }
 
-        public override void Insert(int index, T element)
+        public override void Insert(int index, T item)
         {
-            if (ElementAtOrDefault(index - 1, element).CompareTo(element) == 1 || element.CompareTo(ElementAtOrDefault(index, element)) == 1)
+            if (ElementAtOrDefault(index - 1, item).CompareTo(item) == 1 || item.CompareTo(ElementAtOrDefault(index, item)) == 1)
             {
                 return;
             }
 
-            base.Insert(index, element);
+            base.Insert(index, item);
         }
 
         private void Sort(T element)
