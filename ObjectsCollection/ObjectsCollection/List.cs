@@ -4,29 +4,31 @@ using System.Collections.Generic;
 
 namespace ObjectsCollection
 {
-    public class List<T> : IEnumerable<T>
+    public class List<T> : IList<T>
     {
         private const int ActualLength = 4;
-        private T[] array;
+        private T[] contents;
 
         public List()
         {
-            array = new T[ActualLength];
+            contents = new T[ActualLength];
         }
 
         public int Count { get; private set; }
 
+        public bool IsReadOnly { get => false; }
+
         public virtual T this[int index]
         {
-            get => array[index];
-            set => array[index] = value;
+            get => contents[index];
+            set => contents[index] = value;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i < Count; i++)
             {
-                yield return array[i];
+                yield return contents[i];
             }
         }
 
@@ -35,23 +37,31 @@ namespace ObjectsCollection
             throw new NotImplementedException();
         }
 
-        public virtual void Add(T element)
-        {
-            Count++;
-            CheckActualLength();
-            array[Count - 1] = element;
-        }
-
-        public bool Contains(T element)
-        {
-            return IndexOf(element) != -1;
-        }
-
-        public int IndexOf(T element)
+        public void CopyTo(T[] array, int arrayIndex)
         {
             for (int i = 0; i < Count; i++)
             {
-                if (array[i].Equals(element))
+                array?.SetValue(array[i], arrayIndex++);
+            }
+        }
+
+        public virtual void Add(T item)
+        {
+            Count++;
+            CheckActualLength();
+            contents[Count - 1] = item;
+        }
+
+        public bool Contains(T item)
+        {
+            return IndexOf(item) != -1;
+        }
+
+        public int IndexOf(T item)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (contents[i].Equals(item))
                 {
                     return i;
                 }
@@ -60,27 +70,28 @@ namespace ObjectsCollection
             return -1;
         }
 
-        public virtual void Insert(int index, T element)
+        public virtual void Insert(int index, T item)
         {
             ShiftRight(index);
-            array[index] = element;
+            contents[index] = item;
         }
 
         public void Clear()
         {
-            array = new T[ActualLength];
+            contents = new T[ActualLength];
             Count = 0;
         }
 
-        public void Remove(T element)
+        public bool Remove(T item)
         {
-            var index = IndexOf(element);
+            var index = IndexOf(item);
             if (index == -1)
             {
-                return;
+                return false;
             }
 
             RemoveAt(index);
+            return true;
         }
 
         public void RemoveAt(int index)
@@ -111,18 +122,18 @@ namespace ObjectsCollection
 
         private void Swap(int i, int j)
         {
-            array[i] = array[j];
+            contents[i] = contents[j];
         }
 
         private void UpdateArrayLength()
         {
             const int doubleLength = 2;
-            Array.Resize(ref array, array.Length * doubleLength);
+            Array.Resize(ref contents, contents.Length * doubleLength);
         }
 
         private void CheckActualLength()
         {
-            if (Count <= array.Length)
+            if (Count <= contents.Length)
             {
                 return;
             }
