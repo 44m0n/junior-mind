@@ -39,6 +39,10 @@ namespace ObjectsCollection
 
         public void CopyTo(T[] array, int arrayIndex)
         {
+            CheckIfArrayIsNull(array);
+            CheckIfIndexIsOutOfRange(arrayIndex);
+            CheckArrayLength(array, arrayIndex);
+
             for (int i = 0; i < Count; i++)
             {
                 array?.SetValue(array[i], arrayIndex++);
@@ -77,7 +81,7 @@ namespace ObjectsCollection
         }
 
         public void Clear()
-        {   
+        {
             Count = 0;
         }
 
@@ -138,6 +142,36 @@ namespace ObjectsCollection
             }
 
             UpdateArrayLength();
+        }
+
+        private void CheckIfArrayIsNull(T[] array)
+        {
+            if (array != null)
+            {
+                return;
+            }
+
+            throw new ArgumentNullException(nameof(array), $"The {nameof(array)} should not be null");
+        }
+
+        private void CheckIfIndexIsOutOfRange(int arrayIndex)
+        {
+            if (arrayIndex >= 0)
+            {
+                return;
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Index does not exists");
+        }
+
+        private void CheckArrayLength(T[] array, int arrayIndex)
+        {
+            if (array.Length >= this.Count + arrayIndex)
+            {
+                return;
+            }
+
+            throw new ArgumentException("Copying failed. Destination array is too small.");
         }
     }
 }
