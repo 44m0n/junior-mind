@@ -51,6 +51,7 @@ namespace ObjectsCollection
 
         public virtual void Add(T item)
         {
+            CheckIfReadOnly();
             Count++;
             CheckActualLength();
             contents[Count - 1] = item;
@@ -82,6 +83,7 @@ namespace ObjectsCollection
 
         public void Clear()
         {
+            CheckIfReadOnly();
             Count = 0;
         }
 
