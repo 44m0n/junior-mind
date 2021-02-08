@@ -34,7 +34,7 @@ namespace ObjectsCollection
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
 
         public void CopyTo(T[] array, int arrayIndex)
@@ -77,8 +77,7 @@ namespace ObjectsCollection
         }
 
         public void Clear()
-        {
-            contents = new T[ActualLength];
+        {   
             Count = 0;
         }
 
