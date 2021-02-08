@@ -87,6 +87,8 @@ namespace ObjectsCollection
 
         public bool Remove(T item)
         {
+            CheckIfReadOnly();
+
             var index = IndexOf(item);
             if (index == -1)
             {
@@ -99,6 +101,7 @@ namespace ObjectsCollection
 
         public void RemoveAt(int index)
         {
+            CheckIfReadOnly();
             ShiftLeft(index);
         }
 
@@ -172,6 +175,16 @@ namespace ObjectsCollection
             }
 
             throw new ArgumentException("Copying failed. Destination array is too small.");
+        }
+
+        private void CheckIfReadOnly()
+        {
+            if (!IsReadOnly)
+            {
+                return;
+            }
+
+            throw new NotSupportedException("List is set to read only.");
         }
     }
 }
