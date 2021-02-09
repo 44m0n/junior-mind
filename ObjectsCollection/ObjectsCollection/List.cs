@@ -28,7 +28,6 @@ namespace ObjectsCollection
 
             set
             {
-                CheckIfReadOnly();
                 CheckIfIndexIsOutOfRange(index);
                 contents[index] = value;
             }
@@ -61,7 +60,6 @@ namespace ObjectsCollection
 
         public virtual void Add(T item)
         {
-            CheckIfReadOnly();
             Count++;
             CheckActualLength();
             contents[Count - 1] = item;
@@ -87,7 +85,6 @@ namespace ObjectsCollection
 
         public virtual void Insert(int index, T item)
         {
-            CheckIfReadOnly();
             CheckIfIndexIsOutOfRange(index);
             ShiftRight(index);
             contents[index] = item;
@@ -95,14 +92,11 @@ namespace ObjectsCollection
 
         public void Clear()
         {
-            CheckIfReadOnly();
             Count = 0;
         }
 
         public bool Remove(T item)
         {
-            CheckIfReadOnly();
-
             var index = IndexOf(item);
             if (index == -1)
             {
@@ -115,7 +109,6 @@ namespace ObjectsCollection
 
         public void RemoveAt(int index)
         {
-            CheckIfReadOnly();
             CheckIfIndexIsOutOfRange(index);
             ShiftLeft(index);
         }
@@ -195,16 +188,6 @@ namespace ObjectsCollection
             }
 
             throw new ArgumentException("Copying failed. Destination array is too small.");
-        }
-
-        private void CheckIfReadOnly()
-        {
-            if (!IsReadOnly)
-            {
-                return;
-            }
-
-            throw new NotSupportedException("List is set to read only.");
         }
     }
 }
