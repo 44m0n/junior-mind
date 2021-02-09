@@ -16,7 +16,7 @@ namespace ObjectsCollection
 
         public int Count { get; private set; }
 
-        public bool IsReadOnly { get; set; }
+        public bool IsReadOnly { get; }
 
         public virtual T this[int index]
         {
@@ -118,6 +118,11 @@ namespace ObjectsCollection
             CheckIfReadOnly();
             CheckIfIndexIsOutOfRange(index);
             ShiftLeft(index);
+        }
+
+        public ListAsReadOnly<T> AsReadOnly()
+        {
+            return new ListAsReadOnly<T>(this);
         }
 
         private void ShiftRight(int index)
