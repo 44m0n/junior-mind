@@ -16,12 +16,22 @@ namespace ObjectsCollection
 
         public int Count { get; private set; }
 
-        public bool IsReadOnly { get => false; }
+        public bool IsReadOnly { get; set; }
 
         public virtual T this[int index]
         {
-            get => contents[index];
-            set => contents[index] = value;
+            get
+            {
+                CheckIfIndexIsOutOfRange(index);
+                return contents[index];
+            }
+
+            set
+            {
+                CheckIfReadOnly();
+                CheckIfIndexIsOutOfRange(index);
+                contents[index] = value;
+            }
         }
 
         public IEnumerator<T> GetEnumerator()
