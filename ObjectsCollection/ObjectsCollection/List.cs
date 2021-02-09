@@ -77,6 +77,8 @@ namespace ObjectsCollection
 
         public virtual void Insert(int index, T item)
         {
+            CheckIfReadOnly();
+            CheckIfIndexIsOutOfRange(index);
             ShiftRight(index);
             contents[index] = item;
         }
@@ -104,6 +106,7 @@ namespace ObjectsCollection
         public void RemoveAt(int index)
         {
             CheckIfReadOnly();
+            CheckIfIndexIsOutOfRange(index);
             ShiftLeft(index);
         }
 
@@ -161,7 +164,7 @@ namespace ObjectsCollection
 
         private void CheckIfIndexIsOutOfRange(int arrayIndex)
         {
-            if (arrayIndex >= 0)
+            if (arrayIndex >= 0 && arrayIndex < Count)
             {
                 return;
             }
