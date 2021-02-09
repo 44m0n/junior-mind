@@ -13,7 +13,7 @@ namespace ObjectsCollection
             this.list = list;
         }
 
-        public int Count => list.Count;
+        public int Count { get => list.Count; }
 
         public bool IsReadOnly { get => true; }
 
