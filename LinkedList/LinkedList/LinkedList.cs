@@ -20,17 +20,24 @@ namespace LinkedList
 
         public int Count { get; private set; }
 
-        public LinkedListNode<T> First => Count != 0 ? sentinel.Next : null;
+        public LinkedListNode<T> First => Count != 0 ? sentinel.Next : throw NodeIsNull();
 
-        public LinkedListNode<T> Last => Count != 0 ? sentinel.Previous : null;
+        public LinkedListNode<T> Last => Count != 0 ? sentinel.Previous : throw NodeIsNull();
 
         public void Add(T item)
         {
             var nodeToAdd = new LinkedListNode<T>(item);
-            sentinel.Previous.IsLinkedTo(sentinel.Previous.Previous, nodeToAdd);
-            nodeToAdd.IsLinkedTo(sentinel.Previous, sentinel);
-            sentinel.IsLinkedTo(nodeToAdd, sentinel.Next);
-            Count++;
+            InsertNode(sentinel.Previous, nodeToAdd, sentinel);
+        }
+
+        public void Add(LinkedListNode<T> item)
+        {
+            if (item == null)
+            {
+                throw NodeIsNull();
+            }
+
+            InsertNode(sentinel.Previous, item, sentinel);
         }
 
         public void Clear()
@@ -61,6 +68,21 @@ namespace LinkedList
         IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
+        }
+
+        private void InsertNode(LinkedListNode<T> first, LinkedListNode<T> actual, LinkedListNode<T> last)
+        {
+            actual.IsLinkedTo(first, last);
+            first.IsLinkedTo(last.Previous, actual);
+            last.IsLinkedTo(actual, last.Next);
+            Count++;
+        }
+
+        private Exception NodeIsNull()
+        {
+#pragma warning disable S3928 // Parameter names used into ArgumentException constructors should match an existing one 
+            throw new ArgumentNullException("The node is null! The node should be initializated before calling this method");
+#pragma warning restore S3928 // Parameter names used into ArgumentException constructors should match an existing one 
         }
     }
 }
