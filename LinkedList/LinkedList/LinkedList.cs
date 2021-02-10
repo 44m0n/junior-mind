@@ -97,7 +97,7 @@ namespace LinkedList
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            Count = 0;
         }
 
         public bool Contains(T item)
@@ -112,7 +112,13 @@ namespace LinkedList
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            var currentNode = sentinel;
+
+            for (int i = 0; i < Count; i++)
+            {
+                currentNode = currentNode.Next;
+                yield return currentNode.Value;
+            }
         }
 
         public bool Remove(T item)
@@ -122,7 +128,7 @@ namespace LinkedList
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
 
         private void InsertNode(LinkedListNode<T> first, LinkedListNode<T> actual, LinkedListNode<T> last)
