@@ -80,6 +80,21 @@ namespace LinkedList
             InsertNode(node.Previous, new LinkedListNode<T>(item), node);
         }
 
+        public void Addfirst(LinkedListNode<T> item)
+        {
+            if (item == null)
+            {
+                throw NodeIsNull();
+            }
+
+            InsertNode(sentinel, item, sentinel.Next);
+        }
+
+        public void Addfirst(T item)
+        {
+            InsertNode(sentinel, new LinkedListNode<T>(item), sentinel.Next);
+        }
+
         public void Clear()
         {
             throw new NotImplementedException();
