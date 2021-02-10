@@ -5,13 +5,16 @@ using System.Text;
 
 namespace LinkedList
 {
-    public class LinkedList<T> : ICollection<T>
+    public class LinkedListCollection<T> : ICollection<T>
     {
-        public LinkedList()
+        private readonly LinkedListNode<T> sentinel;
+
+        public LinkedListCollection()
         {
             Count = 0;
+            sentinel = new LinkedListNode<T>(default);
+            sentinel.IsLinkedTo(sentinel, sentinel);
         }
-        
 
         public int Count { get; private set; }
 
