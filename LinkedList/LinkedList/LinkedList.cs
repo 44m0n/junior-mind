@@ -40,6 +40,26 @@ namespace LinkedList
             InsertNode(sentinel.Previous, item, sentinel);
         }
 
+        public void AddAfter(LinkedListNode<T> item, LinkedListNode<T> node)
+        {
+            if (item == null || node == null)
+            {
+                throw NodeIsNull();
+            }
+
+            InsertNode(node, item, node.Next);
+        }
+
+        public void AddAfter(T item, LinkedListNode<T> node)
+        {
+            if (node == null)
+            {
+                throw NodeIsNull();
+            }
+
+            InsertNode(node, new LinkedListNode<T>(item), node.Next);
+        }
+
         public void Clear()
         {
             throw new NotImplementedException();
@@ -80,9 +100,9 @@ namespace LinkedList
 
         private Exception NodeIsNull()
         {
-#pragma warning disable S3928 // Parameter names used into ArgumentException constructors should match an existing one 
+#pragma warning disable S3928 // Parameter names used into ArgumentException constructors should match an existing one
             throw new ArgumentNullException("The node is null! The node should be initializated before calling this method");
-#pragma warning restore S3928 // Parameter names used into ArgumentException constructors should match an existing one 
+#pragma warning restore S3928 // Parameter names used into ArgumentException constructors should match an existing one
         }
     }
 }
