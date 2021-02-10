@@ -5,9 +5,15 @@ using System.Text;
 
 namespace LinkedList
 {
-    class LinkedList<T> : ICollection<T>
+    public class LinkedList<T> : ICollection<T>
     {
-        public int Count => throw new NotImplementedException();
+        public LinkedList()
+        {
+            Count = 0;
+        }
+        
+
+        public int Count { get; private set; }
 
         public bool IsReadOnly => throw new NotImplementedException();
 
