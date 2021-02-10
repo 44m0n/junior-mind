@@ -18,7 +18,7 @@ namespace LinkedList
 
         public int Count { get; private set; }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly { get; }
 
         public void Add(T item)
         {
