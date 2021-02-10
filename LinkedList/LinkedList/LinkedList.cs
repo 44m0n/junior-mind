@@ -26,7 +26,11 @@ namespace LinkedList
 
         public void Add(T item)
         {
-            throw new NotImplementedException();
+            var nodeToAdd = new LinkedListNode<T>(item);
+            sentinel.Previous.IsLinkedTo(sentinel.Previous.Previous, nodeToAdd);
+            nodeToAdd.IsLinkedTo(sentinel.Previous, sentinel);
+            sentinel.IsLinkedTo(nodeToAdd, sentinel.Next);
+            Count++;
         }
 
         public void Clear()

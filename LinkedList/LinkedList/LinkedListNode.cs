@@ -11,9 +11,9 @@
 
         public T Value { get; private set; }
 
-        public LinkedListNode<T> Next { get; set; }
+        public LinkedListNode<T> Next { get; private set; }
 
-        public LinkedListNode<T> Previous { get; set; }
+        public LinkedListNode<T> Previous { get; private set; }
 
         public void IsLinkedTo(LinkedListNode<T> previous, LinkedListNode<T> next)
         {
