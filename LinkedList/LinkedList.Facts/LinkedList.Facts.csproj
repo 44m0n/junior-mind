@@ -19,4 +19,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LinkedList\LinkedList.csproj" />
+  </ItemGroup>
+
 </Project>
