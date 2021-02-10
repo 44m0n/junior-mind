@@ -60,6 +60,26 @@ namespace LinkedList
             InsertNode(node, new LinkedListNode<T>(item), node.Next);
         }
 
+        public void AddBefore(LinkedListNode<T> item, LinkedListNode<T> node)
+        {
+            if (item == null || node == null)
+            {
+                throw NodeIsNull();
+            }
+
+            InsertNode(node.Previous, item, node);
+        }
+
+        public void AddBefore(T item, LinkedListNode<T> node)
+        {
+            if (node == null)
+            {
+                throw NodeIsNull();
+            }
+
+            InsertNode(node.Previous, new LinkedListNode<T>(item), node);
+        }
+
         public void Clear()
         {
             throw new NotImplementedException();
