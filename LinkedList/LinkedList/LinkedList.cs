@@ -275,7 +275,7 @@ namespace LinkedList
 
         private Exception NodeIsNull()
         {
-            throw new InvalidOperationException("The node is null! The node should be initializated before calling this method");
+            return new InvalidOperationException("The node is null! The node should be initializated before calling this method");
         }
     }
 }
