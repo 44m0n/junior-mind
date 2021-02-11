@@ -134,7 +134,25 @@ namespace LinkedList
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            if (array == null)
+            {
+                throw new InvalidOperationException("Array is null!");
+            }
+
+            var node = GetNodeAtIndex(arrayIndex);
+
+            if (node == null)
+            {
+                throw NodeIsNull();
+            }
+
+            int index = 0;
+
+            for (var i = node; i != sentinel; i = i.Next)
+            {
+                array[index] = node.Value;
+                index++;
+            }
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -220,6 +238,28 @@ namespace LinkedList
             first.IsLinkedTo(last.Previous, actual);
             last.IsLinkedTo(actual, last.Next);
             Count++;
+        }
+
+        private LinkedListNode<T> GetNodeAtIndex(int index)
+        {
+            if (index < 0 || index >= Count)
+            {
+                throw new InvalidOperationException($"Index cannot be less than 0 and greater or equal to {Count}.");
+            }
+
+            int currentIndex = 0;
+
+            foreach (var node in GetNodesAtStart())
+            {
+                if (currentIndex == index)
+                {
+                    return node;
+                }
+
+                currentIndex++;
+            }
+
+            return null;
         }
 
         private Exception NodeIsNull()
