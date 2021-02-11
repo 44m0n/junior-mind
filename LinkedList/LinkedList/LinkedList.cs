@@ -150,7 +150,47 @@ namespace LinkedList
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            var node = Find(item);
+
+            if (node == null)
+            {
+                return false;
+            }
+
+            node.Previous.Next = node.Next;
+            node.Next.Previous = node.Previous;
+
+            return true;
+        }
+
+        public bool Remove(LinkedListNode<T> item)
+        {
+            if (item == null)
+            {
+                throw NodeIsNull();
+            }
+
+            var node = Find(item.Value);
+
+            if (node == null)
+            {
+                return false;
+            }
+
+            node.Previous.Next = node.Next;
+            node.Next.Previous = node.Previous;
+
+            return true;
+        }
+
+        public void RemoveFirst()
+        {
+            Remove(First.Value);
+        }
+
+        public void RemoveLast()
+        {
+            Remove(Last.Value);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
