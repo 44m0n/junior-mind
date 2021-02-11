@@ -139,28 +139,19 @@ namespace LinkedList
                 return false;
             }
 
-            node.Previous.Next = node.Next;
-            node.Next.Previous = node.Previous;
-
+            Remove(node);
             return true;
         }
 
         public bool Remove(LinkedListNode<T> item)
         {
-            if (item == null)
-            {
-                throw NodeIsNull();
-            }
-
-            var node = Find(item.Value);
-
-            if (node == null)
+            if (item == null || item.List != this)
             {
                 return false;
             }
 
-            node.Previous.Next = node.Next;
-            node.Next.Previous = node.Previous;
+            item.Previous.Next = item.Next;
+            item.Next.Previous = item.Previous;
 
             return true;
         }
