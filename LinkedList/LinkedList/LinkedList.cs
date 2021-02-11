@@ -19,9 +19,9 @@ namespace LinkedList
 
         public int Count { get; private set; }
 
-        public LinkedListNode<T> First => Count != 0 ? sentinel.Next : throw NodeIsNull();
+        public LinkedListNode<T> First => Count != 0 ? sentinel.Next : CheckNode();
 
-        public LinkedListNode<T> Last => Count != 0 ? sentinel.Previous : throw NodeIsNull();
+        public LinkedListNode<T> Last => Count != 0 ? sentinel.Previous : CheckNode();
 
         public void Add(T item)
         {
@@ -35,10 +35,8 @@ namespace LinkedList
 
         public void AddAfter(LinkedListNode<T> item, LinkedListNode<T> node)
         {
-            if (item == null || node == null || node.List != this)
-            {
-                throw NodeIsNull();
-            }
+            CheckNode(item);
+            CheckNode(node);
 
             item.LinkTo(node, node.Next);
             node.Next.LinkTo(item, node.Next.Next);
@@ -77,7 +75,7 @@ namespace LinkedList
 
         public LinkedListNode<T> Find(T item)
         {
-            foreach (var node in GetNodesAtStart())
+            foreach (var node in EnumerateNodes())
             {
                 if (node.Value.Equals(item))
                 {
@@ -90,7 +88,7 @@ namespace LinkedList
 
         public LinkedListNode<T> FindLast(T item)
         {
-            foreach (var node in GetNodesAtEnd())
+            foreach (var node in EnumerateNodesBackwards())
             {
                 if (node.Value.Equals(item))
                 {
@@ -113,30 +111,22 @@ namespace LinkedList
                 throw new InvalidOperationException("Array is null!");
             }
 
-            var node = GetNodeAtIndex(arrayIndex);
-
-            if (node == null)
+            if (arrayIndex >= array.Length || array.Length < arrayIndex + Count)
             {
-                throw NodeIsNull();
+                throw new InvalidOperationException("Index is out of range");
             }
 
-            int index = 0;
-
-            for (var i = node; i != sentinel; i = i.Next)
+            foreach (var node in EnumerateNodes())
             {
-                array[index] = node.Value;
-                index++;
+                array.SetValue(node.Value, arrayIndex++);
             }
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            var currentNode = sentinel;
-
-            for (int i = 0; i < Count; i++)
+            foreach (var node in EnumerateNodes())
             {
-                currentNode = currentNode.Next;
-                yield return currentNode.Value;
+                yield return node.Value;
             }
         }
 
@@ -190,7 +180,7 @@ namespace LinkedList
             return this.GetEnumerator();
         }
 
-        private IEnumerable<LinkedListNode<T>> GetNodesAtStart()
+        private IEnumerable<LinkedListNode<T>> EnumerateNodes()
         {
             for (LinkedListNode<T> i = sentinel.Next; i != sentinel; i = i.Next)
             {
@@ -198,7 +188,7 @@ namespace LinkedList
             }
         }
 
-        private IEnumerable<LinkedListNode<T>> GetNodesAtEnd()
+        private IEnumerable<LinkedListNode<T>> EnumerateNodesBackwards()
         {
             for (LinkedListNode<T> i = sentinel.Previous; i != sentinel; i = i.Previous)
             {
@@ -206,31 +196,19 @@ namespace LinkedList
             }
         }
 
-        private LinkedListNode<T> GetNodeAtIndex(int index)
-        {
-            if (index < 0 || index >= Count)
+        private LinkedListNode<T> CheckNode(LinkedListNode<T> node = null)
             {
-                throw new InvalidOperationException($"Index cannot be less than 0 and greater or equal to {Count}.");
+            if (node == null)
+            {
+                throw new InvalidOperationException("The node is null! The node should be initializated before calling this method");
             }
 
-            int currentIndex = 0;
-
-            foreach (var node in GetNodesAtStart())
+            if (node.List != this)
             {
-                if (currentIndex == index)
-                {
-                    return node;
-                }
-
-                currentIndex++;
+                throw new InvalidOperationException("The node is not in the current list or belongs to another list");
             }
 
-            return null;
-        }
-
-        private Exception NodeIsNull()
-        {
-            return new InvalidOperationException("The node is null! The node should be initializated before calling this method");
+            return node;
         }
     }
 }
