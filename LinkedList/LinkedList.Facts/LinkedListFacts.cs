@@ -20,5 +20,22 @@ namespace LinkedList.Facts
             var err = Assert.Throws<InvalidOperationException>(() => list.First);
             Assert.Equal("The node is null! The node should be initializated before calling this method", err.Message);
         }
+
+        [Fact]
+        public void LastProprietyReturnException()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>();
+            var err = Assert.Throws<InvalidOperationException>(() => list.Last);
+            Assert.Equal("The node is null! The node should be initializated before calling this method", err.Message);
+        }
+
+        [Fact]
+        public void ThisProprietyReturnException()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>();
+            var err = Assert.Throws<InvalidOperationException>(() => list[0]);
+            Assert.Equal("Index is out of range. Index should be less than 0.", err.Message);
+            
+        }
     }
 }
