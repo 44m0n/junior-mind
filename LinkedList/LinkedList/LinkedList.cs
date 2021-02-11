@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LinkedList
 {
@@ -24,6 +23,19 @@ namespace LinkedList
         public LinkedListNode<T> First => Count != 0 ? sentinel.Next : throw NodeIsNull();
 
         public LinkedListNode<T> Last => Count != 0 ? sentinel.Previous : throw NodeIsNull();
+
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= Count)
+                {
+                    throw new InvalidOperationException($"Index is out of range. Index should be less than {Count}.");
+                }
+
+                return GetNodeAtIndex(index).Value;
+            }
+        }
 
         public void Add(T item)
         {
@@ -81,7 +93,7 @@ namespace LinkedList
             InsertNode(node.Previous, new LinkedListNode<T>(item), node);
         }
 
-        public void Addfirst(LinkedListNode<T> item)
+        public void AddFirst(LinkedListNode<T> item)
         {
             if (item == null)
             {
@@ -91,7 +103,7 @@ namespace LinkedList
             InsertNode(sentinel, item, sentinel.Next);
         }
 
-        public void Addfirst(T item)
+        public void AddFirst(T item)
         {
             InsertNode(sentinel, new LinkedListNode<T>(item), sentinel.Next);
         }
