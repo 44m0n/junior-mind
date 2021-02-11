@@ -25,18 +25,12 @@ namespace LinkedList
 
         public void Add(T item)
         {
-            var nodeToAdd = new LinkedListNode<T>(item, this);
-            InsertNode(sentinel.Previous, nodeToAdd, sentinel);
+            AddAfter(new LinkedListNode<T>(item, this), sentinel.Previous);
         }
 
         public void Add(LinkedListNode<T> item)
         {
-            if (item == null)
-            {
-                throw NodeIsNull();
-            }
-
-            InsertNode(sentinel.Previous, item, sentinel);
+            AddAfter(item, sentinel.Previous);
         }
 
         public void AddAfter(LinkedListNode<T> item, LinkedListNode<T> node)
@@ -53,47 +47,27 @@ namespace LinkedList
 
         public void AddAfter(T item, LinkedListNode<T> node)
         {
-            if (node == null || !Contains(node.Value))
-            {
-                throw NodeIsNull();
-            }
-
-            InsertNode(node, new LinkedListNode<T>(item, this), node.Next);
+            AddAfter(new LinkedListNode<T>(item, this), node);
         }
 
         public void AddBefore(LinkedListNode<T> item, LinkedListNode<T> node)
         {
-            if (item == null || node == null || !Contains(node.Value))
-            {
-                throw NodeIsNull();
-            }
-
-            InsertNode(node.Previous, item, node);
+            AddAfter(item, node?.Previous);
         }
 
         public void AddBefore(T item, LinkedListNode<T> node)
         {
-            if (node == null || !Contains(node.Value))
-            {
-                throw NodeIsNull();
-            }
-
-            InsertNode(node.Previous, new LinkedListNode<T>(item, this), node);
+            AddAfter(new LinkedListNode<T>(item, this), node?.Previous);
         }
 
         public void AddFirst(LinkedListNode<T> item)
         {
-            if (item == null)
-            {
-                throw NodeIsNull();
-            }
-
-            InsertNode(sentinel, item, sentinel.Next);
+            AddAfter(item, sentinel);
         }
 
         public void AddFirst(T item)
         {
-            InsertNode(sentinel, new LinkedListNode<T>(item, this), sentinel.Next);
+            AddAfter(new LinkedListNode<T>(item, this), sentinel);
         }
 
         public void Clear()
@@ -230,14 +204,6 @@ namespace LinkedList
             {
                 yield return i;
             }
-        }
-
-        private void InsertNode(LinkedListNode<T> first, LinkedListNode<T> actual, LinkedListNode<T> last)
-        {
-            actual.LinkTo(first, last);
-            first.LinkTo(last.Previous, actual);
-            last.LinkTo(actual, last.Next);
-            Count++;
         }
 
         private LinkedListNode<T> GetNodeAtIndex(int index)
