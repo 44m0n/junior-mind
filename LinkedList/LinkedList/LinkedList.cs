@@ -41,12 +41,14 @@ namespace LinkedList
 
         public void AddAfter(LinkedListNode<T> item, LinkedListNode<T> node)
         {
-            if (item == null || node == null || !Contains(node.Value))
+            if (item == null || node == null || node.List != this)
             {
                 throw NodeIsNull();
             }
 
-            InsertNode(node, item, node.Next);
+            item.LinkTo(node, node.Next);
+            node.Next.LinkTo(item, node.Next.Next);
+            node.LinkTo(node.Previous, item);
         }
 
         public void AddAfter(T item, LinkedListNode<T> node)
