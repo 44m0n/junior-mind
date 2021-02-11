@@ -116,7 +116,7 @@ namespace LinkedList
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            return Find(item) != null;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
