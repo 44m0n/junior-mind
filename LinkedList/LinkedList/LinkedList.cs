@@ -103,7 +103,20 @@ namespace LinkedList
 
         public LinkedListNode<T> Find(T item)
         {
-            foreach (var node in GetNodes())
+            foreach (var node in GetNodesAtStart())
+            {
+                if (node.Value.CompareTo(item) == 0)
+                {
+                    return node;
+                }
+            }
+
+            return null;
+        }
+
+        public LinkedListNode<T> FindLast(T item)
+        {
+            foreach (var node in GetNodesAtEnd())
             {
                 if (node.Value.CompareTo(item) == 0)
                 {
@@ -145,9 +158,17 @@ namespace LinkedList
             return this.GetEnumerator();
         }
 
-        private IEnumerable<LinkedListNode<T>> GetNodes()
+        private IEnumerable<LinkedListNode<T>> GetNodesAtStart()
         {
             for (LinkedListNode<T> i = sentinel.Next; i != sentinel; i = i.Next)
+            {
+                yield return i;
+            }
+        }
+
+        private IEnumerable<LinkedListNode<T>> GetNodesAtEnd()
+        {
+            for (LinkedListNode<T> i = sentinel.Previous; i != sentinel; i = i.Previous)
             {
                 yield return i;
             }
