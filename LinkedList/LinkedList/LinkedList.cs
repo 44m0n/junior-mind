@@ -6,6 +6,7 @@ using System.Text;
 namespace LinkedList
 {
     public class LinkedListCollection<T> : ICollection<T>
+        where T : IComparable<T>
     {
         private readonly LinkedListNode<T> sentinel;
 
@@ -100,6 +101,19 @@ namespace LinkedList
             Count = 0;
         }
 
+        public LinkedListNode<T> Find(T item)
+        {
+            foreach (var node in GetNodes())
+            {
+                if (node.Value.CompareTo(item) == 0)
+                {
+                    return node;
+                }
+            }
+
+            return null;
+        }
+
         public bool Contains(T item)
         {
             throw new NotImplementedException();
@@ -129,6 +143,14 @@ namespace LinkedList
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        private IEnumerable<LinkedListNode<T>> GetNodes()
+        {
+            for (LinkedListNode<T> i = sentinel.Next; i != sentinel; i = i.Next)
+            {
+                yield return i;
+            }
         }
 
         private void InsertNode(LinkedListNode<T> first, LinkedListNode<T> actual, LinkedListNode<T> last)
