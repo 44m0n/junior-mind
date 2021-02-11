@@ -48,5 +48,8 @@ namespace LinkedList.Facts
             Assert.Equal(2, list.First.Value);
             Assert.Equal(2, list.Last.Value);
         }
+
+        [Fact]
+        public AddAfter
     }
 }
