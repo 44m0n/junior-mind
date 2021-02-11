@@ -23,19 +23,6 @@ namespace LinkedList
 
         public LinkedListNode<T> Last => Count != 0 ? sentinel.Previous : throw NodeIsNull();
 
-        public T this[int index]
-        {
-            get
-            {
-                if (index >= Count)
-                {
-                    throw new InvalidOperationException($"Index is out of range. Index should be less than {Count}.");
-                }
-
-                return GetNodeAtIndex(index).Value;
-            }
-        }
-
         public void Add(T item)
         {
             var nodeToAdd = new LinkedListNode<T>(item, this);
