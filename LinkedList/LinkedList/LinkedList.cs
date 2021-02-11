@@ -5,15 +5,14 @@ using System.Collections.Generic;
 namespace LinkedList
 {
     public class LinkedListCollection<T> : ICollection<T>
-        where T : IComparable<T>
     {
         private readonly LinkedListNode<T> sentinel;
 
         public LinkedListCollection()
         {
             Count = 0;
-            sentinel = new LinkedListNode<T>(default);
-            sentinel.IsLinkedTo(sentinel, sentinel);
+            sentinel = new LinkedListNode<T>(default, this);
+            sentinel.LinkTo(sentinel, sentinel);
         }
 
         public bool IsReadOnly { get; }
@@ -39,7 +38,7 @@ namespace LinkedList
 
         public void Add(T item)
         {
-            var nodeToAdd = new LinkedListNode<T>(item);
+            var nodeToAdd = new LinkedListNode<T>(item, this);
             InsertNode(sentinel.Previous, nodeToAdd, sentinel);
         }
 
@@ -70,7 +69,7 @@ namespace LinkedList
                 throw NodeIsNull();
             }
 
-            InsertNode(node, new LinkedListNode<T>(item), node.Next);
+            InsertNode(node, new LinkedListNode<T>(item, this), node.Next);
         }
 
         public void AddBefore(LinkedListNode<T> item, LinkedListNode<T> node)
@@ -90,7 +89,7 @@ namespace LinkedList
                 throw NodeIsNull();
             }
 
-            InsertNode(node.Previous, new LinkedListNode<T>(item), node);
+            InsertNode(node.Previous, new LinkedListNode<T>(item, this), node);
         }
 
         public void AddFirst(LinkedListNode<T> item)
@@ -105,7 +104,7 @@ namespace LinkedList
 
         public void AddFirst(T item)
         {
-            InsertNode(sentinel, new LinkedListNode<T>(item), sentinel.Next);
+            InsertNode(sentinel, new LinkedListNode<T>(item, this), sentinel.Next);
         }
 
         public void Clear()
@@ -117,7 +116,7 @@ namespace LinkedList
         {
             foreach (var node in GetNodesAtStart())
             {
-                if (node.Value.CompareTo(item) == 0)
+                if (node.Value.Equals(item))
                 {
                     return node;
                 }
@@ -130,7 +129,7 @@ namespace LinkedList
         {
             foreach (var node in GetNodesAtEnd())
             {
-                if (node.Value.CompareTo(item) == 0)
+                if (node.Value.Equals(item))
                 {
                     return node;
                 }
@@ -246,9 +245,9 @@ namespace LinkedList
 
         private void InsertNode(LinkedListNode<T> first, LinkedListNode<T> actual, LinkedListNode<T> last)
         {
-            actual.IsLinkedTo(first, last);
-            first.IsLinkedTo(last.Previous, actual);
-            last.IsLinkedTo(actual, last.Next);
+            actual.LinkTo(first, last);
+            first.LinkTo(last.Previous, actual);
+            last.LinkTo(actual, last.Next);
             Count++;
         }
 
