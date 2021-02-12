@@ -86,5 +86,16 @@ namespace LinkedList.Facts
             Assert.Equal(4, list.Count);
             Assert.Equal(5, list.First.Value);
         }
+
+        [Fact]
+        public void AddFirst()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>() { 1, 2, 3 };
+
+            Assert.Equal(1, list.First.Value);
+            list.AddFirst(5);
+            Assert.Equal(4, list.Count);
+            Assert.Equal(5, list.First.Value);
+        }
     }
 }
