@@ -152,5 +152,14 @@ namespace LinkedList.Facts
             list.RemoveLast();
             Assert.Equal(2, list.Last.Value);
         }
+
+        [Fact]
+        public void RemoveT()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>() { 1, 2, 2, 3 };
+            list.Remove(1);
+            Assert.Equal(2, list.First.Value);
+            Assert.Equal(3, list.Count);
+        }
     }
 }
