@@ -125,5 +125,16 @@ namespace LinkedList.Facts
             var node = list.Find(5);
             Assert.Null(node);
         }
+
+        [Fact]
+        public void FindLast()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>() { 1, 2, 2, 3 };
+
+            var node = list.FindLast(2);
+            Assert.Equal(2, node.Value);
+            Assert.Equal(2, node.Previous.Value);
+            Assert.Equal(3, node.Next.Value);
+        }
     }
 }
