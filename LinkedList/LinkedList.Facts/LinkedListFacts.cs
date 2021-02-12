@@ -136,5 +136,13 @@ namespace LinkedList.Facts
             Assert.Equal(2, node.Previous.Value);
             Assert.Equal(3, node.Next.Value);
         }
+
+        [Fact]
+        public void RemoveFirst()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>() { 1, 2, 2, 3 };
+            list.RemoveFirst();
+            Assert.Equal(2, list.First.Value);
+        }
     }
 }
