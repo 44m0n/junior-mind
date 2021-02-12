@@ -161,5 +161,13 @@ namespace LinkedList.Facts
             Assert.Equal(2, list.First.Value);
             Assert.Equal(3, list.Count);
         }
+
+        [Fact]
+        public void Contains()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>() { 1, 2, 2, 3 };
+            Assert.True(list.Contains(1));
+            Assert.False(list.Contains(5));
+        }
     }
 }
