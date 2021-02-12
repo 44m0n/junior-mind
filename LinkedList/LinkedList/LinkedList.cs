@@ -153,6 +153,7 @@ namespace LinkedList
 
             item.Previous.Next = item.Next;
             item.Next.Previous = item.Previous;
+            Count--;
 
             return true;
         }
