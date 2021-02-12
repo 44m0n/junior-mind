@@ -41,6 +41,7 @@ namespace LinkedList
             item.LinkTo(node, node.Next);
             node.Next.LinkTo(item, node.Next.Next);
             node.LinkTo(node.Previous, item);
+            Count++;
         }
 
         public void AddAfter(T item, LinkedListNode<T> node)
