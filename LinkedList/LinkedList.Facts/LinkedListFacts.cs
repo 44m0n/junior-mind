@@ -97,5 +97,15 @@ namespace LinkedList.Facts
             Assert.Equal(4, list.Count);
             Assert.Equal(5, list.First.Value);
         }
+
+        [Fact]
+        public void CheckNeighbors()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>() { 1, 2, 3 };
+
+            var node = list.Last.Previous;
+            Assert.Equal(1, node.Previous.Value);
+            Assert.Equal(3, node.Next.Value);
+        }
     }
 }
