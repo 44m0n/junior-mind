@@ -116,5 +116,14 @@ namespace LinkedList.Facts
             var node = list.Find(2);
             Assert.Equal(2, node.Value);
         }
+
+        [Fact]
+        public void FindReturnNull()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>() { 1, 2, 3 };
+
+            var node = list.Find(5);
+            Assert.Null(node);
+        }
     }
 }
