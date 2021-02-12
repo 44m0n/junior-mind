@@ -160,12 +160,12 @@ namespace LinkedList
 
         public void RemoveFirst()
         {
-            Remove(First.Value);
+            Remove(First);
         }
 
         public void RemoveLast()
         {
-            Remove(Last.Value);
+            Remove(Last);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
