@@ -144,5 +144,13 @@ namespace LinkedList.Facts
             list.RemoveFirst();
             Assert.Equal(2, list.First.Value);
         }
+
+        [Fact]
+        public void RemoveLast()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>() { 1, 2, 2, 3 };
+            list.RemoveLast();
+            Assert.Equal(2, list.Last.Value);
+        }
     }
 }
