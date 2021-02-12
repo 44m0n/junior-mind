@@ -30,26 +30,24 @@ namespace LinkedList.Facts
         }
 
         [Fact]
-        public void ThisProprietyReturnException()
-        {
-            LinkedListCollection<int> list = new LinkedListCollection<int>();
-            var err = Assert.Throws<InvalidOperationException>(() => list[0]);
-            Assert.Equal("Index is out of range. Index should be less than 0.", err.Message);
-            
-        }
-
-        [Fact]
         public void AddFact()
         {
             LinkedListCollection<int> list = new LinkedListCollection<int>();
             list.Add(2);
             Assert.Equal(1, list.Count);
-            Assert.Equal(2, list[0]);
             Assert.Equal(2, list.First.Value);
             Assert.Equal(2, list.Last.Value);
         }
 
         [Fact]
-        public AddAfter
+        public void AddFactNode()
+        {
+            LinkedListCollection<int> list = new LinkedListCollection<int>();
+            LinkedListNode<int> node = new LinkedListNode<int>(2, list);
+            list.Add(node);
+            Assert.Equal(1, list.Count);
+            Assert.Equal(2, list.First.Value);
+            Assert.Equal(2, list.Last.Value);
+        }
     }
 }
