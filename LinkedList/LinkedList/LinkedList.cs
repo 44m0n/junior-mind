@@ -196,7 +196,7 @@ namespace LinkedList
                 throw new InvalidOperationException("The node is null! The node should be initializated before calling this method");
             }
 
-            if (node.List != this)
+            if (node.List != this && node.List != null)
             {
                 throw new InvalidOperationException("The node is not in the current list or belongs to another list");
             }

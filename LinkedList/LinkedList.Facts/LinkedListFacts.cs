@@ -54,7 +54,8 @@ namespace LinkedList.Facts
         public void AddFactNodeReturnException()
         {
             LinkedListCollection<int> list = new LinkedListCollection<int>();
-            LinkedListNode<int> node = new LinkedListNode<int>(2, default);
+            LinkedListCollection<int> list2 = new LinkedListCollection<int>();
+            LinkedListNode<int> node = new LinkedListNode<int>(2, list2);
             var err = Assert.Throws<InvalidOperationException>(() => list.Add(node));
             Assert.Equal("The node is not in the current list or belongs to another list", err.Message);
             Assert.Equal(0, list.Count);
