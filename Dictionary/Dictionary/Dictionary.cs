@@ -34,7 +34,13 @@ namespace Dictionary
 
         public bool IsReadOnly => false;
 
-        public TValue this[TKey key] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public TValue this[TKey key]
+        {
+            get
+            {
+                return elements[SearchKeyIndex(key)].Value;
+            }
+        }
 
         public void Add(TKey key, TValue value)
         {
@@ -98,6 +104,19 @@ namespace Dictionary
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        private int SearchKeyIndex(TKey key)
+        {
+            for (int index = buckets[GetKeyIndex(key)]; index > -1; index = elements[index].Next)
+            {
+                if (elements[index].Key.Equals(key))
+                {
+                    return index;
+                }
+            }
+
+            return -1;
         }
 
         private int GetKeyIndex(TKey key)
