@@ -30,5 +30,15 @@ namespace Dictionary.Facts
             dict[1] = "altceva";
             Assert.Equal("altceva", dict[1]);
         }
+
+        [Fact]
+        public void ClearFacts()
+        {
+            var dict = new Dictionary.DictionaryObject<int, string>();
+            dict.Add(1, "ceva");
+            Assert.Equal(1, dict.Count);
+            dict.Clear();
+            Assert.Equal(0, dict.Count);
+        }
     }
 }

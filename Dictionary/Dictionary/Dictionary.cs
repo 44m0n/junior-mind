@@ -65,7 +65,8 @@ namespace Dictionary
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            Count = 0;
+            Array.Fill(buckets, -1);
         }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
