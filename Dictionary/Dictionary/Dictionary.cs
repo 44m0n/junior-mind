@@ -31,7 +31,7 @@ namespace Dictionary
 
         public int Count { get; private set;  }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => false;
 
         public TValue this[TKey key] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
