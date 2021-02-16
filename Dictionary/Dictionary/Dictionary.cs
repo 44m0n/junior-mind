@@ -9,26 +9,27 @@ namespace Dictionary
     public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         private int[] buckets;
-        private Element<TKey, TValue>[] elements;
-        private int Count = 0;
+        private Element<TKey, TValue>[] elements
         private int freeIndex = -1;
 
-        public Dictionary (int size)
+        public Dictionary(int size)
         {
             buckets = new int[size];
             elements = new Element<TKey, TValue>[size];
 
-            for (int i = 0; i < elements.Length; i++)
+            for (int i = 0; i < size; i++)
             {
                 buckets[i] = -1;
             }
+
+            Count = 0;
         }
 
         public ICollection<TKey> Keys => throw new NotImplementedException();
 
         public ICollection<TValue> Values => throw new NotImplementedException();
 
-        public int Count => throw new NotImplementedException();
+        public int Count { get; private set;  }
 
         public bool IsReadOnly => throw new NotImplementedException();
 
