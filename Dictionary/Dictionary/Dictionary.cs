@@ -38,14 +38,14 @@ namespace Dictionary
         {
             get
             {
-                ArgumentIsNullException(key);
+                KeyIsNullException(key);
                 KeyNotFoundException(key);
                 return elements[ElementIndex(key)].Value;
             }
 
             set
             {
-                ArgumentIsNullException(key);
+                KeyIsNullException(key);
                 KeyNotFoundException(key);
                 elements[ElementIndex(key)].Value = value;
             }
@@ -53,6 +53,7 @@ namespace Dictionary
 
         public void Add(TKey key, TValue value)
         {
+            KeyIsNullException(key);
             KeyIsInvalid(key);
             int bucketIndex = GetBucketIndex(key);
             int index = GetNextEmptyPosition();
@@ -65,6 +66,7 @@ namespace Dictionary
 
         public void Add(KeyValuePair<TKey, TValue> item)
         {
+            KeyIsNullException(item.Key);
             Add(item.Key, item.Value);
         }
 
@@ -120,6 +122,8 @@ namespace Dictionary
 
         public bool Remove(TKey key)
         {
+            KeyIsNullException(key);
+
             (int position, int last) keyIndex = SearchKeyIndex(key);
 
             if (keyIndex.position == -1)
@@ -194,7 +198,7 @@ namespace Dictionary
             return index;
         }
 
-        private void ArgumentIsNullException(TKey key)
+        private void KeyIsNullException(TKey key)
             {
             if (key != null)
             {
