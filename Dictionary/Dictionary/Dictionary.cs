@@ -74,7 +74,10 @@ namespace Dictionary
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach (var element in elements)
+            {
+                yield return new KeyValuePair<TKey, TValue>(element.Key, element.Value);
+            }
         }
 
         public bool Remove(TKey key)
@@ -94,7 +97,7 @@ namespace Dictionary
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
 
         private int GetKeyIndex(TKey key)
