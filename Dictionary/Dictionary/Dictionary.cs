@@ -6,13 +6,14 @@ using System.Text;
 
 namespace Dictionary
 {
-    public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    public class DictionaryObject<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private int[] buckets;
-        private Element<TKey, TValue>[] elements
+        private readonly int size = 5;
+        private readonly int[] buckets;
+        private readonly Element<TKey, TValue>[] elements;
         private int freeIndex = -1;
 
-        public Dictionary(int size)
+        public DictionaryObject()
         {
             buckets = new int[size];
             elements = new Element<TKey, TValue>[size];
@@ -37,7 +38,13 @@ namespace Dictionary
 
         public void Add(TKey key, TValue value)
         {
-            throw new NotImplementedException();
+            int bucketIndex = GetKeyIndex(key);
+            int index = GetNextEmptyPosition();
+
+            elements[index] = new Element<TKey, TValue>(key, value, buckets[bucketIndex]);
+            buckets[bucketIndex] = index;
+
+            Count++;
         }
 
         public void Add(KeyValuePair<TKey, TValue> item)
@@ -88,6 +95,23 @@ namespace Dictionary
         IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
+        }
+
+        private int GetKeyIndex(TKey key)
+        {
+            return Math.Abs(key.GetHashCode() % buckets.Length);
+        }
+
+        private int GetNextEmptyPosition()
+        {
+            if (freeIndex == -1)
+            {
+                return Count;
+            }
+
+            int index = freeIndex;
+            freeIndex = elements[freeIndex].Next;
+            return index;
         }
     }
 }
