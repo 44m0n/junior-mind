@@ -71,12 +71,12 @@ namespace Dictionary
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return SearchKeyIndex(item.Key) > -1;
+            return SearchKeyIndex(item.Key).Item1 > -1;
         }
 
         public bool ContainsKey(TKey key)
         {
-            return SearchKeyIndex(key) > -1;
+            return SearchKeyIndex(key).Item1 > -1;
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
@@ -98,7 +98,16 @@ namespace Dictionary
 
         public bool Remove(TKey key)
         {
-            throw new NotImplementedException();
+            int index = SearchKeyIndex(key);
+
+            int last = -1;
+
+            if (index == -1)
+            {
+                return false;
+            }
+
+            for (int i - buc)
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)
@@ -116,17 +125,19 @@ namespace Dictionary
             return GetEnumerator();
         }
 
-        private int SearchKeyIndex(TKey key)
+        private (int, int) SearchKeyIndex(TKey key, int last = -1)
         {
             for (int index = buckets[GetKeyIndex(key)]; index > -1; index = elements[index].Next)
             {
                 if (elements[index].Key.Equals(key))
                 {
-                    return index;
+                    return (index, last);
                 }
+
+                last = index;
             }
 
-            return -1;
+            return (-1, last);
         }
 
         private int GetKeyIndex(TKey key)
