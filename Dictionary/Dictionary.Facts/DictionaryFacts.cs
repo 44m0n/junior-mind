@@ -21,5 +21,14 @@ namespace Dictionary.Facts
             dict.Add(1, "ceva");
             Assert.Equal("ceva", dict[1]);
         }
+
+        [Fact]
+        public void IndexSet()
+        {
+            var dict = new Dictionary.DictionaryObject<int, string>();
+            dict.Add(1, "ceva");
+            dict[1] = "altceva";
+            Assert.Equal("altceva", dict[1]);
+        }
     }
 }

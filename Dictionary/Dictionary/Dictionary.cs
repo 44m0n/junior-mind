@@ -43,7 +43,7 @@ namespace Dictionary
 
             set
             {
-                throw new NotImplementedException();
+                elements[SearchKeyIndex(key)].Value = value;
             }
         }
 
