@@ -8,6 +8,22 @@ namespace Dictionary
 {
     public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
+        private int[] buckets;
+        private Element<TKey, TValue>[] elements;
+        private int Count = 0;
+        private int freeIndex = -1;
+
+        public Dictionary (int size)
+        {
+            buckets = new int[size];
+            elements = new Element<TKey, TValue>[size];
+
+            for (int i = 0; i < elements.Length; i++)
+            {
+                buckets[i] = -1;
+            }
+        }
+
         public ICollection<TKey> Keys => throw new NotImplementedException();
 
         public ICollection<TValue> Values => throw new NotImplementedException();
