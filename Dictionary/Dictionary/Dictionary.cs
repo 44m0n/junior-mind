@@ -40,6 +40,11 @@ namespace Dictionary
             {
                 return elements[SearchKeyIndex(key)].Value;
             }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public void Add(TKey key, TValue value)
