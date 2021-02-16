@@ -1,14 +1,17 @@
 using System;
 using Xunit;
+using Dictionary;
 
 namespace Dictionary.Facts
 {
-    public class UnitTest1
+    public class DictionaryFacts
     {
         [Fact]
-        public void Test1()
+        public void AddFact()
         {
-
+            var dict = new Dictionary.DictionaryObject<int, string>();
+            dict.Add(1, "ceva");
+            Assert.Equal(1, dict.Count);
         }
     }
 }
