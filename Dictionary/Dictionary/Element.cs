@@ -8,7 +8,7 @@ namespace Dictionary
     {
         public TKey Key;
         public TValue Value;
-        public int Next = -1;
+        public int Next;
 
         public Element(TKey key, TValue value, int next)
         {
