@@ -38,17 +38,22 @@ namespace Dictionary
         {
             get
             {
+                ArgumentIsNullException(key);
+                KeyNotFoundException(key);
                 return elements[ElementIndex(key)].Value;
             }
 
             set
             {
+                ArgumentIsNullException(key);
+                KeyNotFoundException(key);
                 elements[ElementIndex(key)].Value = value;
             }
         }
 
         public void Add(TKey key, TValue value)
         {
+            KeyIsInvalid(key);
             int bucketIndex = GetBucketIndex(key);
             int index = GetNextEmptyPosition();
 
@@ -81,9 +86,19 @@ namespace Dictionary
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
+            if (array == null)
+            {
+                throw new InvalidOperationException("Array is null!");
+            }
+
+            if (arrayIndex >= array.Length || array.Length < arrayIndex + Count)
+            {
+                throw new InvalidOperationException("Index is out of range");
+            }
+
             foreach (var element in elements)
             {
-                array?.SetValue(element.Value, arrayIndex++);
+                array.SetValue(element.Value, arrayIndex++);
             }
         }
 
@@ -177,6 +192,36 @@ namespace Dictionary
             int index = freeIndex;
             freeIndex = elements[freeIndex].Next;
             return index;
+        }
+
+        private void ArgumentIsNullException(TKey key)
+            {
+            if (key != null)
+            {
+                return;
+            }
+
+            throw new ArgumentNullException(nameof(key));
+        }
+
+        private void KeyNotFoundException(TKey key)
+        {
+            if (ContainsKey(key))
+            {
+                return;
+            }
+
+            throw new KeyNotFoundException($"{key} doesn't exists in the actual dictionary!");
+        }
+
+        private void KeyIsInvalid(TKey key)
+        {
+            if (!ContainsKey(key))
+            {
+                return;
+            }
+
+            throw new ArgumentException($"{key} already exists in the current dictionary!");
         }
     }
 }
