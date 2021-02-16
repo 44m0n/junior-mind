@@ -38,18 +38,18 @@ namespace Dictionary
         {
             get
             {
-                return elements[SearchKeyIndex(key)].Value;
+                return elements[SearchKeyIndex(key).Item1].Value;
             }
 
             set
             {
-                elements[SearchKeyIndex(key)].Value = value;
+                elements[SearchKeyIndex(key).Item1].Value = value;
             }
         }
 
         public void Add(TKey key, TValue value)
         {
-            int bucketIndex = GetKeyIndex(key);
+            int bucketIndex = GetBucketIndex(key);
             int index = GetNextEmptyPosition();
 
             elements[index] = new Element<TKey, TValue>(key, value, buckets[bucketIndex]);
@@ -81,7 +81,6 @@ namespace Dictionary
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            // Exceptions
             foreach (var element in elements)
             {
                 array?.SetValue(element.Value, arrayIndex++);
@@ -98,21 +97,31 @@ namespace Dictionary
 
         public bool Remove(TKey key)
         {
-            int index = SearchKeyIndex(key);
+            (int position, int last) keyIndex = SearchKeyIndex(key);
 
-            int last = -1;
-
-            if (index == -1)
+            if (keyIndex.position == -1)
             {
                 return false;
             }
 
-            for (int i - buc)
+            if (keyIndex.last != -1)
+            {
+                elements[keyIndex.last].Next = elements[keyIndex.position].Next;
+            }
+            else
+            {
+                buckets[GetBucketIndex(key)] = elements[keyIndex.position].Next;
+            }
+
+            elements[keyIndex.position].Next = freeIndex;
+            freeIndex = keyIndex.position;
+            Count--;
+            return true;
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotImplementedException();
+            return Remove(item.Key);
         }
 
         public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
@@ -127,7 +136,7 @@ namespace Dictionary
 
         private (int, int) SearchKeyIndex(TKey key, int last = -1)
         {
-            for (int index = buckets[GetKeyIndex(key)]; index > -1; index = elements[index].Next)
+            for (int index = buckets[GetBucketIndex(key)]; index > -1; index = elements[index].Next)
             {
                 if (elements[index].Key.Equals(key))
                 {
@@ -140,7 +149,7 @@ namespace Dictionary
             return (-1, last);
         }
 
-        private int GetKeyIndex(TKey key)
+        private int GetBucketIndex(TKey key)
         {
             return Math.Abs(key.GetHashCode() % buckets.Length);
         }
