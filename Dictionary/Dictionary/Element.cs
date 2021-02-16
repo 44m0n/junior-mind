@@ -10,7 +10,7 @@ namespace Dictionary
         public TValue Value;
         public int Next;
 
-        public Element(TKey key, TValue value, int next)
+        public Element(TKey key, TValue value, int next = -1)
         {
             this.Key = key;
             this.Value = value;
