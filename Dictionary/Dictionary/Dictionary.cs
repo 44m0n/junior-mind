@@ -38,12 +38,12 @@ namespace Dictionary
         {
             get
             {
-                return elements[SearchKeyIndex(key).Item1].Value;
+                return elements[ElementIndex(key)].Value;
             }
 
             set
             {
-                elements[SearchKeyIndex(key).Item1].Value = value;
+                elements[ElementIndex(key)].Value = value;
             }
         }
 
@@ -71,12 +71,12 @@ namespace Dictionary
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return SearchKeyIndex(item.Key).Item1 > -1;
+            return ElementIndex(item.Key) > -1;
         }
 
         public bool ContainsKey(TKey key)
         {
-            return SearchKeyIndex(key).Item1 > -1;
+            return ElementIndex(key) > -1;
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
@@ -89,9 +89,17 @@ namespace Dictionary
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            foreach (var element in elements)
+            int currentLength = Count;
+
+            for (int i = 0; i < currentLength; i++)
             {
-                yield return new KeyValuePair<TKey, TValue>(element.Key, element.Value);
+                if (!ContainsKey(elements[i].Key))
+                {
+                    currentLength++;
+                    continue;
+                }
+
+                yield return new KeyValuePair<TKey, TValue>(elements[i].Key, elements[i].Value);
             }
         }
 
@@ -147,6 +155,11 @@ namespace Dictionary
             }
 
             return (-1, last);
+        }
+
+        private int ElementIndex(TKey key)
+        {
+            return SearchKeyIndex(key).Item1;
         }
 
         private int GetBucketIndex(TKey key)
