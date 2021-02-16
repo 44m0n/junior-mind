@@ -40,5 +40,13 @@ namespace Dictionary.Facts
             dict.Clear();
             Assert.Equal(0, dict.Count);
         }
+
+        public void ContainsFacts()
+        {
+            var dict = new Dictionary.DictionaryObject<int, string>();
+            dict.Add(1, "ceva");
+
+            Assert.True(dict.ContainsKey(1));
+        }
     }
 }

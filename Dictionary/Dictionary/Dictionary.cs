@@ -71,12 +71,12 @@ namespace Dictionary
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotImplementedException();
+            return SearchKeyIndex(item.Key) > -1;
         }
 
         public bool ContainsKey(TKey key)
         {
-            throw new NotImplementedException();
+            return SearchKeyIndex(key) > -1;
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
