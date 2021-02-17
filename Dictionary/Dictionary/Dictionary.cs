@@ -106,7 +106,9 @@ namespace Dictionary
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return ElementIndex(item.Key) > -1;
+            int index = ElementIndex(item.Key);
+
+            return index > -1 && elements[index].Value.Equals(item.Value);
         }
 
         public bool ContainsKey(TKey key)
