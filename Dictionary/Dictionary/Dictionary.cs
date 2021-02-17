@@ -113,6 +113,7 @@ namespace Dictionary
 
         public bool ContainsKey(TKey key)
         {
+            KeyIsNullException(key);
             return ElementIndex(key) > -1;
         }
 
