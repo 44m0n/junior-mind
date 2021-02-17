@@ -183,6 +183,8 @@ namespace Dictionary
 
         public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
         {
+            KeyIsNullException(key);
+
             int index = ElementIndex(key);
 
             if (index > -1)
