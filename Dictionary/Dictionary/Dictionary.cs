@@ -18,17 +18,40 @@ namespace Dictionary
             buckets = new int[size];
             elements = new Element<TKey, TValue>[size];
 
-            for (int i = 0; i < size; i++)
-            {
-                buckets[i] = -1;
-            }
+            Clear();
 
             Count = 0;
         }
 
-        public ICollection<TKey> Keys => throw new NotImplementedException();
+        public ICollection<TKey> Keys
+        {
+            get
+            {
+                var list = new List<TKey>();
 
-        public ICollection<TValue> Values => throw new NotImplementedException();
+                foreach (var e in this)
+                {
+                    list.Add(e.Key);
+                }
+
+                return list;
+            }
+        }
+
+        public ICollection<TValue> Values
+        {
+            get
+            {
+                var list = new List<TValue>();
+
+                foreach (var e in this)
+                {
+                    list.Add(e.Value);
+                }
+
+                return list;
+            }
+        }
 
         public int Count { get; private set;  }
 
@@ -39,14 +62,19 @@ namespace Dictionary
             get
             {
                 KeyIsNullException(key);
-                KeyNotFoundException(key);
-                return elements[ElementIndex(key)].Value;
+                int index = ElementIndex(key);
+                return index > -1 ? elements[index].Value : throw new KeyNotFoundException($"{key} doesn't exists in the actual dictionary!");
             }
 
             set
             {
                 KeyIsNullException(key);
-                KeyNotFoundException(key);
+                int index = ElementIndex(key);
+                if (index == -1)
+                {
+                    throw new KeyNotFoundException($"{key} doesn't exists in the actual dictionary!");
+                }
+
                 elements[ElementIndex(key)].Value = value;
             }
         }
@@ -161,7 +189,7 @@ namespace Dictionary
             return GetEnumerator();
         }
 
-        private (int, int) SearchKeyIndex(TKey key, int last = -1)
+        private (int index, int last) SearchKeyIndex(TKey key, int last = -1)
         {
             for (int index = buckets[GetBucketIndex(key)]; index > -1; index = elements[index].Next)
             {
@@ -178,7 +206,7 @@ namespace Dictionary
 
         private int ElementIndex(TKey key)
         {
-            return SearchKeyIndex(key).Item1;
+            return SearchKeyIndex(key).index;
         }
 
         private int GetBucketIndex(TKey key)
@@ -206,16 +234,6 @@ namespace Dictionary
             }
 
             throw new ArgumentNullException(nameof(key));
-        }
-
-        private void KeyNotFoundException(TKey key)
-        {
-            if (ContainsKey(key))
-            {
-                return;
-            }
-
-            throw new KeyNotFoundException($"{key} doesn't exists in the actual dictionary!");
         }
 
         private void KeyIsInvalid(TKey key)
