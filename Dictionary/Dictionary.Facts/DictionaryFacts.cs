@@ -75,6 +75,7 @@ namespace Dictionary.Facts
         {
             var dict = new DictionaryObject<int, string>() { { 1, "a" }, { 2, "b" } };
             Assert.True(dict.Contains(new KeyValuePair<int, string>(1, "a")));
+            Assert.False(dict.Contains(new KeyValuePair<int, string>(1, "b")));
             Assert.False(dict.Contains(new KeyValuePair<int, string>(5, "b")));
         }
 
