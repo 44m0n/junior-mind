@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LINQ
 {
@@ -91,6 +90,25 @@ namespace LINQ
                     yield return el;
                 }
             }
+        }
+
+        public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(
+                                                                        this IEnumerable<TSource> source,
+                                                                        Func<TSource, TKey> keySelector,
+                                                                        Func<TSource, TElement> elementSelector)
+        {
+            CheckParameterIsNull(source);
+            CheckParameterIsNull(keySelector);
+            CheckParameterIsNull(elementSelector);
+
+            var dictionary = new Dictionary<TKey, TElement>();
+
+            foreach (var el in source)
+            {
+                dictionary.Add(keySelector(el), elementSelector(el));
+            }
+
+            return dictionary;
         }
 
         private static void CheckParameterIsNull<T>(T param)
