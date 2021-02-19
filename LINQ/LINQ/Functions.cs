@@ -54,6 +54,17 @@ namespace LINQ
             throw new InvalidOperationException("There is no element that meet the given condition");
         }
 
+        public static IEnumerable<TResult> Select<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
+        {
+            CheckParameterIsNull(source);
+            CheckParameterIsNull(selector);
+
+            foreach (var el in source)
+            {
+                yield return selector(el);
+            }
+        }
+
         private static void CheckParameterIsNull<T>(T param)
             {
             if (param != null)
