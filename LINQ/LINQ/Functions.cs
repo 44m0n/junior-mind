@@ -130,6 +130,25 @@ namespace LINQ
             }
         }
 
+        public static TAccumulate Aggregate<TSource, TAccumulate>(
+                                                                    this IEnumerable<TSource> source,
+                                                                    TAccumulate seed,
+                                                                    Func<TAccumulate, TSource, TAccumulate> func)
+        {
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(seed, nameof(seed));
+            CheckParameterIsNull(func, nameof(func));
+
+            TAccumulate result = seed;
+
+            foreach (var el in source)
+            {
+                result = func(result, el);
+            }
+
+            return result;
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)

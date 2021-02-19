@@ -131,5 +131,14 @@ namespace LINQ.Facts
 
             Assert.Equal(1, i);
         }
+
+        [Fact]
+        public void AggregateFacts()
+        {
+            var array = new int[] { 1, 3 };
+
+            var result = Functions.Aggregate(array, 2, (e, f) => e + f);
+            Assert.Equal(6, result);
+        }
     }
 }
