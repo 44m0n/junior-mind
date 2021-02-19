@@ -79,6 +79,20 @@ namespace LINQ
             }
         }
 
+        public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            CheckParameterIsNull(source);
+            CheckParameterIsNull(predicate);
+
+            foreach (var el in source)
+            {
+                if (predicate(el))
+                {
+                    yield return el;
+                }
+            }
+        }
+
         private static void CheckParameterIsNull<T>(T param)
             {
             if (param != null)
