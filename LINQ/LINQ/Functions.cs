@@ -65,6 +65,20 @@ namespace LINQ
             }
         }
 
+        public static IEnumerable<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TResult>> selector)
+        {
+            CheckParameterIsNull(source);
+            CheckParameterIsNull(selector);
+
+            foreach (var el1 in source)
+            {
+                foreach (var el2 in selector(el1))
+                {
+                    yield return el2;
+                }
+            }
+        }
+
         private static void CheckParameterIsNull<T>(T param)
             {
             if (param != null)
