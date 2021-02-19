@@ -22,6 +22,22 @@ namespace LINQ
             return true;
         }
 
+        public static bool Any<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            CheckParameterIsNull(source);
+            CheckParameterIsNull(predicate);
+
+            foreach (var el in source)
+            {
+                if (predicate(el))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private static void CheckParameterIsNull<T>(T param)
             {
             if (param != null)
