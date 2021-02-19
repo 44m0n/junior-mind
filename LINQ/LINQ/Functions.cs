@@ -38,6 +38,22 @@ namespace LINQ
             return false;
         }
 
+        public static TSource First<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            CheckParameterIsNull(source);
+            CheckParameterIsNull(predicate);
+
+            foreach (var el in source)
+            {
+                if (predicate(el))
+                {
+                    return el;
+                }
+            }
+
+            throw new InvalidOperationException("There is no element that meet the given condition");
+        }
+
         private static void CheckParameterIsNull<T>(T param)
             {
             if (param != null)
