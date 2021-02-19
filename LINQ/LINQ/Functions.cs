@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace LINQ
@@ -7,8 +8,8 @@ namespace LINQ
     {
         public static bool All<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            CheckParameterIsNull(source);
-            CheckParameterIsNull(predicate);
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(predicate, nameof(predicate));
 
             foreach (var el in source)
             {
@@ -23,8 +24,8 @@ namespace LINQ
 
         public static bool Any<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            CheckParameterIsNull(source);
-            CheckParameterIsNull(predicate);
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(predicate, nameof(predicate));
 
             foreach (var el in source)
             {
@@ -39,8 +40,8 @@ namespace LINQ
 
         public static TSource First<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            CheckParameterIsNull(source);
-            CheckParameterIsNull(predicate);
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(predicate, nameof(predicate));
 
             foreach (var el in source)
             {
@@ -55,8 +56,8 @@ namespace LINQ
 
         public static IEnumerable<TResult> Select<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            CheckParameterIsNull(source);
-            CheckParameterIsNull(selector);
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(selector, nameof(selector));
 
             foreach (var el in source)
             {
@@ -66,8 +67,8 @@ namespace LINQ
 
         public static IEnumerable<TResult> SelectMany<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TResult>> selector)
         {
-            CheckParameterIsNull(source);
-            CheckParameterIsNull(selector);
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(selector, nameof(selector));
 
             foreach (var el1 in source)
             {
@@ -80,8 +81,8 @@ namespace LINQ
 
         public static IEnumerable<TSource> Where<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            CheckParameterIsNull(source);
-            CheckParameterIsNull(predicate);
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(predicate, nameof(predicate));
 
             foreach (var el in source)
             {
@@ -97,9 +98,9 @@ namespace LINQ
                                                                         Func<TSource, TKey> keySelector,
                                                                         Func<TSource, TElement> elementSelector)
         {
-            CheckParameterIsNull(source);
-            CheckParameterIsNull(keySelector);
-            CheckParameterIsNull(elementSelector);
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(keySelector, nameof(keySelector));
+            CheckParameterIsNull(elementSelector, nameof(elementSelector));
 
             var dictionary = new Dictionary<TKey, TElement>();
 
@@ -111,14 +112,32 @@ namespace LINQ
             return dictionary;
         }
 
-        private static void CheckParameterIsNull<T>(T param)
+        public static IEnumerable<TResult> Zip<TFirst, TSecond, TResult>(
+                                                                        this IEnumerable<TFirst> first,
+                                                                        IEnumerable<TSecond> second,
+                                                                        Func<TFirst, TSecond, TResult> resultSelector)
+        {
+            CheckParameterIsNull(first, nameof(first));
+            CheckParameterIsNull(second, nameof(second));
+            CheckParameterIsNull(resultSelector, nameof(resultSelector));
+
+            var firstEnumElement = first.GetEnumerator();
+            var secondEnumElement = second.GetEnumerator();
+
+            while (firstEnumElement.MoveNext() && secondEnumElement.MoveNext())
             {
+                yield return resultSelector(firstEnumElement.Current, secondEnumElement.Current);
+            }
+        }
+
+        private static void CheckParameterIsNull<T>(T param, string name)
+        {
             if (param != null)
             {
                 return;
             }
 
-            throw new ArgumentNullException(nameof(param));
+            throw new ArgumentNullException(paramName: name);
         }
     }
 }
