@@ -149,6 +149,31 @@ namespace LINQ
             return result;
         }
 
+        public static IEnumerable<TResult> Join<TOuter, TInner, TKey, TResult>(
+                                                                    this IEnumerable<TOuter> outer,
+                                                                    IEnumerable<TInner> inner,
+                                                                    Func<TOuter, TKey> outerKeySelector,
+                                                                    Func<TInner, TKey> innerKeySelector,
+                                                                    Func<TOuter, TInner, TResult> resultSelector)
+        {
+            CheckParameterIsNull(outer, nameof(outer));
+            CheckParameterIsNull(inner, nameof(inner));
+            CheckParameterIsNull(outerKeySelector, nameof(outerKeySelector));
+            CheckParameterIsNull(innerKeySelector, nameof(innerKeySelector));
+            CheckParameterIsNull(resultSelector, nameof(resultSelector));
+
+            foreach (var outEl in outer)
+            {
+                foreach (var inEl in inner)
+                {
+                    if (innerKeySelector(inEl).Equals(outerKeySelector(outEl)))
+                    {
+                        yield return resultSelector(outEl, inEl);
+                    }
+                }
+            }
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)
