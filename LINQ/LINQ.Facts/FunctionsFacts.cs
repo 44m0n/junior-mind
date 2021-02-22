@@ -146,5 +146,14 @@ namespace LINQ.Facts
 
             Assert.Equal(new[] { 1, 2, 3, 4, 5, 6 }, first.Union(second));
         }
+
+        [Fact]
+        public void IntersectTest()
+        {
+            var first = new[] { 1, 2, 3, 6 };
+            var second = new[] { 3, 4, 5, 6 };
+
+            Assert.Equal(new[] { 3, 6}, first.Intersect(second));
+        }
     }
 }
