@@ -243,6 +243,27 @@ namespace LINQ
             }
         }
 
+        public static IEnumerable<TSource> Except<TSource>(
+                                                     this IEnumerable<TSource> first,
+                                                     IEnumerable<TSource> second,
+                                                     IEqualityComparer<TSource> comparer)
+        {
+            CheckParameterIsNull(first, nameof(first));
+            CheckParameterIsNull(second, nameof(second));
+            CheckParameterIsNull(comparer, nameof(comparer));
+
+            foreach (var el1 in first)
+            {
+                foreach (var el2 in second)
+                {
+                    if (!comparer.Equals(el1, el2))
+                    {
+                        yield return el1;
+                    }
+                }
+            }
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)

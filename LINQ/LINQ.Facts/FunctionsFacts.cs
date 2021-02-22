@@ -155,5 +155,14 @@ namespace LINQ.Facts
 
             Assert.Equal(new[] { 3, 6}, first.Intersect(second));
         }
+
+        [Fact]
+        public void ExceptTEst()
+        {
+            var first = new[] { 1, 2, 3, 6 };
+            var second = new[] { 3, 4, 5, 6 };
+
+            Assert.Equal(new[] { 1, 2 }, first.Except(second));
+        }
     }
 }
