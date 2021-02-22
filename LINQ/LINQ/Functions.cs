@@ -181,28 +181,7 @@ namespace LINQ
             CheckParameterIsNull(source, nameof(source));
             CheckParameterIsNull(comparer, nameof(comparer));
 
-            var result = new List<TSource>();
-
-            foreach (var el in source)
-            {
-                bool elementExists = false;
-
-                foreach (var el2 in result)
-                {
-                    if (comparer.Equals(el, el2))
-                    {
-                        elementExists = true;
-                        break;
-                    }
-                }
-
-                if (!elementExists)
-                {
-                    result.Add(el);
-                }
-            }
-
-            return result;
+            return new HashSet<TSource>(source, comparer);
         }
 
         public static IEnumerable<TSource> Union<TSource>(
@@ -214,12 +193,10 @@ namespace LINQ
             CheckParameterIsNull(second, nameof(second));
             CheckParameterIsNull(comparer, nameof(comparer));
 
-            var result = new List<TSource>();
+            HashSet<TSource> result = new HashSet<TSource>(first, comparer);
+            result.UnionWith(second);
 
-            result.AddRange(first);
-            result.AddRange(second);
-
-            return result.Distinct(comparer);
+            return result;
         }
 
         public static IEnumerable<TSource> Intersect<TSource>(
@@ -231,16 +208,10 @@ namespace LINQ
             CheckParameterIsNull(second, nameof(second));
             CheckParameterIsNull(comparer, nameof(comparer));
 
-            foreach (var el1 in first)
-            {
-                foreach (var el2 in second)
-                {
-                    if (comparer.Equals(el1, el2))
-                    {
-                        yield return el1;
-                    }
-                }
-            }
+            HashSet<TSource> result = new HashSet<TSource>(first, comparer);
+            result.IntersectWith(second);
+
+            return result;
         }
 
         public static IEnumerable<TSource> Except<TSource>(
@@ -252,16 +223,10 @@ namespace LINQ
             CheckParameterIsNull(second, nameof(second));
             CheckParameterIsNull(comparer, nameof(comparer));
 
-            foreach (var el1 in first)
-            {
-                foreach (var el2 in second)
-                {
-                    if (!comparer.Equals(el1, el2))
-                    {
-                        yield return el1;
-                    }
-                }
-            }
+            HashSet<TSource> result = new HashSet<TSource>(first, comparer);
+            result.ExceptWith(second);
+
+            return result;
         }
 
         private static void CheckParameterIsNull<T>(T param, string name)
