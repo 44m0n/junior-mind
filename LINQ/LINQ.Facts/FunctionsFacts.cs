@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using System.Collections;
 using System.Collections.Generic;
-using LINQ;
+using System.Linq;
 
 namespace LINQ.Facts
 {
@@ -12,8 +12,9 @@ namespace LINQ.Facts
         public void AllTestReturnTrue()
         {
             var array = new int[] { 2, 4, 6, 8 };
+            Functions.All(array, e => e % 2 == 0);
 
-            Assert.True(Functions.All(array, e => e % 2 == 0));
+            Assert.True(array.All(e => e % 2 == 0));
         }
 
         [Fact]
@@ -21,7 +22,7 @@ namespace LINQ.Facts
         {
             var array = new int[] { 1, 3, 4, 7 };
 
-            Assert.False(Functions.All(array, e => e % 2 == 0));
+            Assert.False(array.All(e => e % 2 == 0));
         }
 
         [Fact]
@@ -45,9 +46,9 @@ namespace LINQ.Facts
         [Fact]
         public void AnyTestReturnTrue()
         {
-            var array = new int[] { 1, 3, 4, 7 };
+            var array = new int[] { 1, 3, 4, 7 }; 
 
-            Assert.True(Functions.Any(array, e => e % 2 == 0));
+            Assert.True(array.Any(e => e % 2 == 0));
         }
 
         [Fact]
@@ -55,7 +56,7 @@ namespace LINQ.Facts
         {
             var array = new int[] { 1, 3, 5, 7 };
 
-            Assert.False(Functions.Any(array, e => e % 2 == 0));
+            Assert.False(array.Any(e => e % 2 == 0));
         }
 
         [Fact]
@@ -63,7 +64,7 @@ namespace LINQ.Facts
         {
             var array = new int[] { 1, 3, 4, 7 };
 
-            Assert.Equal(4, Functions.First(array, e => e % 2 == 0));
+            Assert.Equal(4, array.First(e => e % 2 == 0));
         }
 
         [Fact]
@@ -71,23 +72,9 @@ namespace LINQ.Facts
         {
             var array = new int[] { 1, 3, 4, 7 };
 
-            var results = Functions.Select(array, e => e % 2 == 0);
+            var results = array.Select(e => e % 2 == 0);
 
-            var element = results.GetEnumerator();
-
-            for (int i = 0; i < array.Length; i ++)
-            {
-                element.MoveNext();
-
-                if (array[i] % 2 == 0)
-                {
-                    Assert.True(element.Current);
-                }
-                else
-                {
-                    Assert.False(element.Current);
-                }
-            }
+            Assert.Equal(new[] { false, false, true, false }, results);
         }
 
         [Fact]
@@ -95,7 +82,7 @@ namespace LINQ.Facts
         {
             var array = new int[] { 1, 3, 4, 7 };
 
-            var results = Functions.Where(array, e => e % 2 == 0);
+            var results = array.Where(e => e % 2 == 0);
 
             var element = results.GetEnumerator();
             element.MoveNext();
@@ -108,7 +95,7 @@ namespace LINQ.Facts
         {
             var array = new int[] { 1 };
 
-            var results = Functions.ToDictionary(array, e => 1, f => "test");
+            var results = array.ToDictionary(e => 1, f => "test");
 
             Assert.Contains(new KeyValuePair<int, string>(1, "test"), results);
         }
@@ -119,17 +106,9 @@ namespace LINQ.Facts
             var firstArray = new int[] { 1, 3 };
             var secondArray = new int[] { 2, 4, 6 };
 
-            var results = Functions.Zip(firstArray, secondArray, (e, f) => e + f);
+            var results = firstArray.Zip( secondArray, (e, f) => e + f);
 
-            int i = -1;
-
-            foreach (var el in results)
-            {
-                i++;
-                Assert.Equal((firstArray[i] + secondArray[i]), el);
-            }
-
-            Assert.Equal(1, i);
+            Assert.Equal(new[] { 3, 7 }, results);
         }
 
         [Fact]
@@ -137,8 +116,32 @@ namespace LINQ.Facts
         {
             var array = new int[] { 1, 3 };
 
-            var result = Functions.Aggregate(array, 2, (e, f) => e + f);
+            var result = array.Aggregate( 2, (e, f) => e + f);
             Assert.Equal(6, result);
+        }
+
+        [Fact]
+
+        public void JoinTests()
+        {
+            var outer = new[] { 1, 3 };
+            var inner = new[] { 2, 3 };
+
+            var result = outer.Join(inner, e => e % 2 == 0, f => f % 2 == 0, (f, g) => f + g);
+            Assert.Equal(new[] { 4, 6 }, result);
+        }
+
+        [Fact]
+        public void DistinctTEst()
+        {
+            var source = new[] { 1, 2, 3, 3, 4, 4 };
+            Assert.Equal(new[] { 1, 2, 3, 4 }, source.Distinct());
+        }
+
+        [Fact]
+        public void UnionTests()
+        {
+
         }
     }
 }
