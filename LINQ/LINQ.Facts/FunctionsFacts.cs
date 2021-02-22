@@ -141,7 +141,10 @@ namespace LINQ.Facts
         [Fact]
         public void UnionTests()
         {
+            var first = new[] { 1, 2, 3 };
+            var second = new[] { 3, 4, 5, 6 };
 
+            Assert.Equal(new[] { 1, 2, 3, 4, 5, 6 }, first.Union(second));
         }
     }
 }

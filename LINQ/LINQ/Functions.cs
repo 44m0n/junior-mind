@@ -205,6 +205,23 @@ namespace LINQ
             return result;
         }
 
+        public static IEnumerable<TSource> Union<TSource>(
+                                                    this IEnumerable<TSource> first,
+                                                    IEnumerable<TSource> second,
+                                                    IEqualityComparer<TSource> comparer)
+        {
+            CheckParameterIsNull(first, nameof(first));
+            CheckParameterIsNull(second, nameof(second));
+            CheckParameterIsNull(comparer, nameof(comparer));
+
+            var result = new List<TSource>();
+
+            result.AddRange(first);
+            result.AddRange(second);
+
+            return result.Distinct(comparer);
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)
