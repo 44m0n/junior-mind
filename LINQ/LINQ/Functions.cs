@@ -174,6 +174,37 @@ namespace LINQ
             }
         }
 
+        public static IEnumerable<TSource> Distinct<TSource>(
+                                  this IEnumerable<TSource> source,
+                                  IEqualityComparer<TSource> comparer)
+        {
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(comparer, nameof(comparer));
+
+            var result = new List<TSource>();
+
+            foreach (var el in source)
+            {
+                bool elementExists = false;
+
+                foreach (var el2 in result)
+                {
+                    if (comparer.Equals(el, el2))
+                    {
+                        elementExists = true;
+                        break;
+                    }
+                }
+
+                if (!elementExists)
+                {
+                    result.Add(el);
+                }
+            }
+
+            return result;
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)
