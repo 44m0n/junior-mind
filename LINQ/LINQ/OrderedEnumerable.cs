@@ -20,6 +20,11 @@ namespace LINQ
 
         public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(Func<TSource, TKey> keySelector, IComparer<TKey> comparer, bool descending)
         {
+            return new OrderedEnumerable<TSource, TKey>(this.source, keySelector, comparer);
+        }
+
+        public IEnumerator<TSource> GetEnumerator()
+        {
             var result = new SortedDictionary<TKey, List<TSource>>(comparer);
 
             foreach (var el in source)
@@ -36,17 +41,18 @@ namespace LINQ
                 }
             }
 
-            return (IOrderedEnumerable<TSource>)result;
-        }
-
-        public IEnumerator<TSource> GetEnumerator()
-        {
-            throw new NotImplementedException();
+            foreach (var el in result)
+            {
+                foreach (var elin in el.Value)
+                {
+                    yield return elin;
+                }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
     }
 }
