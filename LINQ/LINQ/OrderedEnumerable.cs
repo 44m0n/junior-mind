@@ -18,9 +18,25 @@ namespace LINQ
             this.comparer = comparer;
         }
 
-        public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey1>(Func<TSource, TKey1> keySelector, IComparer<TKey1> comparer, bool descending)
+        public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(Func<TSource, TKey> keySelector, IComparer<TKey> comparer, bool descending)
         {
-            throw new NotImplementedException();
+            var result = new SortedDictionary<TKey, List<TSource>>(comparer);
+
+            foreach (var el in source)
+            {
+                var key = keySelector(el);
+                if (result.ContainsKey(key))
+                {
+                    result[key].Add(el);
+                }
+                else
+                {
+                    result.Add(key, new List<TSource>());
+                    result[key].Add(el);
+                }
+            }
+
+            return (IOrderedEnumerable<TSource>)result;
         }
 
         public IEnumerator<TSource> GetEnumerator()
