@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using LINQ;
 
 namespace LINQ.Facts
 {
@@ -135,7 +135,7 @@ namespace LINQ.Facts
         public void DistinctTEst()
         {
             var source = new[] { 1, 2, 3, 3, 4, 4 };
-            Assert.Equal(new[] { 1, 2, 3, 4 }, source.Distinct());
+            Assert.Equal(new[] { 1, 2, 3, 4 }, source.Distinct(EqualityComparer<int>.Default));
         }
 
         [Fact]
@@ -144,7 +144,7 @@ namespace LINQ.Facts
             var first = new[] { 1, 2, 3 };
             var second = new[] { 3, 4, 5, 6 };
 
-            Assert.Equal(new[] { 1, 2, 3, 4, 5, 6 }, first.Union(second));
+            Assert.Equal(new[] { 1, 2, 3, 4, 5, 6 }, first.Union(second, EqualityComparer<int>.Default));
         }
 
         [Fact]
@@ -153,7 +153,7 @@ namespace LINQ.Facts
             var first = new[] { 1, 2, 3, 6 };
             var second = new[] { 3, 4, 5, 6 };
 
-            Assert.Equal(new[] { 3, 6}, first.Intersect(second));
+            Assert.Equal(new[] { 3, 6}, first.Intersect(second, EqualityComparer<int>.Default));
         }
 
         [Fact]
@@ -162,7 +162,22 @@ namespace LINQ.Facts
             var first = new[] { 1, 2, 3, 6 };
             var second = new[] { 3, 4, 5, 6 };
 
-            Assert.Equal(new[] { 1, 2 }, first.Except(second));
+            Assert.Equal(new[] { 1, 2 }, first.Except(second, EqualityComparer<int>.Default));
+        }
+
+        [Fact]
+        public void GroupByTest()
+        {
+            var source = new[] { 1, 2, 3, 4, 5, 6, 7 };
+            IEnumerable<object> result = source.GroupBy(e => e % 2 == 0, e => e, (e, f) => f, EqualityComparer<bool>.Default);
+
+            var element = result.GetEnumerator();
+            element.MoveNext();
+
+            Assert.Equal(new[] { 1, 3, 5, 7 }, element.Current);
+
+            element.MoveNext();
+            Assert.Equal(new[] { 2, 4, 6 }, element.Current);
         }
     }
 }

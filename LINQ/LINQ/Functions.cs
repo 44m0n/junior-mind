@@ -229,6 +229,40 @@ namespace LINQ
             return result;
         }
 
+        public static IEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(
+                                                    this IEnumerable<TSource> source,
+                                                    Func<TSource, TKey> keySelector,
+                                                    Func<TSource, TElement> elementSelector,
+                                                    Func<TKey, IEnumerable<TElement>, TResult> resultSelector,
+                                                    IEqualityComparer<TKey> comparer)
+        {
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(keySelector, nameof(keySelector));
+            CheckParameterIsNull(elementSelector, nameof(elementSelector));
+            CheckParameterIsNull(resultSelector, nameof(resultSelector));
+
+            var result = new Dictionary<TKey, List<TElement>>(comparer);
+
+            foreach (var el in source)
+            {
+                var key = keySelector(el);
+                if (result.ContainsKey(key))
+                {
+                    result[key].Add(elementSelector(el));
+                }
+                else
+                {
+                    result.Add(key, new List<TElement>());
+                    result[key].Add(elementSelector(el));
+                }
+            }
+
+            foreach (var el in result)
+            {
+                yield return resultSelector(el.Key, el.Value);
+            }
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)
