@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LINQ
 {
@@ -261,6 +262,30 @@ namespace LINQ
             {
                 yield return resultSelector(el.Key, el.Value);
             }
+        }
+
+        public static IOrderedEnumerable<TSource> OrderBy<TSource, TKey>(
+                                                        this IEnumerable<TSource> source,
+                                                        Func<TSource, TKey> keySelector,
+                                                        IComparer<TKey> comparer)
+        {
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(keySelector, nameof(keySelector));
+            CheckParameterIsNull(comparer, nameof(comparer));
+
+            return new OrderedEnumerable<TSource, TKey>(source, keySelector, comparer);
+        }
+
+        public static IOrderedEnumerable<TSource> ThenBy<TSource, TKey>(
+                                                        this IOrderedEnumerable<TSource> source,
+                                                        Func<TSource, TKey> keySelector,
+                                                        IComparer<TKey> comparer)
+        {
+            CheckParameterIsNull(source, nameof(source));
+            CheckParameterIsNull(keySelector, nameof(keySelector));
+            CheckParameterIsNull(comparer, nameof(comparer));
+
+            return source.CreateOrderedEnumerable(keySelector, comparer, false);
         }
 
         private static void CheckParameterIsNull<T>(T param, string name)

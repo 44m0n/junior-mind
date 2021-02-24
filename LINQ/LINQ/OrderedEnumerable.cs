@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace LINQ
 {
-    class OrderedEnumerable<TSource, TKey> : IOrderedEnumerable<TSource>
+    public class OrderedEnumerable<TSource, TKey> : IOrderedEnumerable<TSource>
     {
         private readonly IEnumerable<TSource> source;
         private readonly Func<TSource, TKey> keySelector;

@@ -179,5 +179,55 @@ namespace LINQ.Facts
             element.MoveNext();
             Assert.Equal(new[] { 2, 4, 6 }, element.Current);
         }
+
+        struct Person
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+        }
+
+        [Fact]
+        public void OrderByTest()
+        {
+            Person[] people = { new Person { Name="John", Age=8 },
+                   new Person { Name="Johnny", Age=4 },
+                   new Person { Name="Johannes", Age=1 } };
+
+            var result = people.OrderBy(e => e.Age, Comparer<int>.Default);
+
+            var element = result.GetEnumerator();
+            element.MoveNext();
+
+            Assert.Equal("Johannes", element.Current.Name);
+
+            element.MoveNext();
+            Assert.Equal("Johnny", element.Current.Name);
+
+            element.MoveNext();
+            Assert.Equal("John", element.Current.Name);
+
+
+        }
+
+        [Fact]
+        public void ThenByTest()
+        {
+            Person[] people = { new Person { Name="Bohn", Age=8 },
+                   new Person { Name="Aohnny", Age=4 },
+                   new Person { Name="Cohannes", Age=1 } };
+
+            var result = people.OrderBy(e => e.Age, Comparer<int>.Default).ThenBy(e => e.Name, Comparer<string>.Default);
+
+            var element = result.GetEnumerator();
+            element.MoveNext();
+
+            Assert.Equal("Aohnny", element.Current.Name);
+
+            element.MoveNext();
+            Assert.Equal("Bohn", element.Current.Name);
+
+            element.MoveNext();
+            Assert.Equal("Cohannes", element.Current.Name);
+        }
     }
 }
