@@ -210,6 +210,29 @@ namespace LINQ.Facts
         }
 
         [Fact]
+        public void OrderByTestSameKey()
+        {
+            Person[] people = { new Person { Name="John", Age=8 },
+                   new Person { Name="Johnny", Age=8 },
+                   new Person { Name="Johannes", Age=1 } };
+
+            var result = people.OrderBy(e => e.Age, Comparer<int>.Default);
+
+            var element = result.GetEnumerator();
+            element.MoveNext();
+
+            Assert.Equal("Johannes", element.Current.Name);
+
+            element.MoveNext();
+            Assert.Equal("John", element.Current.Name);
+
+            element.MoveNext();
+            Assert.Equal("Johnny", element.Current.Name);
+
+
+        }
+
+        [Fact]
         public void ThenByTest()
         {
             Person[] people = { new Person { Name="Bohn", Age=8 },
