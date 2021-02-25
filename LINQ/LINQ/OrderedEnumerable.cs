@@ -5,48 +5,44 @@ using System.Linq;
 
 namespace LINQ
 {
-    public class OrderedEnumerable<TSource, TKey> : IOrderedEnumerable<TSource>
+    public class OrderedEnumerable<TSource> : IOrderedEnumerable<TSource>
     {
         private readonly IEnumerable<TSource> source;
-        private readonly Func<TSource, TKey> keySelector;
-        private readonly IComparer<TKey> comparer;
+        private readonly IComparer<TSource> comparer;
 
-        public OrderedEnumerable(IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer)
+        public OrderedEnumerable(IEnumerable<TSource> source, IComparer<TSource> comparer)
         {
             this.source = source;
-            this.keySelector = keySelector;
             this.comparer = comparer;
         }
 
         public IOrderedEnumerable<TSource> CreateOrderedEnumerable<TKey>(Func<TSource, TKey> keySelector, IComparer<TKey> comparer, bool descending)
         {
-            return new OrderedEnumerable<TSource, TKey>(this.source, keySelector, comparer);
+            IComparer<TSource> secondComparer = new ProjectionComparer<TSource, TKey>(keySelector, comparer);
+
+            return new OrderedEnumerable<TSource>(source, new CompoundComparer<TSource>(this.comparer, secondComparer));
         }
 
         public IEnumerator<TSource> GetEnumerator()
         {
-            var result = new SortedDictionary<TKey, List<TSource>>(comparer);
+            List<TSource> elements = source.ToList();
 
-            foreach (var el in source)
+            while (elements.Count > 0)
             {
-                var key = keySelector(el);
-                if (result.ContainsKey(key))
-                {
-                    result[key].Add(el);
-                }
-                else
-                {
-                    result.Add(key, new List<TSource>());
-                    result[key].Add(el);
-                }
-            }
+                TSource minElement = elements[0];
+                int minIndex = 0;
 
-            foreach (var el in result)
-            {
-                foreach (var elin in el.Value)
+                for (int i = 1; i < elements.Count; i++)
                 {
-                    yield return elin;
+                    if (this.comparer.Compare(elements[i], minElement) < 0)
+                    {
+                        minElement = elements[i];
+                        minIndex = i;
+                    }
                 }
+
+                elements.RemoveAt(minIndex);
+                yield return minElement;
             }
         }
 
