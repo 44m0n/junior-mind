@@ -235,22 +235,30 @@ namespace LINQ.Facts
         [Fact]
         public void ThenByTest()
         {
-            Person[] people = { new Person { Name="Bohn", Age=8 },
-                   new Person { Name="Aohnny", Age=4 },
-                   new Person { Name="Cohannes", Age=1 } };
+            Person[] people =
+     {
+                   new Person { Name = "Bohn", Age = 8 },
+                   new Person { Name = "Bohnny", Age = 4 },
+                   new Person { Name = "Aohnny", Age = 4 },
+                   new Person { Name = "Cohannes", Age = 1 }
+                };
+
 
             var result = people.OrderBy(e => e.Age, Comparer<int>.Default).ThenBy(e => e.Name, Comparer<string>.Default);
 
             var element = result.GetEnumerator();
             element.MoveNext();
 
+            Assert.Equal("Cohannes", element.Current.Name);
+
+            element.MoveNext();
             Assert.Equal("Aohnny", element.Current.Name);
 
             element.MoveNext();
-            Assert.Equal("Bohn", element.Current.Name);
+            Assert.Equal("Bohnny", element.Current.Name);
 
             element.MoveNext();
-            Assert.Equal("Cohannes", element.Current.Name);
+            Assert.Equal("Bohn", element.Current.Name);
         }
     }
 }
