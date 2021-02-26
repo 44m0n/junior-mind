@@ -6,8 +6,15 @@ namespace LINQ
 {
     public class Product
     {
-        public Product (string name, int quantity)
+        public Product(string name, int quantity)
         {
+            CheckParameterIsNull(name, nameof(name));
+
+            if (quantity < 0)
+            {
+                throw new ArgumentException("Quantity cannot be less than 0");
+            }
+
             Name = name;
             Quantity = quantity;
         }
@@ -16,14 +23,25 @@ namespace LINQ
 
         public int Quantity { get; protected set; }
 
-        public void Add(int no)
+        public void Update(int no)
         {
             Quantity += no;
         }
 
-        public void Substract(int no)
+        public override bool Equals(object obj)
         {
-            Quantity -= no;
+            return obj is Product prod
+                && Name == prod.Name;
+        }
+
+        private void CheckParameterIsNull<T>(T param, string name)
+        {
+            if (param != null)
+            {
+                return;
+            }
+
+            throw new ArgumentNullException(paramName: name);
         }
     }
 }
