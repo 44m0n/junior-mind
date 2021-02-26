@@ -222,7 +222,7 @@ namespace LINQ.Facts
 
             var stock = new Stock(product);
 
-            stock.StartNewCallback(CallbackFunct);
+            stock.StockAlert(CallbackFunct);
 
             stock.Sell(productToSell);
 

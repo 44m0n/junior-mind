@@ -27,7 +27,7 @@ namespace LINQ
             }
         }
 
-        public void StartNewCallback(Action<Product, int> callback)
+        public void StockAlert(Action<Product, int> callback)
         {
             this.callback = callback;
         }
