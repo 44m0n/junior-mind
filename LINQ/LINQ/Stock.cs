@@ -55,11 +55,13 @@ namespace LINQ
 
             foreach (var product in productsToUpdate)
             {
-                try
+                var prod = products.SingleOrDefault(prod => prod.Equals(product));
+
+                if (prod != default)
                 {
-                    products.Single(prod => prod.Equals(product)).Add(product.Quantity);
+                    prod.Add(product.Quantity);
                 }
-                catch
+                else
                 {
                     Add(new[] { product });
                 }
