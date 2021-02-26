@@ -173,5 +173,30 @@ namespace LINQ.Facts
             var err = Assert.Throws<ArgumentException>(() => stock.Sell(productsToSell));
             Assert.Equal("The product you're trying to sell doesn't exists in the current stock", err.Message);
         }
+
+        [Fact]
+        public void RemoveTest()
+        {
+            Product[] product =
+{
+                new Product("baterie", 20),
+                new Product("masina", 10),
+                new Product("telefon", 30),
+            };
+
+            var stock = new Stock(product);
+
+            Assert.Equal(3, stock.Count);
+            Assert.Throws<ArgumentNullException>(() => stock.Remove(null));
+
+            Product[] productToSell =
+            {
+                 new Product("baterie", 20),
+                 new Product("telefon", 30)
+            };
+
+            stock.Remove(productToSell);
+            Assert.Equal(1, stock.Count);
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace LINQ
     public class Stock : IEnumerable<Product>
     {
         private IEnumerable<Product> products;
+        private Action<Product, int> callback;
 
         public Stock(Product[] products)
         {
@@ -24,6 +25,11 @@ namespace LINQ
             {
                 return products.Count();
             }
+        }
+
+        public void StartNewCallback(Action<Product, int> callback)
+        {
+            this.callback = callback;
         }
 
         public void Add(Product[] productsToAdd)
@@ -68,12 +74,26 @@ namespace LINQ
             {
                 try
                 {
-                    products.Single(prod => prod.Equals(product)).Substract(product.Quantity);
+                    var prod = products.Single(prod => prod.Equals(product));
+                    prod.Substract(product.Quantity);
+                    SendCallback(prod);
                 }
                 catch
                 {
                     throw new ArgumentException("The product you're trying to sell doesn't exists in the current stock");
                 }
+            }
+        }
+
+        public void Remove(Product[] productsToRemove)
+        {
+            CheckParameterIsNull(productsToRemove, nameof(productsToRemove));
+
+            foreach (var el in productsToRemove)
+            {
+                products = from prod in products
+                           where !prod.Equals(el)
+                           select prod;
             }
         }
 
@@ -88,6 +108,20 @@ namespace LINQ
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        private void SendCallback(Product product)
+        {
+            var limits = new[] { 2, 5, 10 };
+
+            int currentLimit = limits.FirstOrDefault(x => x >= product.Quantity);
+
+            if (callback == null || currentLimit == 0)
+            {
+                return;
+            }
+
+            callback(product, product.Quantity);
         }
 
         private void CheckParameterIsNull<T>(T param, string name)
