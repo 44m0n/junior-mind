@@ -227,6 +227,11 @@ namespace LINQ.Facts
             stock.Sell(productToSell);
 
             Assert.Equal("There are only 4 pices left of baterie", notification);
+
+            stock.Sell(new Product[] { new Product("baterie", 1) });
+            Assert.Equal("There are only 4 pices left of baterie", notification);
+            stock.Sell(new Product[] { new Product("baterie", 1) });
+            Assert.Equal("There are only 2 pices left of baterie", notification);
         }
 
     }
