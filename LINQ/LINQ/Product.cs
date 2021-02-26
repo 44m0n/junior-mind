@@ -30,6 +30,7 @@ namespace LINQ
         public void Substract(int no)
         {
             CheckIfQuantityIsLessThanZero(no);
+            CheckIfQuantityIsLessThanZero(Quantity - no);
 
             Quantity -= no;
         }
