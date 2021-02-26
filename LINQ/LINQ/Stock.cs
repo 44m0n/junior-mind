@@ -79,7 +79,7 @@ namespace LINQ
                 if (prod != default)
                 {
                     prod.Substract(product.Quantity);
-                    SendCallback(prod);
+                    SendCallback(prod, prod.Quantity + product.Quantity);
                 }
                 else
                 {
@@ -113,11 +113,11 @@ namespace LINQ
             return this.GetEnumerator();
         }
 
-        private void SendCallback(Product product)
+        private void SendCallback(Product product, int oldQuantity)
         {
             var limits = new[] { 2, 5, 10 };
 
-            int currentLimit = limits.FirstOrDefault(x => x >= product.Quantity);
+            int currentLimit = limits.FirstOrDefault(x => x >= product.Quantity && x <= oldQuantity);
 
             if (callback == null || currentLimit == 0)
             {
