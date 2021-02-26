@@ -11,16 +11,52 @@ namespace LINQ
 
         public Stock(Product[] products)
         {
+            CheckParameterIsNull(products, nameof(products));
+            CheckProductIsNull(products);
+            CheckForDuplicates(products);
+
             this.products = products;
+        }
+
+        public int Count
+        {
+            get
+            {
+                return products.Count();
+            }
         }
 
         public void Add(Product[] productsToAdd)
         {
             CheckParameterIsNull(productsToAdd, nameof(productsToAdd));
+            CheckProductIsNull(productsToAdd);
+            CheckForDuplicates(productsToAdd);
 
             foreach (var product in productsToAdd)
             {
+                if (products.SingleOrDefault(prod => prod.Equals(product)) != default)
+                {
+                    throw new ArgumentException("The product already exists in stock!");
+                }
+
                 products = products.Append(product);
+            }
+        }
+
+        public void Refill(Product[] productsToUpdate)
+        {
+            CheckParameterIsNull(productsToUpdate, nameof(productsToUpdate));
+
+            foreach (var product in productsToUpdate)
+            {
+                try
+                {
+                    products.Single(prod => prod.Equals(product)).Add(product.Quantity);
+                }
+                catch (InvalidOperationException e)
+                {
+                    Add(new[] { product });
+                }
             }
         }
 
@@ -37,7 +73,7 @@ namespace LINQ
             return this.GetEnumerator();
         }
 
-        private static void CheckParameterIsNull<T>(T param, string name)
+        private void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)
             {
@@ -45,6 +81,26 @@ namespace LINQ
             }
 
             throw new ArgumentNullException(paramName: name);
+        }
+
+        private void CheckForDuplicates(Product[] prod)
+        {
+            if (!prod.GroupBy(x => x.Name).Any(y => y.Count() > 1))
+            {
+                return;
+            }
+
+            throw new ArgumentException("Cannot add duplicate products in stock!");
+        }
+
+        private void CheckProductIsNull(Product[] prod)
+        {
+            if (!prod.Contains(null))
+            {
+                return;
+            }
+
+            throw new ArgumentException("Cannot add null products in stock!");
         }
     }
 }
