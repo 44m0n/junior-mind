@@ -198,5 +198,37 @@ namespace LINQ.Facts
             stock.Remove(productToSell);
             Assert.Equal(1, stock.Count);
         }
+
+        string notification = "";
+        void CallbackFunct(Product product, int quantity)
+        {
+            notification = $"There are only {quantity} pices left of {product.Name}";
+        }
+
+
+        [Fact]
+        public void TestCallback()
+        {
+            Product[] product =
+{
+                new Product("baterie", 20),
+                new Product("masina", 10),
+                new Product("telefon", 30),
+            };
+
+            Product[] productToSell =
+            {
+                 new Product("baterie", 16),
+            };
+
+            var stock = new Stock(product);
+
+            stock.StartNewCallback(CallbackFunct);
+
+            stock.Sell(productToSell);
+
+            Assert.Equal("There are only 4 pices left of baterie", notification);
+        }
+
     }
 }
