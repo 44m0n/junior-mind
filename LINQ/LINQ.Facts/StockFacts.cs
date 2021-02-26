@@ -199,16 +199,15 @@ namespace LINQ.Facts
             Assert.Equal(1, stock.Count);
         }
 
-        string notification = "";
-        void CallbackFunct(Product product, int quantity)
-        {
-            notification = $"There are only {quantity} pices left of {product.Name}";
-        }
-
-
         [Fact]
         public void TestCallback()
         {
+            string notification = "";
+            void CallbackFunct(Product product, int quantity)
+            {
+                notification = $"There are only {quantity} pices left of {product.Name}";
+            }
+
             Product[] product =
 {
                 new Product("baterie", 20),
