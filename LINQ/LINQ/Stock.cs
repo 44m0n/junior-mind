@@ -26,12 +26,15 @@ namespace LINQ
 
         public IEnumerator<Product> GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach (var product in products)
+            {
+                yield return product;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
 
         private static void CheckParameterIsNull<T>(T param, string name)
