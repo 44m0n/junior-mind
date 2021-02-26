@@ -74,13 +74,14 @@ namespace LINQ
 
             foreach (var product in productsToSell)
             {
-                try
+                var prod = products.SingleOrDefault(prod => prod.Equals(product));
+
+                if (prod != default)
                 {
-                    var prod = products.Single(prod => prod.Equals(product));
                     prod.Substract(product.Quantity);
                     SendCallback(prod);
                 }
-                catch
+                else
                 {
                     throw new ArgumentException("The product you're trying to sell doesn't exists in the current stock");
                 }
