@@ -59,7 +59,7 @@ namespace LINQ
                 {
                     products.Single(prod => prod.Equals(product)).Add(product.Quantity);
                 }
-                catch (InvalidOperationException e)
+                catch
                 {
                     Add(new[] { product });
                 }
