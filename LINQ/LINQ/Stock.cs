@@ -60,6 +60,23 @@ namespace LINQ
             }
         }
 
+        public void Sell(Product[] productsToSell)
+        {
+            CheckParameterIsNull(productsToSell, nameof(productsToSell));
+
+            foreach (var product in productsToSell)
+            {
+                try
+                {
+                    products.Single(prod => prod.Equals(product)).Substract(product.Quantity);
+                }
+                catch
+                {
+                    throw new ArgumentException("The product you're trying to sell doesn't exists in the current stock");
+                }
+            }
+        }
+
         public IEnumerator<Product> GetEnumerator()
         {
             foreach (var product in products)

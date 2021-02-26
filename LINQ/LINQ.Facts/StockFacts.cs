@@ -123,5 +123,55 @@ namespace LINQ.Facts
             Assert.Equal("altceva", elements.Current.Name);
             Assert.Equal(10, elements.Current.Quantity);
         }
+
+        [Fact]
+        public void SellTests()
+        {
+            Product[] product =
+            {
+                new Product("baterie", 20),
+                new Product("masina", 10)
+            };
+
+            var stock = new Stock(product);
+
+            Product[] productsToSell =
+            {
+                new Product("baterie", 10),
+                new Product("masina", 2),
+                new Product("masina", 2)
+            };
+
+            stock.Sell(productsToSell);
+            Assert.Equal(2, stock.Count);
+
+            var element = stock.GetEnumerator();
+            element.MoveNext();
+
+            Assert.Equal(10, element.Current.Quantity);
+            element.MoveNext();
+            Assert.Equal(6, element.Current.Quantity);
+        }
+
+        [Fact]
+        public void SellIfProductDoesntExists()
+        {
+            Product[] product =
+{
+                new Product("baterie", 20),
+                new Product("masina", 10)
+            };
+
+            var stock = new Stock(product);
+
+
+            Product[] productsToSell =
+            {
+                new Product("iphone", 10)
+            };
+
+            var err = Assert.Throws<ArgumentException>(() => stock.Sell(productsToSell));
+            Assert.Equal("The product you're trying to sell doesn't exists in the current stock", err.Message);
+        }
     }
 }
