@@ -39,7 +39,7 @@ namespace LINQ.Facts
         public void UpdateAddProducts()
         {
             var prod = new Product("tricou", 10);
-            prod.Update(2);
+            prod.Add(2);
 
             Assert.Equal(12, prod.Quantity);
         }
@@ -48,7 +48,7 @@ namespace LINQ.Facts
         public void UpdateSubstractProducts()
         {
             var prod = new Product("tricou", 10);
-            prod.Update(-2);
+            prod.Substract(2);
 
             Assert.Equal(8, prod.Quantity);
         }

@@ -10,10 +10,7 @@ namespace LINQ
         {
             CheckParameterIsNull(name, nameof(name));
 
-            if (quantity < 0)
-            {
-                throw new ArgumentException("Quantity cannot be less than 0");
-            }
+            CheckIfQuantityIsLessThanZero(quantity);
 
             Name = name;
             Quantity = quantity;
@@ -23,15 +20,34 @@ namespace LINQ
 
         public int Quantity { get; protected set; }
 
-        public void Update(int no)
+        public void Add(int no)
         {
+            CheckIfQuantityIsLessThanZero(no);
+
             Quantity += no;
+        }
+
+        public void Substract(int no)
+        {
+            CheckIfQuantityIsLessThanZero(no);
+
+            Quantity -= no;
         }
 
         public override bool Equals(object obj)
         {
             return obj is Product prod
                 && Name == prod.Name;
+        }
+
+        private void CheckIfQuantityIsLessThanZero(int no)
+        {
+            if (no >= 0)
+            {
+                return;
+            }
+
+            throw new ArgumentException("Quantity cannot be less than 0");
         }
 
         private void CheckParameterIsNull<T>(T param, string name)
