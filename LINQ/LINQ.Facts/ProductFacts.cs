@@ -52,5 +52,14 @@ namespace LINQ.Facts
 
             Assert.Equal(8, prod.Quantity);
         }
+
+        [Fact]
+        public void EqualsTest()
+        {
+            var prod = new Product("tricou", 10);
+
+            Assert.True(prod.Equals(new Product("tricou", 50)));
+            Assert.False(prod.Equals(new Product("telefon", 50)));
+        }
     }
 }
