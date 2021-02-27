@@ -21,7 +21,7 @@ namespace LINQ
 
         public static char FirstUniqueCharacter(string text)
         {
-            return text.GroupBy(ch => ch).First(x => x.Count() == 1).Key;
+            return text.FirstOrDefault(ch => text.IndexOf(ch) == text.LastIndexOf(ch));
         }
     }
 }
