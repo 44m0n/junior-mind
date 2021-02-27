@@ -16,5 +16,13 @@ namespace LINQ.Facts
             Assert.Equal(6, result.c);
             Assert.Equal(4, result.i);
         }
+
+        [Fact]
+        public void FirstUniqueCharacterTest()
+        {
+            string text = "ana are mere";
+
+            Assert.Equal('n', StringOperations.FirstUniqueCharacter(text));
+        }
     }
 }

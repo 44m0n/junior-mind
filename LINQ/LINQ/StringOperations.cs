@@ -18,5 +18,10 @@ namespace LINQ
 
             return (c.Count(), v.Count());
         }
+
+        public static char FirstUniqueCharacter(string text)
+        {
+            return text.GroupBy(ch => ch).First(x => x.Count() == 1).Key;
+        }
     }
 }
