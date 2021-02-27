@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace LINQ
 {
-    public class StringOperations
+    public static class StringOperations
     {
-        private readonly string text;
-
-        public StringOperations(string text)
+        public static (int consonants, int vowels) GetConsAndVowelsCount(string text)
         {
-            this.text = text;
+            var c = from ch in text
+                    where char.IsLetter(ch) && "aeiouAEIOU".Contains(ch)
+                    select ch;
+
+            var v = from ch in text
+                    where char.IsLetter(ch) && !"aeiouAEIOU".Contains(ch)
+                    select ch;
+
+            return (c.Count(), v.Count());
         }
     }
 }

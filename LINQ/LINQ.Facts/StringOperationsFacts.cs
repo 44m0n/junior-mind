@@ -5,8 +5,16 @@ using Xunit;
 
 namespace LINQ.Facts
 {
-    class StringOperationsFacts
+    public class StringOperationsFacts
     {
         [Fact]
+        public void GetConsAndVowelsCountTest()
+        {
+            string text = "ana are mere";
+
+            (int c, int i) result = StringOperations.GetConsAndVowelsCount(text);
+            Assert.Equal(6, result.c);
+            Assert.Equal(4, result.i);
+        }
     }
 }
