@@ -35,6 +35,11 @@ namespace LINQ
             x * Bs + int.Parse(ch.ToString()) : x) * sign;
         }
 
+        public static char MaxOccurence(string text)
+        {
+            return text.GroupBy(ch => ch).Aggregate((el, m) => el.Count() > m.Count() ? el : m).Key;
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)

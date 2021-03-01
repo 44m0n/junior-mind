@@ -33,5 +33,13 @@ namespace LINQ.Facts
             text = "-123";
             Assert.Equal(-123, StringOperations.ConvertStringToInt(text));
         }
+
+        [Fact]
+        public void MaxOccurenceTest()
+        {
+            string text = "area";
+            Assert.Equal('a', StringOperations.MaxOccurence(text));
+        }
+
     }
 }
