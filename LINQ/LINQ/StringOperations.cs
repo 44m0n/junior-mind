@@ -26,7 +26,8 @@ namespace LINQ
             const int Bs = 10;
             int sign = text[0] == '-' ? -1 : 1;
 
-            return text.Aggregate(0, (x, ch) => x * Bs + int.Parse(ch.ToString())) * sign;
+            return text.Aggregate(0, (x, ch) => char.IsDigit(ch) ?
+            x * Bs + int.Parse(ch.ToString()) : x) * sign;
         }
 
         private static void CheckParameterIsNull<T>(T param, string name)

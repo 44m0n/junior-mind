@@ -30,6 +30,8 @@ namespace LINQ.Facts
         {
             string text = "123";
             Assert.Equal(123, StringOperations.ConvertStrintToInt(text));
+            text = "-123";
+            Assert.Equal(-123, StringOperations.ConvertStrintToInt(text));
         }
     }
 }
