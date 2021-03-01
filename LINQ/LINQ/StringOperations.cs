@@ -18,5 +18,25 @@ namespace LINQ
         {
             return text.FirstOrDefault(ch => text.IndexOf(ch) == text.LastIndexOf(ch));
         }
+
+        public static int ConvertStrintToInt(string text)
+        {
+            CheckParameterIsNull(text, nameof(text));
+
+            const int Bs = 10;
+            int sign = text[0] == '-' ? -1 : 1;
+
+            return text.Aggregate(0, (x, ch) => x * Bs + int.Parse(ch.ToString())) * sign;
+        }
+
+        private static void CheckParameterIsNull<T>(T param, string name)
+        {
+            if (param != null)
+            {
+                return;
+            }
+
+            throw new ArgumentNullException(paramName: name);
+        }
     }
 }

@@ -24,5 +24,12 @@ namespace LINQ.Facts
 
             Assert.Equal('n', StringOperations.FirstUniqueCharacter(text));
         }
+
+        [Fact]
+        public void ConvertToIntTest()
+        {
+            string text = "123";
+            Assert.Equal(123, StringOperations.ConvertStrintToInt(text));
+        }
     }
 }
