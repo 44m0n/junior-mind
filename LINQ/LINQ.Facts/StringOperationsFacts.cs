@@ -29,9 +29,9 @@ namespace LINQ.Facts
         public void ConvertToIntTest()
         {
             string text = "123";
-            Assert.Equal(123, StringOperations.ConvertStrintToInt(text));
+            Assert.Equal(123, StringOperations.ConvertStringToInt(text));
             text = "-123";
-            Assert.Equal(-123, StringOperations.ConvertStrintToInt(text));
+            Assert.Equal(-123, StringOperations.ConvertStringToInt(text));
         }
     }
 }

@@ -21,10 +21,10 @@ namespace LINQ
 
         public static char FirstUniqueCharacter(string text)
         {
-            return text.FirstOrDefault(ch => text.IndexOf(ch) == text.LastIndexOf(ch));
+            return text.GroupBy(ch => ch).First(x => x.Count() == 1).Key;
         }
 
-        public static int ConvertStrintToInt(string text)
+        public static int ConvertStringToInt(string text)
         {
             CheckParameterIsNull(text, nameof(text));
 
