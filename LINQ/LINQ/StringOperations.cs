@@ -6,17 +6,12 @@ namespace LINQ
 {
     public static class StringOperations
     {
-        public static (int consonants, int vowels) GetConsAndVowelsCount(string text)
+        public static (int vowels, int consonants) GetConsAndVowelsCount(string text)
         {
-            var c = from ch in text
-                    where char.IsLetter(ch) && "aeiouAEIOU".Contains(ch)
-                    select ch;
-
-            var v = from ch in text
-                    where char.IsLetter(ch) && !"aeiouAEIOU".Contains(ch)
-                    select ch;
-
-            return (c.Count(), v.Count());
+            return text.Aggregate((0, 0), (tup, ch) => "aeiouAEIOU".Contains(ch) ?
+                                                        (tup.Item1 + 1, tup.Item2) : !char.IsLetter(ch) ?
+                                                        (tup.Item1, tup.Item2) :
+                                                        (tup.Item1, tup.Item2 + 1));
         }
 
         public static char FirstUniqueCharacter(string text)

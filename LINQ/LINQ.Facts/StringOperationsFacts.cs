@@ -12,9 +12,9 @@ namespace LINQ.Facts
         {
             string text = "ana are mere";
 
-            (int c, int i) result = StringOperations.GetConsAndVowelsCount(text);
-            Assert.Equal(6, result.c);
-            Assert.Equal(4, result.i);
+            (int v, int c) result = StringOperations.GetConsAndVowelsCount(text);
+            Assert.Equal(6, result.v);
+            Assert.Equal(4, result.c);
         }
 
         [Fact]
