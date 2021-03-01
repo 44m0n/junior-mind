@@ -8,10 +8,15 @@ namespace LINQ
     {
         public static (int vowels, int consonants) GetConsAndVowelsCount(string text)
         {
-            return text.Aggregate((0, 0), (tup, ch) => "aeiouAEIOU".Contains(ch) ?
-                                                        (tup.Item1 + 1, tup.Item2) : !char.IsLetter(ch) ?
-                                                        (tup.Item1, tup.Item2) :
-                                                        (tup.Item1, tup.Item2 + 1));
+            return text.Aggregate((vowels: 0, consonants: 0), (letters, ch) =>
+            {
+                if (char.IsLetter(ch))
+                {
+                    return "aeiouAEIOU".Contains(ch) ? (letters.vowels + 1, letters.consonants) : (letters.vowels, letters.consonants + 1);
+                }
+
+                return (letters.vowels, letters.consonants);
+            });
         }
 
         public static char FirstUniqueCharacter(string text)
