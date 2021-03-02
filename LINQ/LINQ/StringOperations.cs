@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace LINQ
 {
@@ -46,6 +47,13 @@ namespace LINQ
                         text.Substring(firstIndex).Select((ch2, secondIndex) =>
                             text.Substring(firstIndex, text.Length - firstIndex - secondIndex))).Where(el =>
                                 el.SequenceEqual(el.Reverse()));
+        }
+
+        public static IEnumerable<string> TopWords(string text)
+        {
+            CheckParameterIsNull(text, nameof(text));
+
+            return Regex.Split(text, "[^a-zA-Z]").GroupBy(x => x).OrderByDescending(x => x.Count()).Select(x => x.Key).Where(x => x.Length > 0);
         }
 
         private static void CheckParameterIsNull<T>(T param, string name)

@@ -52,5 +52,17 @@ namespace LINQ.Facts
             Assert.Equal(enumerable, palindroms);
         }
 
+        [Fact]
+        public void GetTopWordsTest()
+        {
+            string text = "Ana3 are, pere si mere si mere- iarasi mere";
+
+            var result = StringOperations.TopWords(text);
+
+            string[] expected = new[] { "mere", "si", "Ana", "are", "pere", "iarasi" };
+
+            Assert.Equal(expected, result);
+        }
+
     }
 }
