@@ -55,7 +55,7 @@ namespace LINQ
             CheckParameterIsNull(top, nameof(top));
 
             return Regex.Split(text, "[^a-zA-Z]").Where(x => x.Length > 0).GroupBy(x => x)
-                .OrderByDescending(x => x.Count()).Take(top).Select(x => (x.Key, x.Count()));
+                .Select(x => (x.Key, x.Count())).OrderByDescending(x => x.Item2).Take(top);
         }
 
         private static void CheckParameterIsNull<T>(T param, string name)
