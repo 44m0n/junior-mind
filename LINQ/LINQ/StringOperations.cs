@@ -49,11 +49,13 @@ namespace LINQ
                                 el.SequenceEqual(el.Reverse()));
         }
 
-        public static IEnumerable<string> TopWords(string text)
+        public static IEnumerable<(string, int)> TopWords(string text, int top)
         {
             CheckParameterIsNull(text, nameof(text));
+            CheckParameterIsNull(top, nameof(top));
 
-            return Regex.Split(text, "[^a-zA-Z]").GroupBy(x => x).OrderByDescending(x => x.Count()).Select(x => x.Key).Where(x => x.Length > 0);
+            return Regex.Split(text, "[^a-zA-Z]").Where(x => x.Length > 0).GroupBy(x => x)
+                .OrderByDescending(x => x.Count()).Take(top).Select(x => (x.Key, x.Count()));
         }
 
         private static void CheckParameterIsNull<T>(T param, string name)

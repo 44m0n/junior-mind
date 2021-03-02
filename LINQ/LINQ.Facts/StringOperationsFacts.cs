@@ -57,11 +57,17 @@ namespace LINQ.Facts
         {
             string text = "Ana3 are, pere si mere si mere- iarasi mere";
 
-            var result = StringOperations.TopWords(text);
+            IEnumerable<(string word, int count)> result = StringOperations.TopWords(text, 2);
+            
+            var element = result.GetEnumerator();
 
-            string[] expected = new[] { "mere", "si", "Ana", "are", "pere", "iarasi" };
+            element.MoveNext();
+            Assert.Equal("mere", element.Current.word);
+            Assert.Equal(3, element.Current.count);
 
-            Assert.Equal(expected, result);
+            element.MoveNext();
+            Assert.Equal("si", element.Current.word);
+            Assert.Equal(2, element.Current.count);
         }
 
     }
