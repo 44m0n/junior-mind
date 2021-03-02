@@ -40,6 +40,14 @@ namespace LINQ
             return text.GroupBy(ch => ch).Aggregate((el, m) => el.Count() > m.Count() ? el : m).Key;
         }
 
+        public static IEnumerable<string> GetPalindroms(string text)
+        {
+            return text.SelectMany((ch1, firstIndex) =>
+                        text.Substring(firstIndex).Select((ch2, secondIndex) =>
+                            text.Substring(firstIndex, text.Length - firstIndex - secondIndex))).Where(el =>
+                                el.SequenceEqual(el.Reverse()));
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)
