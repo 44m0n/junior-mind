@@ -26,5 +26,16 @@ namespace LINQ.Facts
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void GetPythagoraNumbers()
+        {
+            var source = new[] { 1, 2, 3, 4, 5};
+            var result = NumberFunctions.GetTriplets(source);
+
+            IEnumerable<IEnumerable<int>> expected = new[] { new[] { 3, 4, 5 }, new[] { 4, 3, 5 } };
+
+            Assert.Equal(expected, result);
+        }
     }
 }
