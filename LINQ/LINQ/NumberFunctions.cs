@@ -33,7 +33,7 @@ namespace LINQ
                                                                                                             set.Sum() == sum);
         }
 
-        public static IEnumerable<IEnumerable<int>> GetTriplets(int[] source)
+        public static IEnumerable<IEnumerable<int>> GetPythagoraTriplets(int[] source)
         {
             const int N = 2;
             var pairs = source.SelectMany((first, firstIndex) =>
