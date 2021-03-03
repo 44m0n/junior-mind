@@ -17,5 +17,14 @@ namespace LINQ.Facts
 
             Assert.Equal(expected, result);
         }
+
+        [Fact]
+        public void GetAllCombinationsTest()
+        {
+            var result = NumberFunctions.GetAllCombinations(3, 2);
+            IEnumerable<IEnumerable<int>> expected = new[] { new[] { 1, -2, 3 } };
+
+            Assert.Equal(expected, result);
+        }
     }
 }
