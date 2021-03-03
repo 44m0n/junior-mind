@@ -38,6 +38,12 @@ namespace LINQ
             return products.GroupBy(p => p.Name, p => p.Quantity, (name, quantity) => new Product(name, quantity.Sum()));
         }
 
+        public static IEnumerable<TestResult> GetFinalScore(TestResult[] source)
+        {
+            return source.GroupBy(result => result.FamilyId, result => result, (familyId, results) =>
+                                    new TestResult(results.First().Id, familyId, results.Select(r => r.Score).Max()));
+        }
+
         private static void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)
