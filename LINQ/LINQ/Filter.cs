@@ -27,5 +27,25 @@ namespace LINQ
                    where !features.Select(f => f.Id).Intersect(pr.Features.Select(pf => pf.Id)).Any()
                    select pr;
         }
+
+        public static IEnumerable<Product> Union(Product[] first, Product[] second)
+        {
+            CheckParameterIsNull(first, nameof(first));
+            CheckParameterIsNull(second, nameof(second));
+
+            var products = first.Concat(second);
+
+            return products.GroupBy(p => p.Name, p => p.Quantity, (name, quantity) => new Product(name, quantity.Sum()));
+        }
+
+        private static void CheckParameterIsNull<T>(T param, string name)
+        {
+            if (param != null)
+            {
+                return;
+            }
+
+            throw new ArgumentNullException(paramName: name);
+        }
     }
 }

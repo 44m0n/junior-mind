@@ -95,5 +95,16 @@ namespace LINQ.Facts
 
             Assert.Equal(new[] { pr2 }, Filter.NoneOfFeatures(products, feature));
         }
+
+        [Fact]
+        public void UnionTest()
+        {
+            var stock1 = new[] { new Product("telefon", 4), new Product("baterie", 3), new Product("incarcator", 5) };
+            var stock2 = new[] { new Product("telefon", 2), new Product("baterie", 1) };
+
+            var expected = new[] { new Product("telefon", 6), new Product("baterie", 4), new Product("incarcator", 5) };
+
+            Assert.Equal(expected, Filter.Union(stock1, stock2));
+        }
     }
 }
