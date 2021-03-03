@@ -36,6 +36,17 @@ namespace LINQ
         public static IEnumerable<IEnumerable<int>> GetPythagoraTriplets(int[] source)
         {
             const int N = 2;
+
+            IEnumerable<IEnumerable<int>> PermutePairs(int first, int second, int third)
+            {
+                return new[]
+                {
+                        new[] { first, second, third }, new[] { first, third, second },
+                        new[] { second, first, third }, new[] { second, third, first },
+                        new[] { third, first, second }, new[] { third, second, first }
+                };
+            }
+
             var pairs = source.SelectMany((first, firstIndex) =>
                             source.Skip(firstIndex + 1).SelectMany((second, secondIndex) =>
                                 source.Skip(firstIndex + 1 + secondIndex + 1).Select(third => new[] { first, second, third })));
@@ -44,16 +55,6 @@ namespace LINQ
             {
                 return PermutePairs(pair[0], pair[1], pair.Last()).Where(e =>
                         (int)Math.Pow(e.First(), N) + (int)Math.Pow(e.ElementAt(1), N) == (int)Math.Pow(e.Last(), N));
-
-                IEnumerable<IEnumerable<int>> PermutePairs(int first, int second, int third)
-                {
-                    return new[]
-                    {
-                        new[] { first, second, third }, new[] { first, third, second },
-                        new[] { second, first, third }, new[] { second, third, first },
-                        new[] { third, first, second }, new[] { third, second, first }
-                    };
-                }
             });
         }
 
