@@ -13,5 +13,12 @@ namespace LINQ
                          where features.Select(f => f.Id).Intersect(pr.Features.Select(pf => pf.Id)).Any()
                          select pr;
         }
+
+        public static IEnumerable<ProductWithFeatures> AllFeatures(ProductWithFeatures[] products, Feature[] features)
+        {
+            return from pr in products
+                   where !features.Select(f => f.Id).Except(pr.Features.Select(pf => pf.Id)).Any()
+                   select pr;
+        }
     }
 }
