@@ -15,6 +15,18 @@ namespace LINQ
             ec = input;
         }
 
+        public double Calculate()
+        {
+            return ec.Aggregate(Enumerable.Empty<double>(), (operands, current) => "+-*/%".Contains(current) ?
+                                                                                UpdateResult(operands, current) :
+                                                                                operands.Append(Convert.ToDouble(current))).Last();
+        }
+
+        private IEnumerable<double> UpdateResult(IEnumerable<double> operands, char current)
+        {
+            throw new NotImplementedException();
+        }
+
         private void CheckParameterIsNull<T>(T param, string name)
         {
             if (param != null)
