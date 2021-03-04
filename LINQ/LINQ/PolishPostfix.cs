@@ -17,14 +17,33 @@ namespace LINQ
 
         public double Calculate()
         {
-            return ec.Aggregate(Enumerable.Empty<double>(), (operands, current) => "+-*/%".Contains(current) ?
-                                                                                UpdateResult(operands, current) :
+            return ec.Split().Aggregate(Enumerable.Empty<double>(), (operands, current) => "+-*/".Contains(current) ?
+                                                                                UpdateResult(operands, current[0]) :
                                                                                 operands.Append(Convert.ToDouble(current))).Last();
         }
 
         private IEnumerable<double> UpdateResult(IEnumerable<double> operands, char current)
         {
-            throw new NotImplementedException();
+            const int N = 2;
+
+            var result = CalculateOperation(operands.Take(2), current);
+
+            return operands.Skip(N).Append(result).Reverse();
+        }
+
+        private double CalculateOperation(IEnumerable<double> values, char current)
+        {
+            switch (current)
+            {
+                case '+':
+                    return values.First() + values.Last();
+                case '-':
+                    return values.First() - values.Last();
+                case '*':
+                    return values.First() * values.Last();
+                default:
+                    return values.First() / values.Last();
+            }
         }
 
         private void CheckParameterIsNull<T>(T param, string name)
