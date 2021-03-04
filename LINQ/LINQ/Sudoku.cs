@@ -9,6 +9,7 @@ namespace LINQ
     {
         private const int Nine = 9;
         private const int Three = 3;
+        private const int FixedSum = 45;
         private const int NoOfElements = 81;
         private readonly int[,] sudoku;
 
@@ -50,7 +51,7 @@ namespace LINQ
 
         private bool CheckSequence(IEnumerable<int> seq)
         {
-            return !seq.GroupBy(el => el).Where(e => e.Count() > 1).Select(e => e).Any();
+            return seq.Sum() == FixedSum && !seq.GroupBy(el => el).Any(e => e.Count() > 1);
         }
 
         private void CheckParameterIsNull<T>(T param, string name)
