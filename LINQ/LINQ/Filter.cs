@@ -9,9 +9,7 @@ namespace LINQ
     {
         public static IEnumerable<ProductWithFeatures> OneOrMoreFeatures(ProductWithFeatures[] products, Feature[] features)
         {
-            return from pr in products
-                         where features.Select(f => f.Id).Intersect(pr.Features.Select(pf => pf.Id)).Any()
-                         select pr;
+            return products.Where(p => features.Select(f => f.Id).Intersect(p.Features.Select(pf => pf.Id)).Any());
         }
 
         public static IEnumerable<ProductWithFeatures> AllFeatures(ProductWithFeatures[] products, Feature[] features)
