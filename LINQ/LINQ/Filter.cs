@@ -14,9 +14,7 @@ namespace LINQ
 
         public static IEnumerable<ProductWithFeatures> AllFeatures(ProductWithFeatures[] products, Feature[] features)
         {
-            return from pr in products
-                   where !features.Select(f => f.Id).Except(pr.Features.Select(pf => pf.Id)).Any()
-                   select pr;
+            return products.Where(p => !features.Select(f => f.Id).Except(p.Features.Select(pf => pf.Id)).Any());
         }
 
         public static IEnumerable<ProductWithFeatures> NoneOfFeatures(ProductWithFeatures[] products, Feature[] features)
