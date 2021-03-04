@@ -34,8 +34,12 @@ namespace LINQ
 
         public static IEnumerable<TestResult> GetFinalScore(TestResult[] source)
         {
-            return source.GroupBy(result => result.FamilyId, result => result, (familyId, results) =>
-                                    new TestResult(results.First().Id, familyId, results.Select(r => r.Score).Max()));
+            return source.GroupBy(result => result.FamilyId).Select(x =>
+            {
+                var seed = x.First();
+
+                return x.Aggregate(seed, (max, current) => current.Score > max.Score ? current : max);
+            });
         }
 
         private static void CheckParameterIsNull<T>(T param, string name)

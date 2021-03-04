@@ -111,7 +111,7 @@ namespace LINQ.Facts
         public void GetFinalScoreTest()
         {
             var test = new[] { new TestResult("0", "0", 3), new TestResult("1", "1", 10), new TestResult("3", "0", 11) };
-            var expected = new[] { new TestResult("0", "0", 11), new TestResult("1", "1", 10) };
+            var expected = new[] { new TestResult("3", "0", 11), new TestResult("1", "1", 10) };
 
             Assert.Equal(expected, Filter.GetFinalScore(test));
         }
