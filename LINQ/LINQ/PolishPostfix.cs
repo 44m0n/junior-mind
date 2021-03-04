@@ -17,9 +17,9 @@ namespace LINQ
 
         public double Calculate()
         {
-            return ec.Split().Aggregate(Enumerable.Empty<double>(), (operands, current) => "+-*/".Contains(current) ?
-                                                                                UpdateResult(operands, current[0]) :
-                                                                                operands.Append(Convert.ToDouble(current))).Last();
+            return ec.Split().Aggregate(Enumerable.Empty<double>(), (operands, current) => double.TryParse(current, out double no) ?
+                                                                                operands.Append(no) :
+                                                                                UpdateResult(operands, current[0])).Last();
         }
 
         private IEnumerable<double> UpdateResult(IEnumerable<double> operands, char current)
