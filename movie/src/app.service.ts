@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  root(): string {
+  roots() {
     return 'This is the main page';
   }
 }
+        
