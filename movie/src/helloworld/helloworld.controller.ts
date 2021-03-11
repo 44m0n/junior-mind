@@ -1,17 +1,18 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Param, Query, Render, Req } from '@nestjs/common';
+import { Request } from 'express';
 
 @Controller('helloworld')
 export class HelloworldController {
 
     @Get()
-    @Render('main')
+    @Render('helloworld')
     main() {
         return { text: "This is Hello World!" };
     }
 
-    @Get("welcome")
-    @Render('main')
-    WelcomeAction() {
-        return { text: "This is the Welcomde Action method" };
-}
+    @Get("Welcome")
+    @Render('helloworld')
+    WelcomeAction(@Query('name') name, @Query('age') age,) {
+            return { text: `Hello ${name}. Your age is ${age}` };
+    }
 }
