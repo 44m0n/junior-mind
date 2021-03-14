@@ -14,7 +14,6 @@ export class MovieEntity {
     @Column()
     Genre: string;
 
-
     @Column()
     Price: number;
 }

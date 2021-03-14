@@ -12,5 +12,18 @@ export class MovieService {
     findAll(): Promise<MovieEntity[]> {
         return this.movieRep.find();
     }
+
+    async add() {
+        /*const movie = new MovieEntity();
+        movie.Title = "TestMovie";
+        movie.Genre = "Commedy";
+        movie.ReleaseDate = new Date();
+        movie.Price = 9.99;
+
+        await this.movieRep.save(movie);
+        */
+        const allMovies = await this.movieRep.find();
+        console.log(allMovies[0].Title);
+    }
         
 }
