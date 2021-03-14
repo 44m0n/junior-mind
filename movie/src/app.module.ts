@@ -22,7 +22,7 @@ import { MovieModule } from './movie/movie.module';
             synchronize: true
         }
             ), MovieModule],
-    controllers: [AppController, MovieController],
+    controllers: [AppController],
     providers: [AppService]
 })
 export class AppModule {
