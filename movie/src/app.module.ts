@@ -6,6 +6,7 @@ import { MovieController } from './movie/movie.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { MovieEntity } from './movie/movie.entity';
+import { MovieModule } from './movie/movie.module';
 
 
 @Module({
@@ -20,7 +21,7 @@ import { MovieEntity } from './movie/movie.entity';
             entities: [MovieEntity],
             synchronize: true
         }
-            )],
+            ), MovieModule],
     controllers: [AppController, MovieController],
     providers: [AppService]
 })
