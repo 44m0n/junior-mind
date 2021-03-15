@@ -4,6 +4,37 @@
     <title>Netflix</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        #movies {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+        }
+
+        #movies td, #movies th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        
+        #movies tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        #movies tr:hover {
+            background-color: #ddd;
+        }
+        
+        #movies th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #000000;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,7 +43,47 @@
     </div>
 
     <div>
-        {{ text}}
+        <a href="movie/Add">Add New Movie</a>
     </div>
+    <table id="movies">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Release Date
+                </th>
+                <th>
+                    Genre
+                </th>
+                <th>
+                    Price
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="movies">
+            {{#each movies}}
+            <tr>
+                <td>
+                    {{this.Title}}
+                </td>
+                <td id="date">
+                    {{release this.ReleaseDate}}
+                </td>
+                <td>
+                    {{this.Genre}}
+                </td>
+                <td>
+                    {{this.Price}}
+                </td>
+                <td>
+                    {{this.Id}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </body>
-</html>
+    </html>
