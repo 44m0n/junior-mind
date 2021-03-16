@@ -63,13 +63,13 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody id="movies">
+        <tbody>
             {{#each movies}}
             <tr>
                 <td>
                     {{this.Title}}
                 </td>
-                <td id="date">
+                <td >
                     {{release this.ReleaseDate}}
                 </td>
                 <td>
@@ -79,9 +79,9 @@
                     {{this.Price}}
                 </td>
                 <td>
-                    <a href="movie/Edit/{{this.Id}}">Add New Movie</a>
-                    <a href="movie/Detalis/{{this.Id}}">Add New Movie</a>
-                    <a href="movie/Delete/{{this.Id}}">Add New Movie</a>
+                    <a href="movie/Edit/{{this.Id}}">Edit</a>
+                    <a href="movie/Detalis/{{this.Id}}">Detalis</a>
+                    <a href="movie/Delete/{{this.Id}}">Delete</a>
                 </td>
             </tr>
             {{/each}}
