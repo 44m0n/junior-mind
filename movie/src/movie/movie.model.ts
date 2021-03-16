@@ -1,4 +1,4 @@
-class MovieModule {
+export class MovieModel {
     private _id: number;
     private _title: string;
     private _date: Date;
