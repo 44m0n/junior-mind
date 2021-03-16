@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { title } from 'process';
 import { Repository } from 'typeorm';
 import { MovieEntity } from './movie.entity';
+import { MovieModel } from './movie.model';
 
 @Injectable()
 export class MovieService {
@@ -10,20 +12,24 @@ export class MovieService {
         private movieRep: Repository<MovieEntity>) { }
 
     findAll(): Promise<MovieEntity[]> {
-        return this.movieRep.find();
+        const movies =  this.movieRep.find();
+        return movies;
     }
 
-    async add() {
-        /*const movie = new MovieEntity();
-        movie.Title = "TestMovie";
-        movie.Genre = "Commedy";
-        movie.ReleaseDate = new Date();
-        movie.Price = 9.99;
+    findOne(id: number): Promise<MovieEntity> {
+        const movie = this.movieRep.findOne(id);
+        return movie;
+    }
 
-        await this.movieRep.save(movie);
-        */
-        const allMovies = await this.movieRep.find();
-        console.log(allMovies[0].Title);
+    create(movie: MovieModel): Promise<MovieEntity> {
+
+        const movieToAdd = new MovieEntity()
+        movieToAdd.Title = movie.Title;
+        movieToAdd.Genre = movie.Genre;
+        movieToAdd.ReleaseDate = new Date(movie.ReleaseDate);
+        movieToAdd.Price = movie.Price;
+
+        return this.movieRep.save(movieToAdd);
     }
         
 }
