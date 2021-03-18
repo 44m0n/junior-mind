@@ -48,12 +48,11 @@ export class MovieService {
         return this.movieRep.save(movieToUpdate)
     }
 
-    findFilter(search: string): Promise<MovieEntity> {
+    findFilter(search: string): Promise<MovieEntity[]> {
         const movies = this.movieRep
             .createQueryBuilder("movie")
-            .where("movie.Title = :id", { id: 1 })
-            .getOne();
-
+            .where("movie.Title = :Title", { Title: search })
+            .getMany();
         return movies;
     }
 }

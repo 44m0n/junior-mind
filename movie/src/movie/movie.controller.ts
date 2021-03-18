@@ -8,17 +8,13 @@ export class MovieController {
 
     @Get()
     @Render('movies')
-    async main() {
-
-        const allMovies = await this.movieService.findAll();
-        return { movies: allMovies };
-    }
-
-
-    @Get()
-    @Render('movies')
     async search(@Query('searchString') searchString: string) {
 
+        if (searchString === undefined)
+        {
+            const allMovies = await this.movieService.findAll();
+            return { movies: allMovies }
+        }
         const allMovies = await this.movieService.findFilter(searchString);
         return { movies: allMovies };
     }
