@@ -39,7 +39,7 @@
 <body>
     <div class="w3-bar w3-black">
         <a href="/" class="w3-bar-item w3-button">Netflix</a>
-        <a href="./" class="w3-bar-item w3-button">Movies</a>
+        <!--<a href="#" onclick="history.go(-1)" class="w3-bar-item w3-button">Movies</a>-->
     </div>
     <table id="movies">
         <thead id ="title">
@@ -74,8 +74,8 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <center><a href="movie/Edit/{{this.Id}}">Edit</a>
-                    <a href="movie/Delete/{{this.Id}}">Delete</a></center>
+                    <center><a href="/movie/Edit/{{movie.Id}}">Edit</a>
+                    <a href="/movie/Delete/{{movie.Id}}">Delete</a></center>
                 </td>
             </tr>
         </tbody>

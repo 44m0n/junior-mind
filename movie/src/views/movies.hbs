@@ -43,7 +43,14 @@
     </div>
 
     <div>
-        <a href="movie/Add">Add New Movie</a>
+        <a href="./movie/add">Add New Movie</a>
+    </div>
+    <div>
+        <form method="get">
+            <label for="searchString">Search</label><br />
+            <input type="text" name="searchString" class="input">
+            <input type="submit" value="Search">
+        </form>
     </div>
     <table id="movies">
         <thead>
@@ -80,7 +87,7 @@
                 </td>
                 <td>
                     <a href="movie/Edit/{{this.Id}}">Edit</a>
-                    <a href="movie/{{this.Id}}">Detalis</a>
+                    <a href="movie/Detalis/{{this.Id}}">Detalis</a>
                     <a href="movie/Delete/{{this.Id}}">Delete</a>
                 </td>
             </tr>

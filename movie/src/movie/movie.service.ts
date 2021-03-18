@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { title } from 'process';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateEvent } from 'typeorm';
 import { MovieEntity } from './movie.entity';
 import { MovieModel } from './movie.model';
 
@@ -31,5 +31,29 @@ export class MovieService {
 
         return this.movieRep.save(movieToAdd);
     }
-        
+
+    delete(id: number): Promise<DeleteResult> {
+
+        return this.movieRep.delete(id);
+    }
+
+    async update(id: number, movie: MovieModel): Promise<MovieEntity> {
+
+        let movieToUpdate = await this.movieRep.findOne(id);
+        movieToUpdate.Title = movie.Title;
+        movieToUpdate.ReleaseDate = movie.ReleaseDate;
+        movieToUpdate.Genre = movie.Genre;
+        movieToUpdate.Price = movie.Price;
+
+        return this.movieRep.save(movieToUpdate)
+    }
+
+    findFilter(search: string): Promise<MovieEntity> {
+        const movies = this.movieRep
+            .createQueryBuilder("movie")
+            .where("movie.Title = :id", { id: 1 })
+            .getOne();
+
+        return movies;
+    }
 }
